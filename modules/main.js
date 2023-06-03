@@ -63,7 +63,7 @@ $flexBox.addEventListener('click', e => {
     content = content.parentNode;
   }
   const contentId = content.getAttribute('id');
-  openModal(contentId);
+  alert(`id : ${contentId}`);
 });
 
 //  Top btn
