@@ -78,12 +78,6 @@ $topBtn.addEventListener('click', e => {
 
 //  Focus input
 const $searchBtn = document.querySelector('.submitBtn');
-$_searchInput.addEventListener('focus', () => {
-  $_searchInput.classList.toggle('btn-focus');
-});
-$_searchInput.addEventListener('blur', () => {
-  $_searchInput.classList.toggle('btn-focus');
-});
 $searchBtn.addEventListener('focus', () => {
   $searchBtn.classList.toggle('btn-focus');
 });
