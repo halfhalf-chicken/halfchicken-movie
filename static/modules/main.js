@@ -65,7 +65,7 @@ $flexBox.addEventListener('click', e => {
   const contentId = content.getAttribute('id');
   alert(`id : ${contentId}`);
   // location.assign("/detail");
-  location.href = '/detail';
+  location.href = `/detail.html?contentId=${contentId}`;
 });
 
 //  Top btn
