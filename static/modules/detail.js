@@ -161,7 +161,7 @@ async function listDetailMovie() {
     .setAttribute('src', poster_path);
 }
 // take the movie id from this page
-const para = document.location.href.split('=')[1];
+const para = document.location.href.split('contentId')[1];
 
 fetchDetail(para);
 listDetailMovie();
