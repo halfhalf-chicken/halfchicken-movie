@@ -10,7 +10,12 @@ db = client.dbsparta
 
 @app.route('/')
 def home():
-    return render_template('datail.html')
+    return render_template('index.html')
+
+@app.route('/detail')
+def detail():
+    return render_template('detail.html')
+
 
 #   리뷰 작성
 @app.route("/reviews/upload", methods=["POST"])
@@ -29,7 +34,7 @@ def post_review():
 
     db.reviews.insert_one(doc)
 
-    return jsonify({'msg':'게시글 작성 완료!'})
+    return jsonify({'msg':'리뷰 작성 완료!'})
 
 #   리뷰 수정
 @app.route("/reviews/update", methods=["PUT"])

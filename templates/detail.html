@@ -10,12 +10,13 @@
     <link rel="stylesheet" href="../static/css/reset.css">
     <link rel="stylesheet" href="../static/css/main.css">
     <link rel="stylesheet" href="../static/css/detail.css">
-    <script type="module" src="../static/modules/main.js"></script>
+    <script type="module" src="../static/modules/detail.js"></script>
+    <!-- <script type="module" src="../static/modules/main.js"></script> -->
 </head>
 <body>
     <header>
         <h1>영화 상세 정보</h1>
-        <figure><img src="index.html" alt="logo" /></figure>
+        <figure><img src="#" alt="logo" /></figure>
         <nav>
             <ul>
                 <li><a href="">Home</a></li>
@@ -70,12 +71,12 @@
             </div>
         </section>
         <section class="comment">
-            <form action="">
-                <label for="" class="hide"></label>
-                <input type="text">
-                <input type="text">
-                <input type="password">
-                <button>등록</button>
+            <form name="review">
+                <label for="name-input" class="hide"></label>
+                <input type="text" name="name-input" id="name-input">
+                <input type="text" name="comment-input" id="comment-input">
+                <input type="password" name="pw-input" id="pw-input">
+                <button type="submit" id="submit-btn">등록</button> 
             </form>
             <div class="comment-list">
                 <ul>
