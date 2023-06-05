@@ -12,9 +12,13 @@ db = client.dbsparta
 def home():
     return render_template('index.html')
 
-@app.route('/detail')
+# @app.route('/detail.html?contentId=<contentId>')
+# def detail():
+#     return render_template('detail.html')
+@app.route('/detail.html')
 def detail():
-    return render_template('detail.html')
+    content_id = request.args.get('contentId')
+    return render_template('detail.html', content_Id=content_id)
 
 
 #   리뷰 작성
@@ -79,4 +83,4 @@ def get_reviews():
     return jsonify({'result': result})
 
 if __name__ == '__main__':
-    app.run('0.0.0.0', port=5000, debug=True)
+    app.run('0.0.0.0', port=5001, debug=True)
