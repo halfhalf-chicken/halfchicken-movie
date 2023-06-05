@@ -52,33 +52,22 @@ $h1.addEventListener('click', () => {
 });
 
 //  Click content
-// const $flexBox = document.getElementById('flex-box');
-// $flexBox.addEventListener('click', e => {
-//   if (e.target.getAttribute('id') === 'flex-box') {
-//     return false;
-//   }
-
-//   let content = e.target.parentNode;
-//   if (content.className !== 'content') {
-//     content = content.parentNode;
-//   }
-//   const contentId = content.getAttribute('id');
-//   alert(`id : ${contentId}`);
-// });
-
-// 페이지 열기
 const $flexBox = document.getElementById('flex-box');
-$flexBox.addEventListener('click', findId)
-async function findId(){
-  const movies = await fetchMovie();
-  let idReturn = movies.filter(item => {
-    let movieId = item.id;
-    return movieId;
-  });
-  console.log(idReturn)
-  localStorage.setItem('json', JSON.stringify(idReturn));
-  location.href=`./detail.html=?${target_id}`
-}
+$flexBox.addEventListener('click', e => {
+  if (e.target.getAttribute('id') === 'flex-box') {
+    return false;
+  }
+
+  let content = e.target.parentNode;
+  if (content.className !== 'content') {
+    content = content.parentNode;
+  }
+  const contentId = content.getAttribute('id');
+  alert(`id : ${contentId}`);
+  // // location.href = `/detail.html?contentId=${contentId}`;
+  location.href = '/detail.html?contentId' + contentId;
+});
+
 //  Top btn
 const $topBtn = document.querySelector('aside nav button');
 $topBtn.addEventListener('click', e => {
@@ -104,51 +93,47 @@ $topBtn.addEventListener('blur', () => {
   $topBtn.classList.toggle('btn-focus');
 });
 
-
 //  Select Sorting
 const toggleBtn = document.querySelector('.dropdown-toggle');
 const menu = document.querySelector('.dropdown-menu');
 const options = document.querySelectorAll('.dropdown-option');
 
-toggleBtn.addEventListener('click',()=>{
+toggleBtn.addEventListener('click', () => {
   menu.classList.toggle('show');
-})    
-toggleBtn.addEventListener('blur',()=>{
+});
+toggleBtn.addEventListener('blur', () => {
   menu.classList.remove('show');
-})
+});
 
-options.forEach(function(item){
-  item.addEventListener('click',function(e){
+options.forEach(function (item) {
+  item.addEventListener('click', function (e) {
     const optionValue = e.currentTarget.innerText;
     toggleBtn.innerText = optionValue;
     toggleBtn.classList.add('selected');
-  })
+  });
 });
 const sortingName = document.querySelector('.sorting-name');
 const sortingAvg = document.querySelector('.sorting-avg');
 const sortingRelease = document.querySelector('.sorting-release');
 sortingName.addEventListener('click', sortingNameFunc);
-async function sortingNameFunc(item){
+async function sortingNameFunc(item) {
   const movies = await fetchMovie();
-  console.log(movies)
-  let sortNames = movies.filter(function(e){
+  console.log(movies);
+  let sortNames = movies.filter(function (e) {
     let titles = e.title.toLowerCase();
     return titles;
   });
-  sortNames.sort(function (a,b){
-    if(a > b) {
+  sortNames.sort(function (a, b) {
+    if (a > b) {
       return 1;
-    } else if (a<b){
+    } else if (a < b) {
       return -1;
     } else {
       return 0;
     }
   });
-  console.log(sortNames)
-  
-  
+  console.log(sortNames);
   listMovieCard(sortNames);
-  
 }
 
 // 타이틀을 가져온다.

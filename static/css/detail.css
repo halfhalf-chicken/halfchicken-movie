@@ -8,11 +8,8 @@
 }
 .container {
     max-width: 1200px;
-    padding:70px 0;
+    padding: 1px 20px;
     margin: 0 auto;
-}
-.container section {
-    padding:20px 0;
 }
 
 /* 영화정보 details */
