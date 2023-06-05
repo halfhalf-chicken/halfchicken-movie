@@ -52,20 +52,33 @@ $h1.addEventListener('click', () => {
 });
 
 //  Click content
+// const $flexBox = document.getElementById('flex-box');
+// $flexBox.addEventListener('click', e => {
+//   if (e.target.getAttribute('id') === 'flex-box') {
+//     return false;
+//   }
+
+//   let content = e.target.parentNode;
+//   if (content.className !== 'content') {
+//     content = content.parentNode;
+//   }
+//   const contentId = content.getAttribute('id');
+//   alert(`id : ${contentId}`);
+// });
+
+// 페이지 열기
 const $flexBox = document.getElementById('flex-box');
-$flexBox.addEventListener('click', e => {
-  if (e.target.getAttribute('id') === 'flex-box') {
-    return false;
-  }
-
-  let content = e.target.parentNode;
-  if (content.className !== 'content') {
-    content = content.parentNode;
-  }
-  const contentId = content.getAttribute('id');
-  alert(`id : ${contentId}`);
-});
-
+$flexBox.addEventListener('click', findId)
+async function findId(){
+  const movies = await fetchMovie();
+  let idReturn = movies.filter(item => {
+    let movieId = item.id;
+    return movieId;
+  });
+  console.log(idReturn)
+  localStorage.setItem('json', JSON.stringify(idReturn));
+  location.href=`./detail.html=?${target_id}`
+}
 //  Top btn
 const $topBtn = document.querySelector('aside nav button');
 $topBtn.addEventListener('click', e => {
@@ -99,7 +112,7 @@ const options = document.querySelectorAll('.dropdown-option');
 
 toggleBtn.addEventListener('click',()=>{
   menu.classList.toggle('show');
-})
+})    
 toggleBtn.addEventListener('blur',()=>{
   menu.classList.remove('show');
 })
@@ -122,14 +135,16 @@ async function sortingNameFunc(item){
     let titles = e.title.toLowerCase();
     return titles;
   });
+  sortNames.sort(function (a,b){
+    if(a > b) {
+      return 1;
+    } else if (a<b){
+      return -1;
+    } else {
+      return 0;
+    }
+  });
   console.log(sortNames)
-  // sortNames.forEach(function (a,b){
-  //     if(strip(a) > strip(b)) {
-  //       return 1;
-  //     } else {
-  //       return -1;
-  //     }
-  //   });
   
   
   listMovieCard(sortNames);
