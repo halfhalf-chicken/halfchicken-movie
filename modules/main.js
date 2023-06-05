@@ -90,3 +90,53 @@ $topBtn.addEventListener('focus', () => {
 $topBtn.addEventListener('blur', () => {
   $topBtn.classList.toggle('btn-focus');
 });
+
+
+//  Select Sorting
+const toggleBtn = document.querySelector('.dropdown-toggle');
+const menu = document.querySelector('.dropdown-menu');
+const options = document.querySelectorAll('.dropdown-option');
+
+toggleBtn.addEventListener('click',()=>{
+  menu.classList.toggle('show');
+})
+toggleBtn.addEventListener('blur',()=>{
+  menu.classList.remove('show');
+})
+
+options.forEach(function(item){
+  item.addEventListener('click',function(e){
+    const optionValue = e.currentTarget.innerText;
+    toggleBtn.innerText = optionValue;
+    toggleBtn.classList.add('selected');
+  })
+});
+const sortingName = document.querySelector('.sorting-name');
+const sortingAvg = document.querySelector('.sorting-avg');
+const sortingRelease = document.querySelector('.sorting-release');
+sortingName.addEventListener('click', sortingNameFunc);
+async function sortingNameFunc(item){
+  const movies = await fetchMovie();
+  console.log(movies)
+  let sortNames = movies.filter(function(e){
+    let titles = e.title.toLowerCase();
+    return titles;
+  });
+  console.log(sortNames)
+  // sortNames.forEach(function (a,b){
+  //     if(strip(a) > strip(b)) {
+  //       return 1;
+  //     } else {
+  //       return -1;
+  //     }
+  //   });
+  
+  
+  listMovieCard(sortNames);
+  
+}
+
+// 타이틀을 가져온다.
+// 이름끼리 비교한다.
+// 큰게 뒤로 가게
+// 두개씩 비교비교비교

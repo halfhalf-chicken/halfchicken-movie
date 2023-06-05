@@ -5,6 +5,7 @@
   background-image: linear-gradient(#1d1d1d 15%, rgba(28, 28, 28, 0));
   background-size: auto 100%;
   background-position: 0 100%;
+  position: relative;
 }
 
 .header {
@@ -102,6 +103,71 @@ h1 {
 
 .material-symbols-outlined.search {
   color: rgba(25, 25, 25, 0.8);
+}
+
+/********** 정렬 **********/
+.movie-sort {
+  position: absolute;
+  right: 60px;
+  top: 40px;
+  width: 102px;
+}
+.movie-sort .dropdown {
+  width: 100%;
+  z-index: 1;
+  margin-bottom: 8px;
+}
+
+.movie-sort .dropdown-toggle {
+  height: 50px; width: 100%;
+  padding: 0 16px;
+  line-height: 50px;
+  color: rgba(133, 136, 150, 0.5);
+  text-align: left;
+  border: 1px solid rgba(224, 226, 231, 0.75);
+  border-radius: 6px;
+  transition: border-color 100ms ease-in;
+}
+
+.movie-sort .dropdown-toggle.selected {
+  color: #3f4150;
+}
+
+.movie-sort .dropdown-toggle:active {
+  border-color: rgba(224, 226, 231, 1);
+}
+
+.movie-sort .dropdown-menu {
+  position: absolute;
+  z-index: 2;
+  top: calc(100% + 2px);
+  left: 0;
+  width: 100%;
+  max-height: 0;
+  overflow: hidden;
+  background-color: #fff;
+  border-radius: 6px;
+  transition: border-color 200ms ease-in, padding 200ms ease-in,
+    max-height 200ms ease-in, box-shadow 200ms ease-in;
+}
+
+.movie-sort .dropdown-menu.show {
+  padding: 8px 0;
+  max-height: 280px;
+  border-color: rgba(224, 226, 231, 0.5);
+  box-shadow: 0 4px 9px 0 rgba(63, 65, 80, 0.1);
+}
+
+.movie-sort .dropdown-option {
+  width: 100%;
+  height: 44px;
+  padding: 0 16px;
+  line-height: 44px;
+  text-align: left;
+}
+
+.movie-sort .dropdown-option:hover {
+  background-color: #f8f9fa;
 }
 
 @keyframes light {
