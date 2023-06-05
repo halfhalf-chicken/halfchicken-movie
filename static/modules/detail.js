@@ -1,52 +1,14 @@
 import { OPTIONSDETAIL } from './options.js';
 
-const reviewForm = document.review;
-const nameInput = document.getElementById('name-input');
-const commentInput = document.getElementById('comment-input');
-const pwInput = document.getElementById('pw-input');
-const submitBtn = document.getElementById('submit-btn');
-
-submitBtn.addEventListener('click', e => {
-  e.preventDefault();
-  postReview();
-});
-
-async function postReview(id) {
-  let movieId = 278;
-  let userName = nameInput.value;
-  let userComment = commentInput.value;
-  let userPw = pwInput.value;
-
-  let formData = new FormData();
-  formData.append('movie_give', movieId);
-  formData.append('name_give', userName);
-  formData.append('comment_give', userComment);
-  formData.append('pw_give', userPw);
-
-  const response = await fetch('/reviews/upload', {
-    method: 'POST',
-    body: formData,
-  });
-  const data = await response.json();
-  console.log(data['msg']);
-}
-
 // jieun
 
 async function fetchDetail(movieId) {
   // get detail data
-  const mostResponse = await fetch(
-    `https://api.themoviedb.org/3/movie/${movieId}?language=ko-KR`,
-    OPTIONSDETAIL,
-  );
+  const mostResponse = await fetch(`https://api.themoviedb.org/3/movie/${movieId}?language=ko-KR`, OPTIONSDETAIL);
   const mostData = await mostResponse.json();
-  console.log(mostData);
 
   // get English movie title
-  const enTitleResponse = await fetch(
-    `https://api.themoviedb.org/3/movie/${movieId}?language=en-US`,
-    OPTIONSDETAIL,
-  );
+  const enTitleResponse = await fetch(`https://api.themoviedb.org/3/movie/${movieId}?language=en-US`, OPTIONSDETAIL);
   const forEnData = await enTitleResponse.json();
   const enTitle = forEnData['title'];
 
@@ -126,18 +88,18 @@ async function listDetailMovie() {
     }
   }
 
-  console.log(
-    enTitle,
-    genres,
-    overview,
-    poster_path,
-    production_countries,
-    release_date,
-    runtime,
-    title,
-    vote_average,
-    movieYear,
-  );
+  // console.log(
+  //   enTitle,
+  //   genres,
+  //   overview,
+  //   poster_path,
+  //   production_countries,
+  //   release_date,
+  //   runtime,
+  //   title,
+  //   vote_average,
+  //   movieYear,
+  // );
 
   // TODO querySelector로는 왜 안되는지 알기. (뭘빠뜨렸는지 확인)
   // document.querySelector('.movieTitle').innerText = title;
@@ -147,21 +109,67 @@ async function listDetailMovie() {
   document.querySelectorAll('.movie-year')[1].innerText = `, ${movieYear}`;
   document.querySelectorAll('.enTitle')[0].innerText = enTitle;
   document.querySelectorAll('.enTitle')[1].innerText = enTitle;
-  document.querySelector('.release > span:nth-Child(2)').innerText =
-    release_date;
+  document.querySelector('.release > span:nth-Child(2)').innerText = release_date;
   document.querySelector('.genres > span:nth-Child(2)').innerText = genres;
-  document.querySelector(
-    '.runtime > span:nth-Child(2)',
-  ).innerText = `${runtime}분`;
-  document.querySelector('.nation > span:nth-Child(2)').innerText =
-    production_countries;
+  document.querySelector('.runtime > span:nth-Child(2)').innerText = `${runtime}분`;
+  document.querySelector('.nation > span:nth-Child(2)').innerText = production_countries;
   document.querySelector('.movie-story > p').innerText = overview;
-  document
-    .querySelector('.movie-poster > img')
-    .setAttribute('src', poster_path);
+  document.querySelector('.movie-poster > img').setAttribute('src', poster_path);
 }
 // take the movie id from this page
 const para = document.location.href.split('contentId')[1];
 
 fetchDetail(para);
 listDetailMovie();
+
+//  jincheol
+const reviewForm = document.review;
+const nameInput = document.getElementById('name-input');
+const commentInput = document.getElementById('comment-input');
+const pwInput = document.getElementById('pw-input');
+const submitBtn = document.getElementById('submit-btn');
+
+submitBtn.addEventListener('click', e => {
+  e.preventDefault();
+  postReview();
+});
+
+async function postReview() {
+  let movieId = para;
+  let userName = nameInput.value;
+  let userComment = commentInput.value;
+  let userPw = pwInput.value;
+
+  let formData = new FormData();
+  formData.append('movie_give', movieId);
+  formData.append('name_give', userName);
+  formData.append('comment_give', userComment);
+  formData.append('pw_give', userPw);
+
+  const response = await fetch('/reviews/upload', {
+    method: 'POST',
+    body: formData,
+  });
+  const data = await response.json();
+  console.log(data['msg']);
+}
+
+async function getAllReviews() {
+  const response = await fetch('/reviews/read');
+  const data = await response.json();
+  const reviews = data.result;
+  return reviews;
+}
+
+async function makeReviewBox() {
+  const reviews = await getAllReviews();
+  const matchReview = reviews.filter(item => {
+    return item.movie === para;
+  });
+  console.log(matchReview);
+}
+makeReviewBox();
+
+function listReviews() {
+  const commentArea = document.querySelector('.comment-list ul');
+}
