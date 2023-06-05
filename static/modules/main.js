@@ -1,5 +1,5 @@
-import { URL } from './fetchurl.js';
-import { OPTIONS } from './options.js';
+import { URL, URLPOPULAR } from './fetchurl.js';
+import { OPTIONS, OPTIONSPOPULAR } from './options.js';
 import { makeCard } from './makecard.js';
 
 //  Fetch
@@ -8,6 +8,12 @@ async function fetchMovie() {
   const data = await response.json();
   const movies = data.results;
   return movies;
+}
+async function fetchMoviePop() {
+  const popResponse = await fetch(URLPOPULAR, OPTIONSPOPULAR);
+  const popData = await popResponse.json();
+  const moviesPopular = popData.results;
+  return moviesPopular;
 }
 
 //  List card
@@ -112,31 +118,18 @@ options.forEach(function (item) {
     toggleBtn.classList.add('selected');
   });
 });
+
+const popularSort = document.querySelector('.sorting-pop');
 const sortingName = document.querySelector('.sorting-name');
 const sortingAvg = document.querySelector('.sorting-avg');
 const sortingRelease = document.querySelector('.sorting-release');
-sortingName.addEventListener('click', sortingNameFunc);
-async function sortingNameFunc(item) {
-  const movies = await fetchMovie();
-  console.log(movies);
-  let sortNames = movies.filter(function (e) {
-    let titles = e.title.toLowerCase();
-    return titles;
-  });
-  sortNames.sort(function (a, b) {
-    if (a > b) {
-      return 1;
-    } else if (a < b) {
-      return -1;
-    } else {
-      return 0;
-    }
-  });
-  console.log(sortNames);
-  listMovieCard(sortNames);
-}
 
-// 타이틀을 가져온다.
-// 이름끼리 비교한다.
-// 큰게 뒤로 가게
-// 두개씩 비교비교비교
+const $box = document.getElementById('flex-box');
+
+// 인기순 정렬
+popularSort.addEventListener('click', async function () {
+  const moviesPopular = await fetchMoviePop();
+  console.log('moviesPopular', moviesPopular);
+  $box.innerHTML = '';
+  makeCard(moviesPopular);
+});
