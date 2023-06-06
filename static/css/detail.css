@@ -137,15 +137,21 @@
   position: relative;
   height: 300px;
 }
-.recommendation .slider ul {
+.recommendation .slider .genre-list {
+  background-color: #fff;
   display: flex;
+  flex-flow: row wrap;
 }
-.recommendation .slider ul li {
+.recommendation .slider .genre-list .genre-card {
   width: 185px;
   height: 235px;
   margin-right: 10px;
-  overflow: hidden;
-  background-color: #fff;
+  background-color: green;
+  border-radius: 20px;
+}
+
+.recommendation .slider .genre-list .genre-card .card-image {
+  width: 50px;
 }
 .recommendation .slider-btn {
   position: absolute;
