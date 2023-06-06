@@ -133,3 +133,17 @@ popularSort.addEventListener('click', async function () {
   $box.innerHTML = '';
   makeCard(moviesPopular);
 });
+
+// 이름순 정렬
+async function cardListSorting() {
+  const movies = await fetchMovie();
+  console.log('movies ->', movies);
+  const sortingMovie = movies.filter(item => {
+    let titles = item.title.toLowerCase().replace(/(\s*)/g, '');
+    let result = titles.sort((a, b) => (a > b ? 1 : -1));
+    return result;
+  });
+  $box.innerHTML = '';
+  makeCard(sortingMovie);
+}
+sortingName.addEventListener('click', cardListSorting);
