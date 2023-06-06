@@ -1,15 +1,18 @@
 .view-desktop {
   display: block;
 }
+
 .view-mobile {
   display: none;
 }
+
 .hide {
   width: 0;
   left: 0;
   position: absolute;
   /* 하이드 보통 어떻게 숨기져? */
 }
+
 .container {
   max-width: 1200px;
   padding: 1px 20px;
@@ -25,41 +28,50 @@
   /* TODO 데스크탑, 모바일에선 상하 padding 줄이고 싶습니다. */
   padding: 70px 0.1px 60px 0.1px;
 }
+
 .movie-imgInfo {
   float: left;
 }
+
 .movie-poster {
   width: 100%;
 }
+
 .movie-poster img {
   width: 250px;
   height: 325px;
 }
+
 .movie-textInfo {
   float: none;
   margin-left: 300px;
   min-height: 325px;
 }
+
 .movie-textInfo h3 {
   font-size: 30px;
   font-weight: 700;
   padding: 10px 0;
 }
-.movie-textInfo > p,
-.movie-textInfo > span {
+
+.movie-textInfo>p,
+.movie-textInfo>span {
   font-size: 16px;
   font-weight: bold;
 }
+
 .movie-detail,
 .movie-story {
   font-size: 14px;
   font-weight: bold;
 }
+
 .movie-story {
   width: 750px;
 
   line-height: 1.5;
 }
+
 .movie-detail {
   display: flex;
   flex-direction: row;
@@ -67,20 +79,24 @@
 
   padding: 30px 0 50px;
 }
+
 .movie-detail-inner {
   width: 250px;
   line-height: 1.5;
 }
-.movie-detail-inner > li > span:nth-child(1) {
+
+.movie-detail-inner>li>span:nth-child(1) {
   display: inline-block;
   width: 100px;
   padding-right: 20px;
 }
+
 /* 댓글 comment */
 .comment form {
   width: 100%;
   position: relative;
 }
+
 .comment form input {
   display: block;
   width: 100%;
@@ -96,6 +112,7 @@
   border-radius: 3px;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+
 .comment form button {
   position: absolute;
   right: 3px;
@@ -108,6 +125,7 @@
   background-color: #171717;
   color: #fff;
 }
+
 .comment .comment-list li {
   width: 100%;
   height: 150px;
@@ -117,29 +135,37 @@
 
   background-color: blue;
 }
+
 .comment .comment-list li div {
   overflow: hidden;
 }
+
 .comment .comment-list li span {
   width: 80%;
   display: block;
   float: left;
 }
+
 .comment .comment-list li button {
-  width: 10%; /*조절 필요*/
+  width: 10%;
+  /*조절 필요*/
   float: left;
 }
+
 .comment .comment-list li p {
   padding: 15px 0 0;
 }
+
 /* 장르 추천 recommendation */
 .recommendation {
   position: relative;
   height: 300px;
 }
+
 .recommendation .slider ul {
   display: flex;
 }
+
 .recommendation .slider ul li {
   width: 185px;
   height: 235px;
@@ -147,19 +173,20 @@
   overflow: hidden;
   background-color: #fff;
 }
+
 .recommendation .slider-btn {
   position: absolute;
   top: 45%;
 }
 
 /* 미디어쿼리 */
-@media only screen and (max-width: 767px) {
-}
+@media only screen and (max-width: 767px) {}
 
 @media only screen and (max-width: 319px) {
   .view-desktop {
     display: none;
   }
+
   .view-mobile {
     display: block;
   }
