@@ -262,7 +262,7 @@ h1 {
 
 /********** MAIN **********/
 
-section {
+.main-card-section {
   margin-top: 130px;
 }
 
@@ -340,7 +340,7 @@ section {
 }
 
 @media (min-width: 768px) {
-  section {
+  .main-card-section {
     margin-top: 240px;
   }
 
