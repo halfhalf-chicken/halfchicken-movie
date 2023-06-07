@@ -122,7 +122,6 @@ options.forEach(function (item) {
 const popularSort = document.querySelector('.sorting-pop');
 const sortingName = document.querySelector('.sorting-name');
 const sortingAvg = document.querySelector('.sorting-avg');
-const sortingRelease = document.querySelector('.sorting-release');
 
 const $box = document.getElementById('flex-box');
 
@@ -138,12 +137,30 @@ popularSort.addEventListener('click', async function () {
 async function cardListSorting() {
   const movies = await fetchMovie();
   console.log('movies ->', movies);
-  const sortingMovie = movies.filter(item => {
-    let titles = item.title.toLowerCase().replace(/(\s*)/g, '');
-    let result = titles.sort((a, b) => (a > b ? 1 : -1));
-    return result;
+  const sortingMovie = movies.sort((a, b) => {
+    return a.title > b.title ? 1 : -1;
   });
   $box.innerHTML = '';
   makeCard(sortingMovie);
 }
 sortingName.addEventListener('click', cardListSorting);
+
+// sortingName.addEventListener('click', async function () {
+//   const movies = await fetchMovie();
+//   console.log('movies ->', movies);
+//   let cardList = document.querySelectorAll('.content');
+//   const sortingMovie = [...cardList].filter(item => {
+//     let titles = item.querySelector('.content-text h3').textContent.replace(/ /g, '').toLowerCase();
+//     return titles;
+//   });
+//   console.log('sortingMovie', sortingMovie);
+//   [...cardList].forEach(a => {
+//     sortingMovie.sort((a, b) => (a > b ? 1 : -1));
+//   });
+//   $box.innerHTML = '';
+//   makeCard(sortingMovie);
+//   // makeCard(sortNames.sort((a, b) => (a > b ? 1 : -1)));
+// });
+
+// 평점순 정렬
+sortingAvg.addEventListener('click', listMovieCard);

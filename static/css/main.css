@@ -339,12 +339,18 @@ section {
   text-overflow: ellipsis;
 }
 
+@media (min-width: 390px) {
+  #flex-box, .content-wrap {
+    width: 100%;
+  }
+}
+
 @media (min-width: 768px) {
   section {
     margin-top: 240px;
   }
 
-  #flex-box {
+  #flex-box, .content-wrap {
     width: 620px;
     font-size: 16px;
   }
@@ -369,7 +375,7 @@ section {
 }
 
 @media (min-width: 1220px) {
-  #flex-box {
+  #flex-box, .content-wrap {
     width: 1200px;
   }
 
