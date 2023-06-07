@@ -20,7 +20,6 @@ def detail():
     content_id = request.args.get('contentId')
     return render_template('detail.html', content_Id=content_id)
 
-
 #   리뷰 작성
 @app.route("/reviews/upload", methods=["POST"])
 def post_review():
@@ -83,4 +82,4 @@ def get_reviews():
     return jsonify({'result': result})
 
 if __name__ == '__main__':
-    app.run('0.0.0.0', port=5001, debug=True)
+    app.run('0.0.0.0', port=5000, debug=True)
