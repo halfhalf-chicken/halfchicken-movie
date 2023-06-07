@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Movies</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <script src="https://kit.fontawesome.com/676a1189ae.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../static/css/reset.css" />
     <link rel="stylesheet" href="../static/css/main.css" />
     <link rel="stylesheet" href="../static/css/detail.css" />
@@ -27,6 +28,31 @@
     </header>
     <main class="container">
       <section class="movie-details">
+        <div class="show-shareBtn"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+        <div class="share-box none">
+          <ul class="share-btn-box">
+            <li class="kakaoImg">
+              <img src="../static/imgs/카카오톡.png" alt="" />
+              <p>카카오톡</p>
+            </li>
+            <li class="NaverImg">
+              <img src="../static/imgs/네이버블로그.png" alt="" />
+              <p>네이버블로그</p>
+            </li>
+            <li class="facebookImg">
+              <img src="../static/imgs/icons8-facebook-96.png" alt="" />
+              <p>페이스북</p>
+            </li>
+            <li class="twitterImg">
+              <img src="../static/imgs/트위터1.png" alt="" />
+              <p>트위터</p>
+            </li>
+          </ul>
+          <div class="pageurl-copybox">
+            <div class="copythisURL"><button>주소 문자열 넣어</button><button>URL 복사</button></div>
+          </div>
+        </div>
+
         <div class="movie-imgInfo">
           <div class="movie-title view-mobile">
             <h3 class="movieTitle view-mobile">영화제목</h3>
@@ -51,7 +77,7 @@
               </li>
               <li class="avg">
                 <span>평점</span>
-                <span><i class="fa-solid fa-star"></i> 6.9</span>
+                <span><i class="fa-solid fa-star" style="color: red"></i></span>
               </li>
               <li class="genres">
                 <span>장르</span>

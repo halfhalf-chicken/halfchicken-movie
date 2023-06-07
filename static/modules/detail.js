@@ -108,7 +108,7 @@ async function listDetailMovie() {
   document.querySelectorAll('.movie-story > p')[0].innerText = overview;
   document.querySelectorAll('.movie-story > p')[1].innerText = overview;
   document.querySelector('.movie-poster > img').setAttribute('src', poster_path);
-  document.querySelectorAll('.avg > span')[1].innerText = vote_average.toFixed(1);
+  document.querySelectorAll('.avg > span')[1].append(` ${vote_average.toFixed(1)}`);
 }
 
 // take the movie id from this page
@@ -241,10 +241,69 @@ const makeReviewList = async () => {
 };
 
 let abcd = fetchReview();
-readingReview(abcd);
 makeReviewList(abcd);
 
+// jieun +
 document.querySelector('.story-more-btn').addEventListener('click', () => {
   document.querySelector('.story-second >p').classList.remove('movie-story-close');
   document.querySelector('.story-more-btn').style.display = 'none';
 });
+
+// 공유버튼 hover => class none toggle
+document.querySelector('.show-shareBtn').addEventListener('mouseover', () => {
+  document.querySelector('.share-box').classList.remove('none');
+});
+document.querySelector('.share-box').addEventListener('mouseover', () => {
+  document.querySelector('.share-box').classList.remove('none');
+});
+document.querySelector('.show-shareBtn').addEventListener('mouseout', () => {
+  document.querySelector('.share-box').classList.add('none');
+});
+document.querySelector('.share-box').addEventListener('mouseout', () => {
+  document.querySelector('.share-box').classList.add('none');
+});
+
+// 현재 페이지 url을 식별자에 할당
+const thisURL = document.location.href;
+document.querySelector('.copythisURL button:nth-Child(1)').innerText = thisURL;
+
+// copy thisURL to clipboard
+const copyURL = async function () {
+  try {
+    await navigator.clipboard.writeText(thisURL);
+    alert('현재 위치한 URL이 복사되었습니다!');
+  } catch (error) {
+    alert.error('Failed to copy: ', err);
+  }
+};
+document.querySelector('.copythisURL > button').addEventListener('click', copyURL);
+
+// sns share facebook
+const shareFacebook = () => window.open('http://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href));
+document.querySelector('.facebookImg').addEventListener('click', shareFacebook);
+
+// sns share twitter
+const shareTwitter = async () => {
+  try {
+    const movie = await fetchDetail(para);
+    const thisTitle = movie['title'];
+    window.open(`http://twitter.com/intent/tweet?text='이 영화 ${thisTitle}을 구경하러오세유'&url=${thisURL}`);
+  } catch (error) {
+    alert.error('Failed to share', err);
+  }
+};
+// const shareTwitter = () => window.open(`http://twitter.com/intent/tweet?text='이것은 영화구먼유'&url=${thisURL}`);
+document.querySelector('.twitterImg').addEventListener('click', shareTwitter);
+
+// sns share NaverBlog
+const shareNaver = async () => {
+  try {
+    const movie = await fetchDetail(para);
+    const thisTitle = movie['title'];
+    const naverShareAPI = encodeURI(`https://share.naver.com/web/shareView?url=${thisURL}&title=${thisTitle}`);
+    window.open(naverShareAPI);
+  } catch (error) {
+    alert.error('Failed to share', err);
+  }
+};
+document.querySelector('.NaverImg').addEventListener('click', shareNaver);
