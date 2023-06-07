@@ -1,9 +1,13 @@
 import { OPTIONSDETAIL } from './options.js';
 import { scrollTop } from './common.js';
+import { URL } from './fetchurl.js';
 
 //  Top btn
 const $topBtn = document.querySelector('aside nav button');
 $topBtn.addEventListener('click', scrollTop);
+
+
+
 
 // jieun
 
@@ -116,11 +120,57 @@ async function listDetailMovie() {
   document.querySelectorAll('.avg > span')[1].innerText = vote_average.toFixed(1);
 }
 
+async function fetchMovie() {
+  const response = await fetch(URL, OPTIONSDETAIL);
+  const data = await response.json();
+  const movies = data.results;
+  return movies;
+}
+
+// 장르 추천
+async function listGenreMovie() {
+  const movies = await fetchMovie();
+  const movie = await fetchDetail(para);
+  const movieId = movie.id;
+  // 배열 안 객체 중 key(id)값을 가진 것을 다시 배열로!
+  const movieGenre = [];
+  for (var a of movie['genres']) {
+    movieGenre.push(a.id);
+  }
+  console.log('영화 장르id->' + movieGenre);
+
+  movies.forEach(movies => {
+    const { id, genre_ids, title, poster_path } = movies;
+    const contentId = `${id}`;
+    const genreSection = document.querySelector('.genre-list');
+    const card = document.createElement('li');
+
+    card.className = 'genre-card';
+    card.innerHTML = `
+                      <img class=card-image src="https://image.tmdb.org/t/p/w500/${poster_path}" alt="${title}" />
+                      <p class="card-title">${title}</p>
+    `;
+
+    // card클릭 시 해당영화 페이지로
+    card.addEventListener('click', () => {
+      location.href = '/detail.html?contentId' + contentId;
+    });
+
+    // 장르 교집합 비교. 장르가 1개 이상 같을 경우
+    const result = movieGenre.filter(x => genre_ids.includes(x));
+    if (result.length >= 1 && movieId != contentId) {
+      console.log('비슷한 장르id->' + genre_ids);
+      genreSection.appendChild(card);
+    }
+  });
+}
+
 // take the movie id from this page
 const para = document.location.href.split('contentId')[1];
 
 fetchDetail(para);
 listDetailMovie();
+listGenreMovie();
 
 //  jincheol
 const reviewForm = document.review;
