@@ -245,7 +245,7 @@
 }
 
 .comment form button {
-  display: inline-block;
+  display: none;
   height: 40px;
   width: auto;
   padding: 0 30px;
@@ -255,8 +255,8 @@
   color: #fff;
 }
 
-.btn-hide {
-  display: none;
+.comment form .btn-active {
+  display: inline-block;
 }
 
 .comment .comment-list ul {
