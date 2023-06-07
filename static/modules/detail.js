@@ -154,9 +154,9 @@ async function listGenreMovie() {
       location.href = '/detail.html?contentId' + contentId;
     });
 
-    // 장르 교집합 비교 장르가 2개 이상 같을 경우
+    // 장르 교집합 비교. 장르가 1개 이상 같을 경우
     const result = movieGenre.filter(x => genre_ids.includes(x));
-    if (result.length > 1 && movieId != contentId) {
+    if (result.length >= 1 && movieId != contentId) {
       console.log('비슷한 장르id->' + genre_ids);
       genreSection.appendChild(card);
     }
