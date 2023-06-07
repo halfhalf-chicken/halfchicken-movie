@@ -43,19 +43,15 @@ def post_review():
 @app.route("/reviews/update", methods=["PUT"])
 def modify_review():
     id_receive = request.form['_id_give']
-    name_receive = request.form['name_give']
     comment_receive = request.form['comment_give']
-    pw_receive = request.form['pw_give']
 
     doc = {
-        'name' : name_receive,
-        'comment' : comment_receive,
-        'pw' : pw_receive
+        'comment' : comment_receive
     }
 
     db.reviews.update_one({"_id": ObjectId(id_receive)}, {"$set" : doc})
 
-    return jsonify({'msg':'게시글 수정 완료!'})
+    return jsonify({'msg':'리뷰 수정 완료!'})
 
 #   리뷰 삭제
 @app.route("/reviews/delete", methods=["DELETE"])
@@ -64,7 +60,7 @@ def del_review():
 
     db.reviews.delete_one({"_id": ObjectId(id_receive)})
 
-    return jsonify({'msg':'게시글 삭제 완료!'})
+    return jsonify({'msg':'리뷰 삭제 완료!'})
 
 
 #   리뷰 불러오기
