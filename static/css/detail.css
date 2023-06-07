@@ -1,0 +1,356 @@
+/* common */
+.view-desktop {
+  display: block;
+}
+
+.view-mobile {
+  display: none;
+}
+
+.story-first {
+  display: block;
+}
+
+.story-second {
+  display: none;
+}
+
+.hide {
+  width: 0;
+  left: 0;
+  position: absolute;
+  display: none;
+  /* 하이드 보통 어떻게 숨기져? */
+}
+
+.container {
+  max-width: 1200px;
+  padding: 1px 20px;
+  margin: 0 auto;
+  padding-top: 120px;
+}
+
+
+/* 영화정보 details */
+.movie-details {
+  /* background: white; */
+  color: white;
+  width: 100%;
+
+  /* TODO 데스크탑, 모바일에선 상하 padding 줄이고 싶습니다. */
+  padding: 70px 0.1px 60px 0.1px;
+}
+
+.movie-imgInfo {
+  float: left;
+}
+
+.movie-poster {
+  padding: 0.1px;
+  width: 100%;
+}
+
+.movie-poster img {
+  width: 250px;
+  height: 325px;
+  border-radius: 10px;
+}
+
+.movie-textInfo {
+  float: none;
+  margin-left: 300px;
+  min-height: 325px;
+}
+
+.movie-textInfo h3 {
+  font-size: 30px;
+  font-weight: 700;
+  padding: 10px 0;
+}
+
+.movie-textInfo > p,
+.movie-textInfo > span {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.movie-detail,
+.movie-story {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.movie-story {
+  max-width: 750px;
+
+  line-height: 1.5;
+}
+
+.movie-story span {
+  margin-bottom: 10px;
+}
+
+.movie-detail {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+
+  padding: 30px 0 40px;
+}
+
+.movie-detail-inner {
+  width: 250px;
+  line-height: 2;
+}
+
+.movie-detail-inner > li > span:nth-child(1) {
+  display: inline-block;
+  width: 100px;
+  padding-right: 20px;
+}
+
+.story-more-btn {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .movie-detail {
+    flex-direction: column;
+  }
+
+  .story-first {
+    display: none;
+  }
+
+  .movie-story {
+    margin-top: 20px;
+  }
+
+  .story-second {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .view-mobile {
+    display: block;
+  }
+
+  .view-desktop {
+    display: none;
+  }
+
+  .movie-details {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .movieTitle-en {
+    margin-top: 5px;
+  }
+
+  .movie-imgInfo {
+    float: none;
+  }
+
+  .movie-textInfo {
+    margin-left: 0;
+    min-height: 0;
+  }
+
+  .movie-title {
+    text-align: center;
+  }
+
+  .movie-poster {
+    display: flex;
+    justify-content: center;
+  }
+
+  .movie-poster img {
+    width: 80%;
+    height: 100%;
+  }
+
+  .story-more-btn {
+    display: block;
+    float: right;
+    margin-top: 10px;
+    background-color: transparent;
+    color: white;
+    font-size: 14px;
+  }
+
+  .story-more-btn:hover {
+    cursor: pointer;
+  }
+
+  .movie-story-close {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    /* 라인수 */
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+
+    /* 4줄인데 왜 이렇게.... height가 늘게 된 건지 모르겠다. */
+    line-height: 1.5em;
+    height: 6em;
+  }
+
+  .movieTitle-en {
+    margin-bottom: 20px;
+  }
+
+  .movie-story {
+    margin-top: 0;
+  }
+}
+
+/* 댓글 comment */
+.comment form {
+  width: 100%;
+  position: relative;
+  padding: 20px 20px 10px;
+  background-color: #f3f3f3;
+}
+
+.comment form table {
+  width: 100%;
+}
+
+.comment form .col1,
+.comment form .col2 {
+  width: 20%;
+}
+
+.comment form input {
+  display: block;
+  width: 100%;
+  height: 46px;
+  padding: 0.5rem 1.3rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #7c7c7c;
+  box-sizing: border-box;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 3px;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.comment .btn-area {
+  position: absolute;
+  right: 23px;
+  top: 22px;
+}
+
+.comment form button {
+  display: none;
+  height: 40px;
+  width: auto;
+  padding: 0 30px;
+  border-radius: 2px;
+  cursor: pointer;
+  background-color: #171717;
+  color: #fff;
+}
+
+.comment form .btn-active {
+  display: inline-block;
+}
+
+.comment .comment-list ul {
+  display: flex;
+  flex-direction: column-reverse;
+  background-color: transparent;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.comment .comment-list li {
+  width: 100%;
+  height: auto;
+  padding: 30px 30px;
+  position: relative;
+  overflow: hidden;
+
+  background-color: #fff;
+
+  border: 1px solid;
+  border-radius: 10px;
+}
+
+.comment .comment-list li div {
+  overflow: hidden;
+}
+
+.comment .comment-list li span {
+  width: 80%;
+  display: block;
+  float: left;
+}
+
+.comment .comment-list li button {
+  display: inline-block;
+  height: 40px;
+  width: 90px;
+
+  font-size: 90%;
+  text-align: center;
+  vertical-align: middle;
+
+  cursor: pointer;
+  margin-right: 5px;
+  border-radius: 2px;
+}
+
+.user-name {
+  font-size: 30px;
+  font-style: oblique;
+  /* color: #7c7c7c; */
+}
+
+.comment .comment-list li p {
+  padding: 15px 0 0;
+  /* color: #7c7c7c; */
+}
+
+/* 장르 추천 recommendation */
+.recommendation {
+  position: relative;
+  height: 300px;
+}
+
+.recommendation .slider ul {
+  display: flex;
+}
+
+.recommendation .slider ul li {
+  width: 185px;
+  height: 235px;
+  margin-right: 10px;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.recommendation .slider-btn {
+  position: absolute;
+  top: 45%;
+}
+
+/* 미디어쿼리 */
+@media only screen and (max-width: 767px) {
+}
+
+@media only screen and (max-width: 400px) {
+  .view-desktop {
+    display: none;
+  }
+
+  .view-mobile {
+    display: block;
+  }
+}
