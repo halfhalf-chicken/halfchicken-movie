@@ -127,12 +127,11 @@ const reviewForm = document.review;
 const nameInput = document.getElementById('name-input');
 const commentInput = document.getElementById('comment-input');
 const pwInput = document.getElementById('pw-input');
-const submitBtn = document.getElementById('submit-btn');
 
 reviewForm.addEventListener('submit', e => {
   e.preventDefault();
   postReview();
-  // location.reload();
+  location.reload();
 });
 
 async function postReview() {
@@ -155,7 +154,7 @@ async function postReview() {
   console.log(data['msg']);
 }
 
-async function getAllReviews() {
+async function getMongoReviews() {
   const response = await fetch('/reviews/read');
   const data = await response.json();
   const reviews = data.result;
@@ -163,8 +162,8 @@ async function getAllReviews() {
 }
 
 const commentArea = document.querySelector('.comment-list ul');
-async function listReviews() {
-  const reviews = await getAllReviews();
+async function listingMongoReviews() {
+  const reviews = await getMongoReviews();
   const matchReview = reviews.filter(item => {
     return item.movie === para;
   });
@@ -192,7 +191,8 @@ async function listReviews() {
     commentArea.append(li);
   });
 }
-listReviews();
+
+listingMongoReviews();
 
 commentArea.addEventListener('click', deleteReview);
 async function deleteReview(e) {
@@ -220,7 +220,7 @@ async function deleteReview(e) {
 }
 
 async function checkPw(_id, userPw) {
-  const reviews = await getAllReviews();
+  const reviews = await getMongoReviews();
   let matchMovie = reviews.find(item => item._id === _id);
   let originPw = matchMovie.pw;
 
@@ -231,21 +231,102 @@ async function checkPw(_id, userPw) {
   }
 }
 
-commentArea.addEventListener('click', editReview);
-async function editReview(e) {
+let editReviewId = null;
+commentArea.addEventListener('click', clickEditBtn);
+async function clickEditBtn(e) {
   if (e.target.className !== 'edit-btn') return false;
   let _id = e.target.closest('li').getAttribute('id');
-
-  const reviews = await getAllReviews();
+  toggleBtn('edit-btn');
+  editReviewId = _id;
+  const reviews = await getMongoReviews();
   let matchMovie = reviews.find(item => item._id === _id);
   let { name, comment, pw } = matchMovie;
   nameInput.value = name;
   commentInput.value = comment;
+  // nameInput.setAttribute('disabled', true);
+}
+
+const editDeleteBtn = document.querySelector('.edit-delete-btn');
+editDeleteBtn.addEventListener('click', clickDeleteBtn);
+async function clickDeleteBtn() {
+  let userPw = pwInput.value;
+  if (!userPw) {
+    alert('비밀번호를 입력해 주세요');
+    return false;
+  }
+  let checkPwResult = await checkPw(editReviewId, userPw);
+  if (!checkPwResult) {
+    alert('비밀번호를 확인해 주세요');
+    pwInput.focus();
+    return false;
+  } else {
+    if (confirm('정말 삭제하시겠습니까?')) {
+      let formData = new FormData();
+      formData.append('_id_give', editReviewId);
+      const response = await fetch('/reviews/delete', { method: 'DELETE', body: formData });
+      const msg = await response.json();
+      alert(msg['msg']);
+      location.reload();
+    } else {
+      return false;
+    }
+  }
+}
+
+const editFinishBtn = document.querySelector('.edit-finish-btn');
+editFinishBtn.addEventListener('click', editReview);
+async function editReview() {
+  if (!pwInput.value) {
+    alert('비밀번호를 입력해 주세요');
+    return false;
+  } else if (!commentInput.value) {
+    alert('한줄평을 입력해 주세요');
+    return false;
+  }
+  let userpw = pwInput.value;
+  let checkPwResult = await checkPw(editReviewId, userpw);
+  if (!checkPwResult) {
+    alert('비밀번호를 확인해 주세요');
+    pwInput.focus();
+    return false;
+  } else {
+    let userComment = commentInput.value;
+    let _id = editReviewId;
+    let formData = new FormData();
+    formData.append('_id_give', _id);
+    formData.append('comment_give', userComment);
+
+    const response = await fetch('/reviews/update', { method: 'PUT', body: formData });
+    const msg = await response.json();
+    alert(msg['msg']);
+    location.reload();
+  }
+}
+
+const editCancleBtn = document.querySelector('.edit-cancle-btn');
+editCancleBtn.addEventListener('click', () => {
+  toggleBtn();
+  nameInput.setAttribute('disabled', false);
+});
+
+function toggleBtn(btn) {
+  const submitBtn = document.querySelector('.submit-btn');
+  if (btn) {
+    editFinishBtn.classList.add('btn-active');
+    editDeleteBtn.classList.add('btn-active');
+    editCancleBtn.classList.add('btn-active');
+    submitBtn.classList.remove('btn-active');
+  } else {
+    editFinishBtn.classList.remove('btn-active');
+    editDeleteBtn.classList.remove('btn-active');
+    editCancleBtn.classList.remove('btn-active');
+    submitBtn.classList.add('btn-active');
+  }
 }
 
 // kitae
 //  리뷰 데이터를 가공하고 웹 페이지에 표시
-const listingReview = async payload => {
+const listingTMDBReview = async payload => {
   let res = await payload;
   let reviews = res.results;
   reviews.forEach(item => {
@@ -286,7 +367,7 @@ async function fetchReview() {
 }
 
 let tmdbReviews = fetchReview();
-listingReview(tmdbReviews);
+listingTMDBReview(tmdbReviews);
 
 document.querySelector('.story-more-btn').addEventListener('click', () => {
   document.querySelector('.story-second >p').classList.remove('movie-story-close');
