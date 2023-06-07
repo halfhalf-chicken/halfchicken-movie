@@ -36,7 +36,7 @@ async function listDetailMovie() {
   }
   let genres = ``;
   if (movie['genres'].length >= 2) {
-    genres = `${movie['genres'][0]['name']}, ${movie['genres'][1]['name']}`;
+    genres = `${movie['genres'][0]['name']}/${movie['genres'][1]['name']}`;
   } else {
     genres = `${movie['genres'][0]['name']}`;
   }
@@ -82,24 +82,16 @@ async function listDetailMovie() {
       case 'KP':
         production_countries = '북한';
         break;
+      case 'NZ':
+        production_countries = '뉴질랜드';
+        break;
       default:
         production_countries = '국가정보 미확인';
         break;
     }
   }
 
-  // console.log(
-  //   enTitle,
-  //   genres,
-  //   overview,
-  //   poster_path,
-  //   production_countries,
-  //   release_date,
-  //   runtime,
-  //   title,
-  //   vote_average,
-  //   movieYear,
-  // );
+  console.log(enTitle, genres, overview, poster_path, production_countries, release_date, runtime, title, vote_average, movieYear);
 
   // TODO querySelector로는 왜 안되는지 알기. (뭘빠뜨렸는지 확인)
   // document.querySelector('.movieTitle').innerText = title;
@@ -113,8 +105,10 @@ async function listDetailMovie() {
   document.querySelector('.genres > span:nth-Child(2)').innerText = genres;
   document.querySelector('.runtime > span:nth-Child(2)').innerText = `${runtime}분`;
   document.querySelector('.nation > span:nth-Child(2)').innerText = production_countries;
-  document.querySelector('.movie-story > p').innerText = overview;
+  document.querySelectorAll('.movie-story > p')[0].innerText = overview;
+  document.querySelectorAll('.movie-story > p')[1].innerText = overview;
   document.querySelector('.movie-poster > img').setAttribute('src', poster_path);
+  document.querySelectorAll('.avg > span')[1].innerText = vote_average.toFixed(1);
 }
 
 // take the movie id from this page
@@ -196,7 +190,7 @@ listReviews();
 async function deleteReview() {}
 
 // kitae
-
+const reviewContainer = document.querySelector('.comment-list ul');
 //  리뷰 데이터를 가공하고 웹 페이지에 표시
 const readingReview = payload => {
   const author = payload.author;
@@ -249,3 +243,8 @@ const makeReviewList = async () => {
 let abcd = fetchReview();
 readingReview(abcd);
 makeReviewList(abcd);
+
+document.querySelector('.story-more-btn').addEventListener('click', () => {
+  document.querySelector('.story-second >p').classList.remove('movie-story-close');
+  document.querySelector('.story-more-btn').style.display = 'none';
+});
