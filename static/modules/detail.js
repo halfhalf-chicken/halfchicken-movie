@@ -194,3 +194,58 @@ listReviews();
 
 // const deleteBtn = document.querySelector('');
 async function deleteReview() {}
+
+// kitae
+
+//  리뷰 데이터를 가공하고 웹 페이지에 표시
+const readingReview = payload => {
+  const author = payload.author;
+  const content = payload.content;
+
+  const reviewContainer1 = document.createElement('div');
+
+  reviewContainer1.innerHTML = ''; // 기존의 리뷰 목록 초기화
+  reviewContainer1.innerHTML = `
+              <li>
+              <div>
+                <span class="user-name">${author}</span>
+                <button>수정</button>
+                <button>삭제</button>
+              </div>
+              <p>${content}</p>
+              </li>  
+    `;
+  reviewContainer.appendChild(reviewContainer1);
+};
+
+// 리뷰 데이터를 TMDB로부터 가져 온 것.
+const options2 = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5M2NjNDc1OTdlZTYxZjYzNGIyY2Q2M2IzMjU4OWU4NCIsInN1YiI6IjY0NzA4ODVmNzI2ZmIxMDE0NGU2MTFjMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.zwtwBOelR-_HKiWkX99qxzRAQ9gkpp8PTRKAg8pIhy0',
+  },
+};
+async function fetchReview() {
+  const response = await fetch(`https://api.themoviedb.org/3/movie/${para}/reviews?language=en-US&page=1`, options2);
+  const data = await response.json();
+  console.log(data);
+  return data;
+}
+
+// 불러온 데이터를 반복 시키기
+const makeReviewList = async () => {
+  const reviewList = await fetchReview();
+  const reviewResult = reviewList.results;
+  console.log('확인', reviewResult);
+  reviewResult.forEach(review =>
+    readingReview({
+      author: review.author,
+      content: review.content,
+    }),
+  );
+};
+
+let abcd = fetchReview();
+readingReview(abcd);
+makeReviewList(abcd);
