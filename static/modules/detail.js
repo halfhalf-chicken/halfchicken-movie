@@ -237,30 +237,73 @@ async function clickEditBtn(e) {
   let { name, comment, pw } = matchMovie;
   nameInput.value = name;
   commentInput.value = comment;
+  // nameInput.setAttribute('disabled', true);
+}
+
+const editDeleteBtn = document.querySelector('.edit-delete-btn');
+editDeleteBtn.addEventListener('click', clickDeleteBtn);
+async function clickDeleteBtn() {
+  let userPw = pwInput.value;
+  if(!userPw) {
+    alert('비밀번호를 입력해 주세요');
+    return false
+  }
+  let checkPwResult = await checkPw(editReviewId, userPw);
+  if (!checkPwResult) {
+    alert('비밀번호를 확인해 주세요');
+    pwInput.focus();
+    return false;
+  } else {
+    if (confirm('정말 삭제하시겠습니까?')) {
+      let formData = new FormData();
+      formData.append('_id_give', editReviewId);
+      const response = await fetch('/reviews/delete', { method: 'DELETE', body: formData });
+      const msg = await response.json();
+      alert(msg['msg']);
+      location.reload();
+    } else {
+      return false;
+    }
+  }
 }
 
 const editFinishBtn = document.querySelector('.edit-finish-btn');
 editFinishBtn.addEventListener('click', editReview);
 async function editReview() {
-  let userComment = commentInput.value;
-  let _id = editReviewId;
-  let formData = new FormData();
-  formData.append('_id_give', _id);
-  formData.append('comment_give', userComment);
-
-  const response = await fetch('/reviews/update', { method: 'PUT', body: formData });
-  const msg = await response.json();
-  alert(msg['msg']);
-  location.reload();
+  if(!pwInput.value) {
+    alert('비밀번호를 입력해 주세요');
+    return false
+  } else if (!commentInput.value) {
+    alert('한줄평을 입력해 주세요');
+    return false;
+  }
+  let userpw = pwInput.value;
+  let checkPwResult = await checkPw(editReviewId, userpw);
+  if (!checkPwResult) {
+    alert('비밀번호를 확인해 주세요');
+    pwInput.focus();
+    return false;
+  } else {
+    let userComment = commentInput.value;
+    let _id = editReviewId;
+    let formData = new FormData();
+    formData.append('_id_give', _id);
+    formData.append('comment_give', userComment);
+  
+    const response = await fetch('/reviews/update', { method: 'PUT', body: formData });
+    const msg = await response.json();
+    alert(msg['msg']);
+    location.reload();    
+  }  
 }
 
 const editCancleBtn = document.querySelector('.edit-cancle-btn');
 editCancleBtn.addEventListener('click', () => {
   toggleBtn();
+  nameInput.setAttribute('disabled', false);
 });
 
 function toggleBtn(btn) {
-  const editDeleteBtn = document.querySelector('.edit-delete-btn');
   const submitBtn = document.querySelector('.submit-btn');
   if (btn) {
     editFinishBtn.classList.add('btn-active');
