@@ -133,7 +133,7 @@ const submitBtn = document.getElementById('submit-btn');
 reviewForm.addEventListener('submit', e => {
   e.preventDefault();
   postReview();
-  location.reload();
+  // location.reload();
 });
 
 async function postReview() {
@@ -163,13 +163,13 @@ async function getAllReviews() {
   return reviews;
 }
 
+const commentArea = document.querySelector('.comment-list ul');
 async function listReviews() {
   const reviews = await getAllReviews();
   const matchReview = reviews.filter(item => {
     return item.movie === para;
   });
 
-  const commentArea = document.querySelector('.comment-list ul');
   matchReview.forEach(item => {
     let { comment, name, _id } = item;
     const li = document.createElement('li');
@@ -184,6 +184,9 @@ async function listReviews() {
     btn2.innerText = '삭제';
     p.innerText = comment;
     li.setAttribute('id', _id);
+    btn1.setAttribute('class', 'edit-btn');
+    btn2.setAttribute('class', 'del-btn');
+    span.setAttribute('class', 'user-name');
 
     div.append(span, btn1, btn2);
     li.append(div, p);
@@ -192,5 +195,51 @@ async function listReviews() {
 }
 listReviews();
 
-// const deleteBtn = document.querySelector('');
-async function deleteReview() {}
+commentArea.addEventListener('click', deleteReview);
+async function deleteReview(e) {
+  if (e.target.className !== 'del-btn') return false;
+  let _id = e.target.closest('li').getAttribute('id');
+
+  let userPw = prompt('비밀번호를 입력해 주세요');
+  let checkPwResult = await checkPw(_id, userPw);
+
+  if (!checkPwResult) {
+    alert('비밀번호를 확인해 주세요');
+    return false;
+  } else {
+    if (confirm('정말 삭제하시겠습니까?')) {
+      let formData = new FormData();
+      formData.append('_id_give', _id);
+      const response = await fetch('/reviews/delete', { method: 'DELETE', body: formData });
+      const msg = await response.json();
+      alert(msg['msg']);
+      location.reload();
+    } else {
+      return false;
+    }
+  }
+}
+
+async function checkPw(_id, userPw) {
+  const reviews = await getAllReviews();
+  let matchMovie = reviews.find(item => item._id === _id);
+  let originPw = matchMovie.pw;
+
+  if (originPw === userPw) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+commentArea.addEventListener('click', editReview);
+async function editReview(e) {
+  if (e.target.className !== 'edit-btn') return false;
+  let _id = e.target.closest('li').getAttribute('id');
+
+  const reviews = await getAllReviews();
+  let matchMovie = reviews.find(item => item._id === _id);
+  let { name, comment, pw } = matchMovie;
+  nameInput.value = name;
+  commentInput.value = comment;
+}

@@ -121,10 +121,14 @@
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-.comment form button {
+.comment .btn-area {
   position: absolute;
   right: 23px;
   top: 22px;
+}
+
+.comment form button {
+  display: inline-block;
   height: 40px;
   width: auto;
   padding: 0 30px;
@@ -132,6 +136,10 @@
   cursor: pointer;
   background-color: #171717;
   color: #fff;
+}
+
+.btn-hide {
+  display: none;
 }
 
 .comment .comment-list ul {
