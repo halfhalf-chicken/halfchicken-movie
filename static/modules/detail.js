@@ -218,7 +218,7 @@ async function listReviews() {
 
   const commentArea = document.querySelector('.comment-list ul');
   matchReview.forEach(item => {
-    let { comment, name } = item;
+    let { comment, name, _id } = item;
     const li = document.createElement('li');
     const div = document.createElement('div');
     const span = document.createElement('span');
@@ -230,11 +230,14 @@ async function listReviews() {
     btn1.innerText = '수정';
     btn2.innerText = '삭제';
     p.innerText = comment;
+    li.setAttribute('id', _id);
 
     div.append(span, btn1, btn2);
     li.append(div, p);
     commentArea.append(li);
   });
-
 }
 listReviews();
+
+// const deleteBtn = document.querySelector('');
+async function deleteReview() {}
