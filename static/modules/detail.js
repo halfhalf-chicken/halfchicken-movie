@@ -36,7 +36,7 @@ async function listDetailMovie() {
   }
   let genres = ``;
   if (movie['genres'].length >= 2) {
-    genres = `${movie['genres'][0]['name']}, ${movie['genres'][1]['name']}`;
+    genres = `${movie['genres'][0]['name']}/${movie['genres'][1]['name']}`;
   } else {
     genres = `${movie['genres'][0]['name']}`;
   }
@@ -82,24 +82,16 @@ async function listDetailMovie() {
       case 'KP':
         production_countries = '북한';
         break;
+      case 'NZ':
+        production_countries = '뉴질랜드';
+        break;
       default:
         production_countries = '국가정보 미확인';
         break;
     }
   }
 
-  // console.log(
-  //   enTitle,
-  //   genres,
-  //   overview,
-  //   poster_path,
-  //   production_countries,
-  //   release_date,
-  //   runtime,
-  //   title,
-  //   vote_average,
-  //   movieYear,
-  // );
+  // console.log(enTitle, genres, overview, poster_path, production_countries, release_date, runtime, title, vote_average, movieYear);
 
   // TODO querySelector로는 왜 안되는지 알기. (뭘빠뜨렸는지 확인)
   // document.querySelector('.movieTitle').innerText = title;
@@ -113,8 +105,10 @@ async function listDetailMovie() {
   document.querySelector('.genres > span:nth-Child(2)').innerText = genres;
   document.querySelector('.runtime > span:nth-Child(2)').innerText = `${runtime}분`;
   document.querySelector('.nation > span:nth-Child(2)').innerText = production_countries;
-  document.querySelector('.movie-story > p').innerText = overview;
+  document.querySelectorAll('.movie-story > p')[0].innerText = overview;
+  document.querySelectorAll('.movie-story > p')[1].innerText = overview;
   document.querySelector('.movie-poster > img').setAttribute('src', poster_path);
+  document.querySelectorAll('.avg > span')[1].innerText = vote_average.toFixed(1);
 }
 
 // take the movie id from this page
@@ -130,9 +124,10 @@ const commentInput = document.getElementById('comment-input');
 const pwInput = document.getElementById('pw-input');
 const submitBtn = document.getElementById('submit-btn');
 
-submitBtn.addEventListener('click', e => {
+reviewForm.addEventListener('submit', e => {
   e.preventDefault();
   postReview();
+  // location.reload();
 });
 
 async function postReview() {
@@ -162,15 +157,135 @@ async function getAllReviews() {
   return reviews;
 }
 
-async function makeReviewBox() {
+const commentArea = document.querySelector('.comment-list ul');
+async function listReviews() {
   const reviews = await getAllReviews();
   const matchReview = reviews.filter(item => {
     return item.movie === para;
   });
-  console.log(matchReview);
-}
-makeReviewBox();
 
-function listReviews() {
-  const commentArea = document.querySelector('.comment-list ul');
+  matchReview.forEach(item => {
+    let { comment, name, _id } = item;
+    const li = document.createElement('li');
+    const div = document.createElement('div');
+    const span = document.createElement('span');
+    const btn1 = document.createElement('button');
+    const btn2 = document.createElement('button');
+    const p = document.createElement('p');
+
+    span.innerText = name;
+    btn1.innerText = '수정';
+    btn2.innerText = '삭제';
+    p.innerText = comment;
+    li.setAttribute('id', _id);
+    btn1.setAttribute('class', 'edit-btn');
+    btn2.setAttribute('class', 'del-btn');
+    span.setAttribute('class', 'user-name');
+
+    div.append(span, btn1, btn2);
+    li.append(div, p);
+    commentArea.append(li);
+  });
 }
+listReviews();
+
+
+commentArea.addEventListener('click', deleteReview);
+async function deleteReview(e) {
+  if (e.target.className !== 'del-btn') return false;
+  let _id = e.target.closest('li').getAttribute('id');
+
+  let userPw = prompt('비밀번호를 입력해 주세요');
+  let checkPwResult = await checkPw(_id, userPw);
+
+  if (!checkPwResult) {
+    alert('비밀번호를 확인해 주세요');
+    return false;
+  } else {
+    if (confirm('정말 삭제하시겠습니까?')) {
+      let formData = new FormData();
+      formData.append('_id_give', _id);
+      const response = await fetch('/reviews/delete', { method: 'DELETE', body: formData });
+      const msg = await response.json();
+      alert(msg['msg']);
+      location.reload();
+    } else {
+      return false;
+    }
+  }
+}
+
+async function checkPw(_id, userPw) {
+  const reviews = await getAllReviews();
+  let matchMovie = reviews.find(item => item._id === _id);
+  let originPw = matchMovie.pw;
+
+  if (originPw === userPw) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+commentArea.addEventListener('click', editReview);
+async function editReview(e) {
+  if (e.target.className !== 'edit-btn') return false;
+  let _id = e.target.closest('li').getAttribute('id');
+
+  const reviews = await getAllReviews();
+  let matchMovie = reviews.find(item => item._id === _id);
+  let { name, comment, pw } = matchMovie;
+  nameInput.value = name;
+  commentInput.value = comment;
+}
+
+
+// kitae
+//  리뷰 데이터를 가공하고 웹 페이지에 표시
+const listingReview = async payload => {
+  let res = await payload
+  let reviews = res.results
+  reviews.forEach(item => {
+    let { content, author } = item;
+    const li = document.createElement('li');
+    const div = document.createElement('div');
+    const span = document.createElement('span');
+    const btn1 = document.createElement('button');
+    const btn2 = document.createElement('button');
+    const p = document.createElement('p');
+
+    span.innerText = author;
+    btn1.innerText = '수정';
+    btn2.innerText = '삭제';
+    p.innerText = content;
+    btn1.setAttribute('class', 'edit-btn');
+    btn2.setAttribute('class', 'del-btn');
+    span.setAttribute('class', 'user-name');
+
+    div.append(span, btn1, btn2);
+    li.append(div, p);
+    commentArea.append(li);
+  });
+};
+
+// 리뷰 데이터를 TMDB로부터 가져 온 것.
+const options2 = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5M2NjNDc1OTdlZTYxZjYzNGIyY2Q2M2IzMjU4OWU4NCIsInN1YiI6IjY0NzA4ODVmNzI2ZmIxMDE0NGU2MTFjMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.zwtwBOelR-_HKiWkX99qxzRAQ9gkpp8PTRKAg8pIhy0',
+  },
+};
+async function fetchReview() {
+  const response = await fetch(`https://api.themoviedb.org/3/movie/${para}/reviews?language=en-US&page=1`, options2);
+  const data = await response.json();
+  return data;
+}
+
+let tmdbReviews = fetchReview();
+listingReview(tmdbReviews);
+
+document.querySelector('.story-more-btn').addEventListener('click', () => {
+  document.querySelector('.story-second >p').classList.remove('movie-story-close');
+  document.querySelector('.story-more-btn').style.display = 'none';
+});
