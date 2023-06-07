@@ -1,4 +1,9 @@
 import { OPTIONSDETAIL } from './options.js';
+import { scrollTop } from './common.js';
+
+//  Top btn
+const $topBtn = document.querySelector('aside nav button');
+$topBtn.addEventListener('click', scrollTop);
 
 // jieun
 
@@ -186,6 +191,7 @@ async function listingMongoReviews() {
     commentArea.append(li);
   });
 }
+
 listingMongoReviews();
 
 commentArea.addEventListener('click', deleteReview);
@@ -244,9 +250,9 @@ const editDeleteBtn = document.querySelector('.edit-delete-btn');
 editDeleteBtn.addEventListener('click', clickDeleteBtn);
 async function clickDeleteBtn() {
   let userPw = pwInput.value;
-  if(!userPw) {
+  if (!userPw) {
     alert('비밀번호를 입력해 주세요');
-    return false
+    return false;
   }
   let checkPwResult = await checkPw(editReviewId, userPw);
   if (!checkPwResult) {
@@ -270,9 +276,9 @@ async function clickDeleteBtn() {
 const editFinishBtn = document.querySelector('.edit-finish-btn');
 editFinishBtn.addEventListener('click', editReview);
 async function editReview() {
-  if(!pwInput.value) {
+  if (!pwInput.value) {
     alert('비밀번호를 입력해 주세요');
-    return false
+    return false;
   } else if (!commentInput.value) {
     alert('한줄평을 입력해 주세요');
     return false;
@@ -289,12 +295,12 @@ async function editReview() {
     let formData = new FormData();
     formData.append('_id_give', _id);
     formData.append('comment_give', userComment);
-  
+
     const response = await fetch('/reviews/update', { method: 'PUT', body: formData });
     const msg = await response.json();
     alert(msg['msg']);
-    location.reload();    
-  }  
+    location.reload();
+  }
 }
 
 const editCancleBtn = document.querySelector('.edit-cancle-btn');
