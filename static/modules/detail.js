@@ -91,7 +91,7 @@ async function listDetailMovie() {
     }
   }
 
-  console.log(enTitle, genres, overview, poster_path, production_countries, release_date, runtime, title, vote_average, movieYear);
+  // console.log(enTitle, genres, overview, poster_path, production_countries, release_date, runtime, title, vote_average, movieYear);
 
   // TODO querySelector로는 왜 안되는지 알기. (뭘빠뜨렸는지 확인)
   // document.querySelector('.movieTitle').innerText = title;
@@ -239,30 +239,33 @@ async function editReview(e) {
   commentInput.value = comment;
 }
 
-// const deleteBtn = document.querySelector('');
-async function deleteReview() {}
 
 // kitae
-const reviewContainer = document.querySelector('.comment-list ul');
 //  리뷰 데이터를 가공하고 웹 페이지에 표시
-const readingReview = payload => {
-  const author = payload.author;
-  const content = payload.content;
+const listingReview = async payload => {
+  let res = await payload
+  let reviews = res.results
+  reviews.forEach(item => {
+    let { content, author } = item;
+    const li = document.createElement('li');
+    const div = document.createElement('div');
+    const span = document.createElement('span');
+    const btn1 = document.createElement('button');
+    const btn2 = document.createElement('button');
+    const p = document.createElement('p');
 
-  const reviewContainer1 = document.createElement('div');
+    span.innerText = author;
+    btn1.innerText = '수정';
+    btn2.innerText = '삭제';
+    p.innerText = content;
+    btn1.setAttribute('class', 'edit-btn');
+    btn2.setAttribute('class', 'del-btn');
+    span.setAttribute('class', 'user-name');
 
-  reviewContainer1.innerHTML = ''; // 기존의 리뷰 목록 초기화
-  reviewContainer1.innerHTML = `
-              <li>
-              <div>
-                <span class="user-name">${author}</span>
-                <button>수정</button>
-                <button>삭제</button>
-              </div>
-              <p>${content}</p>
-              </li>  
-    `;
-  reviewContainer.appendChild(reviewContainer1);
+    div.append(span, btn1, btn2);
+    li.append(div, p);
+    commentArea.append(li);
+  });
 };
 
 // 리뷰 데이터를 TMDB로부터 가져 온 것.
@@ -276,26 +279,11 @@ const options2 = {
 async function fetchReview() {
   const response = await fetch(`https://api.themoviedb.org/3/movie/${para}/reviews?language=en-US&page=1`, options2);
   const data = await response.json();
-  console.log(data);
   return data;
 }
 
-// 불러온 데이터를 반복 시키기
-const makeReviewList = async () => {
-  const reviewList = await fetchReview();
-  const reviewResult = reviewList.results;
-  console.log('확인', reviewResult);
-  reviewResult.forEach(review =>
-    readingReview({
-      author: review.author,
-      content: review.content,
-    }),
-  );
-};
-
-let abcd = fetchReview();
-readingReview(abcd);
-makeReviewList(abcd);
+let tmdbReviews = fetchReview();
+listingReview(tmdbReviews);
 
 document.querySelector('.story-more-btn').addEventListener('click', () => {
   document.querySelector('.story-second >p').classList.remove('movie-story-close');
