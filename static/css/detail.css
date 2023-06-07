@@ -6,7 +6,6 @@
   display: none;
 }
 
-
 .story-first {
   display: block;
 }
@@ -124,14 +123,13 @@
   }
 
   .story-second {
-    display: block
+    display: block;
   }
-
 }
 
 @media screen and (max-width: 400px) {
   .view-mobile {
-    display: block
+    display: block;
   }
 
   .view-desktop {
@@ -194,7 +192,7 @@
 
     /* 4줄인데 왜 이렇게.... height가 늘게 된 건지 모르겠다. */
     line-height: 1.5em;
-    height: 6.0em;
+    height: 6em;
   }
 
   .movieTitle-en {
@@ -218,7 +216,8 @@
   width: 100%;
 }
 
-.comment form .col1, .comment form .col2 {
+.comment form .col1,
+.comment form .col2 {
   width: 20%;
 }
 
@@ -298,6 +297,7 @@
 
 /* 장르 추천 recommendation */
 .recommendation {
+  margin-top: 100px;
   position: relative;
   height: 300px;
 }
