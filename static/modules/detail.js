@@ -129,9 +129,10 @@ const commentInput = document.getElementById('comment-input');
 const pwInput = document.getElementById('pw-input');
 const submitBtn = document.getElementById('submit-btn');
 
-submitBtn.addEventListener('click', e => {
+reviewForm.addEventListener('submit', e => {
   e.preventDefault();
   postReview();
+  location.reload();
 });
 
 async function postReview() {
@@ -161,15 +162,31 @@ async function getAllReviews() {
   return reviews;
 }
 
-async function makeReviewBox() {
+async function listReviews() {
   const reviews = await getAllReviews();
   const matchReview = reviews.filter(item => {
     return item.movie === para;
   });
-  console.log(matchReview);
-}
-makeReviewBox();
 
-function listReviews() {
   const commentArea = document.querySelector('.comment-list ul');
+  matchReview.forEach(item => {
+    let { comment, name } = item;
+    const li = document.createElement('li');
+    const div = document.createElement('div');
+    const span = document.createElement('span');
+    const btn1 = document.createElement('button');
+    const btn2 = document.createElement('button');
+    const p = document.createElement('p');
+
+    span.innerText = name;
+    btn1.innerText = '수정';
+    btn2.innerText = '삭제';
+    p.innerText = comment;
+
+    div.append(span, btn1, btn2);
+    li.append(div, p);
+    commentArea.append(li);
+  });
+
 }
+listReviews();

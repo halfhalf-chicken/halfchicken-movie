@@ -87,22 +87,43 @@
       </section>
       <section class="comment">
         <form name="review">
-          <label for="name-input" class="hide"></label>
-          <input type="text" name="name-input" id="name-input" />
-          <input type="text" name="comment-input" id="comment-input" />
-          <input type="password" name="pw-input" id="pw-input" />
+          <table>
+            <colgroup>
+              <col class="col1">
+              <col class="col2">
+              <col class="col3">
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <label for="name-input" class="hide"></label>
+                  <input type="text" name="name-input" id="name-input" placeholder="닉네임" />
+                </td>
+                <td>
+                  <input type="password" name="pw-input" id="pw-input" placeholder="비밀번호" />
+                </td>
+                <td>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                  <input type="text" name="comment-input" id="comment-input" placeholder="한줄평" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
           <button type="submit" id="submit-btn">등록</button>
         </form>
         <div class="comment-list">
           <ul>
-            <li>
+            <!-- <li>
               <div>
                 <span class="user-name">Name</span>
                 <button>수정</button>
                 <button>삭제</button>
               </div>
               <p>내용내용</p>
-            </li>
+            </li> -->
           </ul>
         </div>
       </section>
