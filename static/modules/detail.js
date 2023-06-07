@@ -1,14 +1,9 @@
 import { OPTIONSDETAIL } from './options.js';
+import { scrollTop } from './common.js';
 
 //  Top btn
 const $topBtn = document.querySelector('aside nav button');
-$topBtn.addEventListener('click', e => {
-  e.preventDefault();
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth',
-  });
-});
+$topBtn.addEventListener('click', scrollTop);
 
 // jieun
 

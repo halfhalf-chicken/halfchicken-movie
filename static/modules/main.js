@@ -76,20 +76,8 @@ $flexBox.addEventListener('click', e => {
 });
 
 //  Top btn
-// const $topBtn = document.querySelector('aside nav button');
-// $topBtn.addEventListener('click', e => {
-//   e.preventDefault();
-//   window.scrollTo({
-//     top: 0,
-//     behavior: 'smooth',
-//   });
-// });
-// 함수 import 해서 사용시 두번 클릭
 const $topBtn = document.querySelector('aside nav button');
-$topBtn.addEventListener('click', e => {
-  e.stopPropagation();
-  scrollTop();
-});
+$topBtn.addEventListener('click', scrollTop);
 
 //  Focus input
 const $searchBtn = document.querySelector('.submitBtn');
