@@ -20,7 +20,6 @@ def detail():
     content_id = request.args.get('contentId')
     return render_template('detail.html', content_Id=content_id)
 
-
 #   리뷰 작성
 @app.route("/reviews/upload", methods=["POST"])
 def post_review():

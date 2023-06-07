@@ -5,6 +5,7 @@
   background-image: linear-gradient(#1d1d1d 15%, rgba(28, 28, 28, 0));
   background-size: auto 100%;
   background-position: 0 100%;
+  position: relative;
 }
 
 .header {
@@ -104,34 +105,114 @@ h1 {
   color: rgba(25, 25, 25, 0.8);
 }
 
+/********** 정렬 **********/
+.content-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.movie-sort {
+  position: relative;
+  width: 102px;
+  margin-bottom: 20px;
+}
+
+.movie-sort .dropdown {
+  width: 100%;
+  z-index: 1;
+  margin-bottom: 8px;
+}
+
+.movie-sort .dropdown-toggle {
+  height: 40px;
+  width: 100%;
+  padding: 0 16px;
+  line-height: 40px;
+  color: rgba(133, 136, 150, 0.5);
+  text-align: left;
+  border: 1px solid rgba(224, 226, 231, 0.75);
+  border-radius: 6px;
+  transition: border-color 100ms ease-in;
+}
+
+.movie-sort .dropdown-toggle.selected {
+  color: #3f4150;
+}
+
+.movie-sort .dropdown-toggle:active {
+  border-color: rgba(224, 226, 231, 1);
+}
+
+.movie-sort .dropdown-menu {
+  position: absolute;
+  z-index: 2;
+  top: calc(100% + 2px);
+  left: 0;
+  width: 100%;
+  max-height: 0;
+  overflow: hidden;
+  background-color: #fff;
+  border-radius: 6px;
+  transition: border-color 200ms ease-in, padding 200ms ease-in, max-height 200ms ease-in, box-shadow 200ms ease-in;
+}
+
+.movie-sort .dropdown-menu.show {
+  padding: 8px 0;
+  max-height: 280px;
+  border-color: rgba(224, 226, 231, 0.5);
+  box-shadow: 0 4px 9px 0 rgba(63, 65, 80, 0.1);
+}
+
+.movie-sort .dropdown-option {
+  width: 100%;
+  height: 40px;
+  padding: 0 16px;
+  line-height: 40px;
+  text-align: left;
+}
+
+.movie-sort .dropdown-option:hover {
+  background-color: #f8f9fa;
+}
+
 @keyframes light {
   from {
     box-shadow: 0 0 5px 5px rgba(100, 100, 100, 0);
   }
+
   5% {
     box-shadow: 0 0 5px 5px rgba(100, 100, 100, 0.8);
   }
+
   10% {
     box-shadow: 0 0 5px 5px rgba(100, 100, 100, 0.2);
   }
+
   15% {
     box-shadow: 0 0 5px 5px rgba(100, 100, 100, 0.8);
   }
+
   20% {
     box-shadow: 0 0 5px 5px rgba(100, 100, 100, 0.8);
   }
+
   25% {
     box-shadow: 0 0 5px 5px rgba(100, 100, 100, 0.2);
   }
+
   30% {
     box-shadow: 0 0 5px 5px rgba(100, 100, 100, 0.2);
   }
+
   35% {
     box-shadow: 0 0 5px 5px rgba(100, 100, 100, 0.8);
   }
+
   40% {
     box-shadow: 0 0 5px 5px rgba(100, 100, 100, 0);
   }
+
   to {
     box-shadow: 0 0 5px 5px rgba(100, 100, 100, 0);
   }
@@ -230,13 +311,14 @@ h1 {
   flex-direction: column;
   gap: 10px;
   color: #ffffff;
-  padding: 10px;
+  padding: 20px 10px 10px;
 }
 
 .content-text h3 {
   text-align: center;
-  font-family: 'mazius-regular';
   font-size: 14px;
+  font-weight: bold;
+  /* font-family: 'mazius-regular'; 한글 타이틀 불러오면 폰트가 안예뻐요 ㅎㅎ 아니면 영문으로 불러올까요?*/
 }
 
 .content-text hr {

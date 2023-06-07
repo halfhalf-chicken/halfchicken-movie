@@ -116,6 +116,7 @@ async function listDetailMovie() {
   document.querySelector('.movie-story > p').innerText = overview;
   document.querySelector('.movie-poster > img').setAttribute('src', poster_path);
 }
+
 // take the movie id from this page
 const para = document.location.href.split('contentId')[1];
 

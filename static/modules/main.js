@@ -1,5 +1,5 @@
-import { URL } from './fetchurl.js';
-import { OPTIONS } from './options.js';
+import { URL, URLPOPULAR } from './fetchurl.js';
+import { OPTIONS, OPTIONSPOPULAR } from './options.js';
 import { makeCard } from './makecard.js';
 
 //  Fetch
@@ -8,6 +8,12 @@ async function fetchMovie() {
   const data = await response.json();
   const movies = data.results;
   return movies;
+}
+async function fetchMoviePop() {
+  const popResponse = await fetch(URLPOPULAR, OPTIONSPOPULAR);
+  const popData = await popResponse.json();
+  const moviesPopular = popData.results;
+  return moviesPopular;
 }
 
 //  List card
@@ -91,4 +97,39 @@ $topBtn.addEventListener('focus', () => {
 });
 $topBtn.addEventListener('blur', () => {
   $topBtn.classList.toggle('btn-focus');
+});
+
+//  Select Sorting
+const toggleBtn = document.querySelector('.dropdown-toggle');
+const menu = document.querySelector('.dropdown-menu');
+const options = document.querySelectorAll('.dropdown-option');
+
+toggleBtn.addEventListener('click', () => {
+  menu.classList.toggle('show');
+});
+toggleBtn.addEventListener('blur', () => {
+  menu.classList.remove('show');
+});
+
+options.forEach(function (item) {
+  item.addEventListener('click', function (e) {
+    const optionValue = e.currentTarget.innerText;
+    toggleBtn.innerText = optionValue;
+    toggleBtn.classList.add('selected');
+  });
+});
+
+const popularSort = document.querySelector('.sorting-pop');
+const sortingName = document.querySelector('.sorting-name');
+const sortingAvg = document.querySelector('.sorting-avg');
+const sortingRelease = document.querySelector('.sorting-release');
+
+const $box = document.getElementById('flex-box');
+
+// 인기순 정렬
+popularSort.addEventListener('click', async function () {
+  const moviesPopular = await fetchMoviePop();
+  console.log('moviesPopular', moviesPopular);
+  $box.innerHTML = '';
+  makeCard(moviesPopular);
 });
