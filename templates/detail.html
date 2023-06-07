@@ -5,25 +5,34 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Movies</title>
+    <!-- font  -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
     <link rel="stylesheet" href="../static/css/reset.css" />
     <link rel="stylesheet" href="../static/css/main.css" />
     <link rel="stylesheet" href="../static/css/detail.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <script type="module" src="../static/modules/main.js"></script>
     <script type="module" src="../static/modules/detail.js"></script>
-    <!-- <script type="module" src="../static/modules/main.js"></script> -->
+    <!-- fontawesome Icon -->
+    <script src="https://kit.fontawesome.com/a881f3a9e8.js" crossorigin="anonymous"></script>
   </head>
   <body>
-    <header>
-      <h1>영화 상세 정보</h1>
-      <figure>
+    <header id="header-wrap">
+      <div class="header">
+        <h1><a href="/">MOVIES</a></h1>
+      </div>
+      <!-- <figure>
         <a href="/"><img src="" alt="logo" /></a>
-      </figure>
-      <nav>
+      </figure> -->
+      <!-- <nav>
         <ul>
           <li><a href="/">Home</a></li>
           <li><a href="">랭킹</a></li>
         </ul>
-      </nav>
+      </nav> -->
+      <a href="/" class="home-btn"><i class="fa-solid fa-house"></i></a>
     </header>
     <main class="container">
       <section class="movie-details">
@@ -155,5 +164,10 @@
         <li>랭킹</li>
       </ul>
     </footer>
+    <aside>
+      <nav>
+        <button>TOP</button>
+      </nav>
+    </aside>
   </body>
 </html>

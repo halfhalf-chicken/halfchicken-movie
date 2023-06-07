@@ -1,6 +1,7 @@
 import { URL, URLPOPULAR } from './fetchurl.js';
 import { OPTIONS, OPTIONSPOPULAR } from './options.js';
 import { makeCard } from './makecard.js';
+import { scrollTop } from './common.js';
 
 //  Fetch
 async function fetchMovie() {
@@ -75,13 +76,19 @@ $flexBox.addEventListener('click', e => {
 });
 
 //  Top btn
+// const $topBtn = document.querySelector('aside nav button');
+// $topBtn.addEventListener('click', e => {
+//   e.preventDefault();
+//   window.scrollTo({
+//     top: 0,
+//     behavior: 'smooth',
+//   });
+// });
+// 함수 import 해서 사용시 두번 클릭
 const $topBtn = document.querySelector('aside nav button');
 $topBtn.addEventListener('click', e => {
-  e.preventDefault();
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth',
-  });
+  e.stopPropagation();
+  scrollTop();
 });
 
 //  Focus input
@@ -128,13 +135,20 @@ const $box = document.getElementById('flex-box');
 // 인기순 정렬
 popularSort.addEventListener('click', async function () {
   const moviesPopular = await fetchMoviePop();
-  console.log('moviesPopular', moviesPopular);
+  // console.log('moviesPopular', moviesPopular);
   $box.innerHTML = '';
   makeCard(moviesPopular);
 });
 
+// 평점순 정렬
+sortingAvg.addEventListener('click', async function () {
+  const moviesAvg = await fetchMovie();
+  $box.innerHTML = '';
+  makeCard(moviesAvg);
+});
+
 // 이름순 정렬
-async function cardListSorting() {
+async function cardNameSorting() {
   const movies = await fetchMovie();
   console.log('movies ->', movies);
   const sortingMovie = movies.sort((a, b) => {
@@ -143,24 +157,4 @@ async function cardListSorting() {
   $box.innerHTML = '';
   makeCard(sortingMovie);
 }
-sortingName.addEventListener('click', cardListSorting);
-
-// sortingName.addEventListener('click', async function () {
-//   const movies = await fetchMovie();
-//   console.log('movies ->', movies);
-//   let cardList = document.querySelectorAll('.content');
-//   const sortingMovie = [...cardList].filter(item => {
-//     let titles = item.querySelector('.content-text h3').textContent.replace(/ /g, '').toLowerCase();
-//     return titles;
-//   });
-//   console.log('sortingMovie', sortingMovie);
-//   [...cardList].forEach(a => {
-//     sortingMovie.sort((a, b) => (a > b ? 1 : -1));
-//   });
-//   $box.innerHTML = '';
-//   makeCard(sortingMovie);
-//   // makeCard(sortNames.sort((a, b) => (a > b ? 1 : -1)));
-// });
-
-// 평점순 정렬
-sortingAvg.addEventListener('click', listMovieCard);
+sortingName.addEventListener('click', cardNameSorting);

@@ -1,5 +1,15 @@
 import { OPTIONSDETAIL } from './options.js';
 
+//  Top btn
+const $topBtn = document.querySelector('aside nav button');
+$topBtn.addEventListener('click', e => {
+  e.preventDefault();
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  });
+});
+
 // jieun
 
 async function fetchDetail(movieId) {
@@ -189,7 +199,6 @@ async function listReviews() {
 }
 listReviews();
 
-
 commentArea.addEventListener('click', deleteReview);
 async function deleteReview(e) {
   if (e.target.className !== 'del-btn') return false;
@@ -239,12 +248,11 @@ async function editReview(e) {
   commentInput.value = comment;
 }
 
-
 // kitae
 //  리뷰 데이터를 가공하고 웹 페이지에 표시
 const listingReview = async payload => {
-  let res = await payload
-  let reviews = res.results
+  let res = await payload;
+  let reviews = res.results;
   reviews.forEach(item => {
     let { content, author } = item;
     const li = document.createElement('li');
