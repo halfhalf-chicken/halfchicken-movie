@@ -46,97 +46,94 @@
 }
 
 /* 현재페이지 링크 공유 */
-.none {
+/* .none {
   display: none;
-}
+} */
 
 .show-shareBtn {
   position: absolute;
   top: 70px;
   right: 0;
 
-  width: 35px;
-  height: 35px;
+  width: 60px;
+  height: 60px;
+  /* border: 1px solid #ffff; */
+  text-align: center;
+}
+
+.show-shareBtn>i {
+  padding: 10px;
   border: 1px solid #ffff;
   border-radius: 100%;
-  text-align: center;
-  padding-top: 8px;
 }
 
 .share-box {
   position: absolute;
-  top: 109px;
-  right: 0;
-  width: 220px;
-  height: 205px;
+  top: 115px;
+  right: 10px;
+  width: 150px;
+  height: 150px;
   background-color: white;
+  border-radius: 3px;
 
-  transition-duration: 2s;
+  transition-duration: 1s;
 }
 
 .share-btn-box {
-  padding: 20px 30px 0 30px;
-  height: 82%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: space-between;
-  flex-wrap: wrap;
+  padding: 15px 20px 10px;
+  height: 80%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px 20px;
+  align-items: center;
+  justify-items: center;
+  ;
+}
+
+.share-btn-box li:hover {
+  filter: brightness(0.8)
 }
 
 .share-btn-box li {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
-.kakaoImg p, .NaverImg p, .facebookImg p, .twitterImg p {
-  width: 60px;
-  font-size: 8px;
-  color: #000000;
-  text-align: center;
-}
-
-.twitterImg p, .NaverImg p, .kakaoImg p {
-  margin-top: 10px;
-}
-
-.facebookImg p {
-  margin-top: 5px;
-}
-
-
-.NaverImg, .twitterImg, .kakaoImg {
+.NaverImg, .twitterImg, .kakaoImg, .facebookImg {
   width: 40px;
   height: 40px;
   border-radius: 100%;
-  margin: 5px 10px;
-}
-
-.twitterImg img, .kakaoImg img {
-  width: 100%;
-  height: 100%;
-  border-radius: 100%;
-}
-
-.NaverImg img {
-  width: 100%;
-  height: 100%;
-  border-radius: 100%;
+  overflow: hidden;
 }
 
 .facebookImg {
   width: 48px;
   height: 48px;
   border-radius: 100%;
-  margin-right: 10px;
-  margin-left: 10px;
 }
 
-.facebookImg img {
+.twitterImg img, .kakaoImg img, .NaverImg img, .facebookImg img {
   width: 100%;
   height: 100%;
+  border-radius: 100%;
+}
+
+.pageurl-copybox {
+  height: 20%;
+  padding: 0 30px 15px 30px;
+}
+
+.copythisURL button {
+  font-size: 8px;
+  text-align: center;
+  width: 100%;
+  height: 20px;
+  padding: 3px;
+  color: #000000;
+  background-color: #ffffff;
+  font-weight: 500;
+  border: 1.5px solid #dddddd;
+  border-radius: 3px;
 }
 
 .show-shareBtn:hover, .kakaoImg:hover, .facebookImg:hover, .twitterImg:hover, .NaverImg:hover {
@@ -144,45 +141,13 @@
 }
 
 .copythisURL:hover button {
+  background-color: #f2f2f2;
   cursor: pointer;
 }
 
-.pageurl-copybox {
-  height: 18%;
-  padding: 0 30px 15px 30px;
-}
-
-.copythisURL button {
-  font-size: 8px;
-  color: #000000;
-  text-align: center;
-  border: 1px solid rgb(205, 205, 205);
-  background-color: white;
-}
-
-.copythisURL button:nth-child(1) {
-  width: 105px;
-  height: 20px;
-  padding: 3px 5px;
-  border-right: none;
-
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-
-  color: #0199ff;
-  background-color: #f4f4f4;
-  font-weight: 500;
-}
-
-.copythisURL button:nth-child(2) {
-  width: 55px;
-  height: 20px;
-  padding: 3px;
-  color: #000000;
-  background-color: #ffff;
-  font-weight: 500;
-
+.copythisURL:active button {
+  background-color: #e7e7e7;
+  cursor: pointer;
 }
 
 /* 영화상세정보 */
@@ -276,11 +241,12 @@
   }
 
   .show-shareBtn {
-    top: 360px;
+    top: 340px;
+    padding-top: 20px
   }
 
   .share-box {
-    top: 150px;
+    top: 202px;
   }
 }
 
@@ -445,10 +411,14 @@
   overflow: hidden;
 }
 
+/* TODO  */
 .comment .comment-list li span {
   width: 80%;
   display: block;
-  float: left;
+  font-size: 20px;
+  height: 100%;
+  font-style: oblique;
+  text-shadow: 2px 0px 2px;
 }
 
 .comment .comment-list li button {
@@ -458,7 +428,6 @@
   font-size: 18px;
   text-align: center;
   vertical-align: middle;
-  float: right;
 
   cursor: pointer;
   margin-right: 5px;
@@ -469,13 +438,7 @@
   height: 100%;
   font-size: 30px;
   font-style: oblique;
-}
-.comment .comment-list li span {
-  height: 100%;
-  font-size: 30px;
-  font-style: oblique;
-  text-shadow: 2px 0px 2px;
-  vertical-align: middle;
+  display: flex;
 }
 
 .comment .comment-list li p {
