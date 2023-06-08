@@ -192,6 +192,14 @@ async function slidShow(datas) {
   const next = document.querySelector('.next'); //다음 버튼
   let clickCount = 0; //  3개까지.
 
+
+    if(slideCount <= 5){
+      document.querySelector('.slider-btn').style.display = "none"
+    }else{
+      document.querySelector('.slider-btn').style.display = "grid"
+    }
+  
+  
   prev.addEventListener('click', function () {
     if (clickCount === 0) {
       return false
@@ -216,6 +224,8 @@ async function slidShow(datas) {
 
   });
 }
+
+
 
 
 
