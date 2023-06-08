@@ -75,7 +75,6 @@ $flexBox.addEventListener('click', e => {
   }
   const contentId = content.getAttribute('id');
   alert(`id : ${contentId}`);
-  // // location.href = `/detail.html?contentId=${contentId}`;
   location.href = '/detail.html?contentId' + contentId;
 });
 
@@ -113,7 +112,7 @@ const sortingRel = document.querySelector('.sorting-release');
 const $box = document.getElementById('flex-box');
 const moreBtn = document.getElementById('more-btn');
 
-// 리스팅
+// 더보기
 moreBtn.addEventListener('click', function () {
   moreBtn.style.opacity = 0;
   moreListing();
@@ -123,7 +122,6 @@ moreBtn.addEventListener('click', function () {
 async function moreListing() {
   const movies = await fetchMovie();
   const moviesPopular = await fetchMoviePop();
-  // 데이터 아예 합치기
   const newArray = movies.concat(moviesPopular);
   const double = newArray.reduce(function (acc, current) {
     if (acc.findIndex(({ id }) => id === current.id) === -1) {
@@ -131,11 +129,8 @@ async function moreListing() {
     }
     return acc;
   }, []);
-  const double2 = moviesPopular.filter((a, b) => {
-    return a.id !== b.id ? 1 : -1;
-  });
   $box.innerHTML = '';
-  console.log('double2', double2);
+  console.log('double2', double);
   makeCard(double);
 }
 
