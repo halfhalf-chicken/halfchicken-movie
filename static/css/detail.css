@@ -55,17 +55,21 @@
   top: 70px;
   right: 0;
 
-  width: 35px;
-  height: 35px;
+  width: 60px;
+  height: 60px;
+  /* border: 1px solid #ffff; */
+  text-align: center;
+}
+
+.show-shareBtn>i {
+  padding: 10px;
   border: 1px solid #ffff;
   border-radius: 100%;
-  text-align: center;
-  padding-top: 8px;
 }
 
 .share-box {
   position: absolute;
-  top: 109px;
+  top: 115px;
   right: 0;
   width: 220px;
   height: 205px;
@@ -276,11 +280,12 @@
   }
 
   .show-shareBtn {
-    top: 360px;
+    top: 340px;
+    padding-top: 20px
   }
 
   .share-box {
-    top: 150px;
+    top: 145px;
   }
 }
 
