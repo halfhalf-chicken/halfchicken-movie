@@ -146,3 +146,31 @@ async function cardNameSorting() {
   makeCard(sortingMovie);
 }
 sortingName.addEventListener('click', cardNameSorting);
+
+// 개봉순 정렬
+async function cardNameSorting() {
+  const movies = await fetchMovie();
+  console.log('movies ->', movies);
+  const sortingMovie = movies.sort((a, b) => {
+    return a.title > b.title ? 1 : -1;
+  });
+  $box.innerHTML = '';
+  makeCard(sortingMovie);
+}
+sortingName.addEventListener('click', cardNameSorting);
+
+// sortingName.addEventListener('click', async function () {
+//   const movies = await fetchMovie();
+//   let cardList = document.querySelectorAll('.content');
+//   const sortingMovie = [...cardList].filter(item => {
+//     let titles = item.querySelector('.content-text h3').textContent.replace(/ /g, '').toLowerCase();
+//     return titles;
+//   });
+//   console.log('sortingMovie', sortingMovie);
+//   [...cardList].forEach(a => {
+//     sortingMovie.sort((a, b) => (a > b ? 1 : -1));
+//   });
+//   $box.innerHTML = '';
+//   makeCard(sortingMovie);
+//   // makeCard(sortNames.sort((a, b) => (a > b ? 1 : -1)));
+// });
