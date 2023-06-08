@@ -292,10 +292,7 @@ document.querySelector('.share-box').addEventListener('mouseout', () => {
   document.querySelector('.share-box').classList.add('none');
 });
 
-// 현재 페이지 url을 식별자에 할당
 const thisURL = document.location.href;
-document.querySelector('.copythisURL button:nth-Child(1)').innerText = thisURL;
-
 // copy thisURL to clipboard
 const copyURL = async function () {
   try {
@@ -305,8 +302,7 @@ const copyURL = async function () {
     alert.error('Failed to copy: ', err);
   }
 };
-document.querySelectorAll('.copythisURL > button')[0].addEventListener('click', copyURL);
-document.querySelectorAll('.copythisURL > button')[1].addEventListener('click', copyURL);
+document.querySelector('.copythisURL > button').addEventListener('click', copyURL);
 
 // sns share facebook
 const shareFacebook = () => window.open('http://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href));
