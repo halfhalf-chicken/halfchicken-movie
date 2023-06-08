@@ -8,6 +8,7 @@ import { checkPw } from './checkpw.js';
 import { validationCheck } from './validationcheck.js';
 import { checkDB } from './checkdb.js';
 import { nameInput, commentInput, pwInput } from './input.js';
+import { moveToEditForm } from './movetoeditform';
 import { scrollTop } from './common.js';
 
 //  Top btn
@@ -171,6 +172,7 @@ function clickEditBtn(e) {
   editReviewId = _id;
   checkDB(_id, e.target);
   toggleBtn('edit-btn');
+  moveToEditForm()
   nameInput.setAttribute('disabled', true);
   nameInput.style.filter = 'brightness(0.8)';
 }
