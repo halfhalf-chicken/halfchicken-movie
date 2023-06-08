@@ -102,6 +102,12 @@ header h1 a {
   box-shadow: 0 0 5px 5px rgba(100, 100, 100, 0.8);
 }
 
+.movieNone {
+  width: 100%;
+  padding: 50px 0;
+  text-align: center;
+}
+
 .material-symbols-outlined.search {
   color: rgba(25, 25, 25, 0.8);
 }
@@ -187,10 +193,10 @@ header h1 a {
   }
 
   #search-input {
-    width: 360px;
+    width: 83%;
     height: 40px;
     font-size: 20px;
-    padding-left: 40px;
+    padding-left: 21px;
   }
 
   .search-area button {
@@ -213,6 +219,7 @@ header h1 a {
   display: flex;
   flex-wrap: wrap;
   margin: 0 auto 50px;
+  min-height: 100vh;
   padding: 0 20px;
   font-size: 14px;
   color: #ffffff;
