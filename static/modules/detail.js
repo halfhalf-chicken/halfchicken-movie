@@ -16,9 +16,6 @@ import { URL } from './fetchurl.js';
 const $topBtn = document.querySelector('aside nav button');
 $topBtn.addEventListener('click', scrollTop);
 
-
-
-
 // jieun
 async function fetchDetail(movieId) {
   // get detail data
@@ -111,8 +108,6 @@ async function listDetailMovie() {
 
   // console.log(enTitle, genres, overview, poster_path, production_countries, release_date, runtime, title, vote_average, movieYear);
 
-  // TODO querySelector로는 왜 안되는지 알기. (뭘빠뜨렸는지 확인)
-  // document.querySelector('.movieTitle').innerText = title;
   document.getElementsByClassName('movieTitle')[0].innerText = title;
   document.getElementsByClassName('movieTitle')[1].innerText = title;
   document.querySelectorAll('.movie-year')[0].innerText = `, ${movieYear}`;
@@ -146,7 +141,6 @@ async function listGenreMovie() {
   for (var a of movie['genres']) {
     movieGenre.push(a.id);
   }
-  // console.log('영화 장르id->' + movieGenre);
 
   let result2 = [];
 
@@ -186,17 +180,16 @@ listDetailMovie();
 listGenreMovie();
 
 // jin woo
-
 async function slidShow(datas) {
   let movies = await datas;
   const slides = document.querySelector('.items'); //전체 슬라이드 컨테이너
-  console.log(slides)
+  console.log(slides);
   const slideCount = movies.length; // 슬라이드 개수
-  slides.style.width = 20 * slideCount + "%";
-  slides.style.minWidth = "100%"
-  
+  slides.style.width = 20 * slideCount + '%';
+  slides.style.minWidth = '100%';
+
   let sW = slides.offsetWidth;
-  
+
   const prev = document.querySelector('.prev'); //이전 버튼
   const next = document.querySelector('.next'); //다음 버튼
   let clickCount = 0; //  3개까지.
@@ -211,34 +204,26 @@ async function slidShow(datas) {
   
   prev.addEventListener('click', function () {
     if (clickCount === 0) {
-      return false
+      return false;
     } else {
       clickCount--;
-      let posX = clickCount * sW / slideCount;
-      
+      let posX = (clickCount * sW) / slideCount;
+
       slides.style.transform = `translateX(-${posX}px)`;
     }
-
   });
 
   next.addEventListener('click', function () {
     if (clickCount < slideCount - 5) {
       clickCount++;
-      let posX = clickCount * sW / slideCount;
-      console.log(posX)
+      let posX = (clickCount * sW) / slideCount;
+      console.log(posX);
       slides.style.transform = `translateX(-${posX}px)`;
     } else {
-      return false
+      return false;
     }
-
   });
 }
-
-
-
-
-
-
 
 //  jincheol
 const reviewForm = document.review;
