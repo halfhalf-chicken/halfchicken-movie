@@ -226,6 +226,7 @@ header h1 a {
   box-shadow: 0 0 5px 5px rgba(50, 50, 50, 0.8);
   margin-bottom: 20px;
   padding: 5%;
+  transition: all 0.7s;
 }
 
 .content img {
@@ -281,6 +282,18 @@ header h1 a {
   overflow: hidden;
   word-wrap: break-word;
   text-overflow: ellipsis;
+}
+
+#more-btn {
+  width: 120px;
+  padding: 15px 35px;
+  margin: 0 0 100px;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 5px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 /********** 정렬 **********/
@@ -359,6 +372,7 @@ header h1 a {
 .movie-sort .dropdown-option:hover {
   background-color: #f8f9fa;
 }
+
 
 @media (min-width: 768px) {
   .main-card-section {
