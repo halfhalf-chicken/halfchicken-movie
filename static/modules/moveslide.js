@@ -18,7 +18,7 @@ export function moveSlide(movies) {
   if (slideCount <= 5) {
     document.querySelector('.slider-btn').style.display = 'none';
   } else {
-    document.querySelector('.slider-btn').style.display = 'grid';
+    document.querySelector('.slider-btn').style.display = 'flex';
   }
 
   prev.addEventListener('click', function () {
