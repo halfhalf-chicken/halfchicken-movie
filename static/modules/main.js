@@ -58,6 +58,7 @@ async function moreListing() {
   const double2 = moviesPopular.filter((a, b) => {
     return a.id !== b.id ? 1 : -1;
   });
+  $box.innerHTML = '';
   console.log('double2', double2);
   makeCard(double);
 }

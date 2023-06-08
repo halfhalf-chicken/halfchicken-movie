@@ -106,11 +106,6 @@
   overflow: hidden;
 }
 
-.facebookImg {
-  width: 48px;
-  height: 48px;
-  border-radius: 100%;
-}
 
 .twitterImg img, .kakaoImg img, .NaverImg img, .facebookImg img {
   width: 100%;
@@ -122,6 +117,15 @@
   height: 20%;
   padding: 0 30px 15px 30px;
 }
+
+.facebookImg img {
+  width: 120%;
+  height: 120%;
+  position: relative;
+  left: -10%;
+  top: -10%;
+}
+
 
 .copythisURL button {
   font-size: 8px;
