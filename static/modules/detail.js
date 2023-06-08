@@ -8,7 +8,7 @@ import { checkPw } from './checkpw.js';
 import { validationCheck } from './validationcheck.js';
 import { checkDB } from './checkdb.js';
 import { nameInput, commentInput, pwInput } from './input.js';
-import { moveToEditForm } from './movetoeditform';
+import { moveToEditForm } from './movetoeditform.js';
 import { scrollTop } from './common.js';
 
 //  Top btn
