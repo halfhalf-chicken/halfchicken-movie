@@ -269,6 +269,13 @@
     display: block
   }
 
+  .show-shareBtn {
+    top: 360px;
+  }
+
+  .share-box {
+    top: 150px;
+  }
 }
 
 @media screen and (max-width: 400px) {
