@@ -39,8 +39,151 @@
 
   /* TODO 데스크탑, 모바일에선 상하 padding 줄이고 싶습니다. */
   padding: 70px 0.1px 60px 0.1px;
+
+  position: relative;
 }
 
+/* 현재페이지 링크 공유 */
+.none {
+  display: none;
+}
+
+.show-shareBtn {
+  position: absolute;
+  top: 70px;
+  right: 0;
+
+  width: 35px;
+  height: 35px;
+  border: 1px solid #ffff;
+  border-radius: 100%;
+  text-align: center;
+  padding-top: 8px;
+}
+
+.share-box {
+  position: absolute;
+  top: 109px;
+  right: 0;
+  width: 220px;
+  height: 205px;
+  background-color: white;
+
+  transition-duration: 2s;
+}
+
+.share-btn-box {
+  padding: 20px 30px 0 30px;
+  height: 82%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: space-between;
+  flex-wrap: wrap;
+}
+
+.share-btn-box li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.kakaoImg p, .NaverImg p, .facebookImg p, .twitterImg p {
+  width: 60px;
+  font-size: 8px;
+  color: #000000;
+  text-align: center;
+}
+
+.twitterImg p, .NaverImg p, .kakaoImg p {
+  margin-top: 10px;
+}
+
+.facebookImg p {
+  margin-top: 5px;
+}
+
+
+.NaverImg, .twitterImg, .kakaoImg {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  margin: 5px 10px;
+}
+
+.twitterImg img, .kakaoImg img {
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+}
+
+.NaverImg img {
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+}
+
+.facebookImg {
+  width: 48px;
+  height: 48px;
+  border-radius: 100%;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.facebookImg img {
+  width: 100%;
+  height: 100%;
+}
+
+.show-shareBtn:hover, .kakaoImg:hover, .facebookImg:hover, .twitterImg:hover, .NaverImg:hover {
+  cursor: pointer;
+}
+
+.copythisURL:hover button {
+  cursor: pointer;
+}
+
+.pageurl-copybox {
+  height: 18%;
+  padding: 0 30px 15px 30px;
+}
+
+.copythisURL button {
+  font-size: 8px;
+  color: #000000;
+  text-align: center;
+  border: 1px solid rgb(205, 205, 205);
+  background-color: white;
+}
+
+.copythisURL button:nth-child(1) {
+  width: 105px;
+  height: 20px;
+  padding: 3px 5px;
+  border-right: none;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  color: #0199ff;
+  background-color: #f4f4f4;
+  font-weight: 500;
+}
+
+.copythisURL button:nth-child(2) {
+  width: 55px;
+  height: 20px;
+  padding: 3px;
+  color: #000000;
+  background-color: #ffff;
+  font-weight: 500;
+
+}
+
+/* 영화상세정보 */
 .movie-imgInfo {
   float: left;
 }
@@ -68,8 +211,8 @@
   padding: 10px 0;
 }
 
-.movie-textInfo > p,
-.movie-textInfo > span {
+.movie-textInfo>p,
+.movie-textInfo>span {
   font-size: 16px;
   font-weight: bold;
 }
@@ -103,7 +246,7 @@
   line-height: 2;
 }
 
-.movie-detail-inner > li > span:nth-child(1) {
+.movie-detail-inner>li>span:nth-child(1) {
   display: inline-block;
   width: 100px;
   padding-right: 20px;
@@ -129,9 +272,21 @@
   .story-second {
     display: block;
   }
+
+  .show-shareBtn {
+    top: 360px;
+  }
+
+  .share-box {
+    top: 150px;
+  }
 }
 
 @media screen and (max-width: 400px) {
+  .show-shareBtn {
+    display: none;
+  }
+
   .view-mobile {
     display: block;
   }
@@ -342,8 +497,7 @@
 }
 
 /* 미디어쿼리 */
-@media only screen and (max-width: 767px) {
-}
+@media only screen and (max-width: 767px) {}
 
 @media only screen and (max-width: 400px) {
   .view-desktop {

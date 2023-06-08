@@ -8,7 +8,7 @@ import { checkPw } from './checkpw.js';
 import { validationCheck } from './validationcheck.js';
 import { checkDB } from './checkdb.js';
 import { nameInput, commentInput, pwInput } from './input.js';
-import { moveToEditForm } from './movetoeditform';
+import { moveToEditForm } from './movetoeditform.js';
 import { scrollTop } from './common.js';
 
 //  Top btn
@@ -122,7 +122,7 @@ async function listDetailMovie() {
   document.querySelectorAll('.movie-story > p')[0].innerText = overview;
   document.querySelectorAll('.movie-story > p')[1].innerText = overview;
   document.querySelector('.movie-poster > img').setAttribute('src', poster_path);
-  document.querySelectorAll('.avg > span')[1].innerText = vote_average.toFixed(1);
+  document.querySelectorAll('.avg > span')[1].append(` ${vote_average.toFixed(1)}`);
 }
 
 // take the movie id from this page
@@ -172,7 +172,7 @@ function clickEditBtn(e) {
   editReviewId = _id;
   checkDB(_id, e.target);
   toggleBtn('edit-btn');
-  moveToEditForm()
+  moveToEditForm();
   nameInput.setAttribute('disabled', true);
   nameInput.style.filter = 'brightness(0.8)';
 }
@@ -271,7 +271,96 @@ async function fetchReview() {
 let tmdbReviews = fetchReview();
 listingTMDBReview(tmdbReviews);
 
+// jieun +
 document.querySelector('.story-more-btn').addEventListener('click', () => {
   document.querySelector('.story-second >p').classList.remove('movie-story-close');
   document.querySelector('.story-more-btn').style.display = 'none';
 });
+
+// 공유버튼 hover => class none toggle
+document.querySelector('.show-shareBtn').addEventListener('mouseover', () => {
+  document.querySelector('.share-box').classList.remove('none');
+});
+document.querySelector('.share-box').addEventListener('mouseover', () => {
+  document.querySelector('.share-box').classList.remove('none');
+});
+document.querySelector('.show-shareBtn').addEventListener('mouseout', () => {
+  document.querySelector('.share-box').classList.add('none');
+});
+document.querySelector('.share-box').addEventListener('mouseout', () => {
+  document.querySelector('.share-box').classList.add('none');
+});
+
+// 현재 페이지 url을 식별자에 할당
+const thisURL = document.location.href;
+document.querySelector('.copythisURL button:nth-Child(1)').innerText = thisURL;
+
+// copy thisURL to clipboard
+const copyURL = async function () {
+  try {
+    await navigator.clipboard.writeText(thisURL);
+    alert('현재 위치한 URL이 복사되었습니다!');
+  } catch (error) {
+    alert.error('Failed to copy: ', err);
+  }
+};
+document.querySelectorAll('.copythisURL > button')[0].addEventListener('click', copyURL);
+document.querySelectorAll('.copythisURL > button')[1].addEventListener('click', copyURL);
+
+// sns share facebook
+const shareFacebook = () => window.open('http://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href));
+document.querySelector('.facebookImg').addEventListener('click', shareFacebook);
+
+// sns share twitter
+const shareTwitter = async () => {
+  try {
+    const movie = await fetchDetail(para);
+    const thisTitle = movie['title'];
+    window.open(`http://twitter.com/intent/tweet?text='영화 "${thisTitle}" 반드시 구경하러오세유'&url=${thisURL}`);
+  } catch (error) {
+    alert.error('Failed to share', err);
+  }
+};
+// const shareTwitter = () => window.open(`http://twitter.com/intent/tweet?text='이것은 영화구먼유'&url=${thisURL}`);
+document.querySelector('.twitterImg').addEventListener('click', shareTwitter);
+
+// sns share NaverBlog
+const shareNaver = async () => {
+  try {
+    const movie = await fetchDetail(para);
+    const thisTitle = movie['title'];
+    const naverShareAPI = encodeURI(`https://share.naver.com/web/shareView?url=${thisURL}&title=${thisTitle}`);
+    window.open(naverShareAPI);
+  } catch (error) {
+    alert.error('Failed to share', err);
+  }
+};
+document.querySelector('.NaverImg').addEventListener('click', shareNaver);
+
+// kakao
+// init 체크
+if (!Kakao.isInitialized()) {
+  Kakao.init('f6b9ec2f54f02b2bfb924e9beba10669');
+}
+
+var sendKakao = async function () {
+  // 메시지 공유 함수
+  const movie = await fetchDetail(para);
+  const title = movie['title'];
+  const poster = `https://image.tmdb.org/t/p/w500/${movie['poster_path']}`;
+
+  Kakao.Link.sendDefault({
+    objectType: 'feed', // 메시지 형식 : 피드 타입
+    content: {
+      title: `${title}`,
+      description: `"${title}" 아직 안봤어? 꿀잼이라구! 들어와서 조금 더 살펴봐!`,
+      imageUrl: `${poster}`, // 메인으로 보여질 이미지 주소
+      link: {
+        webUrl: thisURL,
+        mobileWebUrl: thisURL,
+      },
+    },
+  });
+};
+
+document.querySelector('.kakaoImg').addEventListener('click', sendKakao);
