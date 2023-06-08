@@ -301,6 +301,7 @@ header h1 a {
   position: relative;
   left: 50%;
   transform: translateX(-50%);
+  cursor: pointer;
 }
 
 /********** 정렬 **********/

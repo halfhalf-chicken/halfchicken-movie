@@ -317,11 +317,8 @@
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 4;
-    /* 라인수 */
     -webkit-box-orient: vertical;
     word-wrap: break-word;
-
-    /* 4줄인데 왜 이렇게.... height가 늘게 된 건지 모르겠다. */
     line-height: 1.5em;
     height: 6em;
   }
@@ -447,39 +444,28 @@
 
 .comment .comment-list li p {
   padding: 15px 0 0;
-  /* color: #7c7c7c; */
 }
 
-/* 장르 추천 recommendation */
-/*  */
+/* 장르 추천 recommendation slider*/
 .sliderShow {
-  width: 1160px;
+  width: calc(100% + 20px);
   margin: 0 auto;
   position: relative;
+  left: -10px;
   margin: 50px auto;
   overflow: hidden;
   background-color: transparent;
 }
 
 .items {
-  /* background-color: #fff;
-  display: flex;
-  flex-flow: row wrap; */
   position: relative;
   left: 0;
   top: 0;
   transition: transform 0.5s ease-out;
   display: flex;
-
-  /* width : 400%; */
 }
 
 .genre-card {
-  /* width: 185px;
-  height: 235px;
-  margin-right: 10px;
-  background-color: green;
-  border-radius: 20px; */
   text-align: center;
   padding: 10px;
   list-style-type: none;
@@ -492,24 +478,38 @@
   margin-bottom: 10px;
 }
 
+.slider-btn {
+  width: 100%;
+  position: absolute;
+  top: 40%;
+  display: flex;
+  justify-content: space-between;
+}
+
 .slider-btn span {
   width: 35px;
   height: 35px;
   line-height: 35px;
-  position: absolute;
   background-color: #D9D9D9;
   color: black;
   text-align: center;
   border-radius: 50%;
-  top: 47%;
-  transform: translateY(-50%);
   font-size: 1.3em;
   cursor: pointer;
-
 }
 
 .slider-btn span i {
   padding-top: 2px;
+}
+
+.slider-btn span.prev {
+  position: relative;
+  left: 15px;
+}
+
+.slider-btn span.next {
+  position: relative;
+  right: 15px;
 }
 
 .card-title {
@@ -525,8 +525,18 @@
   right: 5px;
 }
 
+@media only screen and (max-width: 1199px) {
+  .genre-card {
+    width: 33.3333%;
+  }
+}
+
 /* 미디어쿼리 */
-@media only screen and (max-width: 767px) {}
+@media only screen and (max-width: 767px) {
+  .genre-card {
+    width: 50%;
+  }
+}
 
 @media only screen and (max-width: 400px) {
   .view-desktop {
@@ -536,6 +546,5 @@
   .view-mobile {
     display: block;
   }
-
 
 }
