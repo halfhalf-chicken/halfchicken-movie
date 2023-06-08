@@ -276,7 +276,8 @@ const copyURL = async function () {
     alert.error('Failed to copy: ', err);
   }
 };
-document.querySelector('.copythisURL > button').addEventListener('click', copyURL);
+document.querySelectorAll('.copythisURL > button')[0].addEventListener('click', copyURL);
+document.querySelectorAll('.copythisURL > button')[1].addEventListener('click', copyURL);
 
 // sns share facebook
 const shareFacebook = () => window.open('http://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href));
@@ -287,7 +288,7 @@ const shareTwitter = async () => {
   try {
     const movie = await fetchDetail(para);
     const thisTitle = movie['title'];
-    window.open(`http://twitter.com/intent/tweet?text='이 영화 ${thisTitle}을 구경하러오세유'&url=${thisURL}`);
+    window.open(`http://twitter.com/intent/tweet?text='영화 "${thisTitle}" 반드시 구경하러오세유'&url=${thisURL}`);
   } catch (error) {
     alert.error('Failed to share', err);
   }
@@ -307,3 +308,31 @@ const shareNaver = async () => {
   }
 };
 document.querySelector('.NaverImg').addEventListener('click', shareNaver);
+
+// kakao
+// init 체크
+if (!Kakao.isInitialized()) {
+  Kakao.init('f6b9ec2f54f02b2bfb924e9beba10669');
+}
+
+var sendKakao = async function () {
+  // 메시지 공유 함수
+  const movie = await fetchDetail(para);
+  const title = movie['title'];
+  const poster = `https://image.tmdb.org/t/p/w500/${movie['poster_path']}`;
+
+  Kakao.Link.sendDefault({
+    objectType: 'feed', // 메시지 형식 : 피드 타입
+    content: {
+      title: `${title}`,
+      description: `"${title}" 아직 안봤어? 꿀잼이라구! 들어와서 조금 더 살펴봐!`,
+      imageUrl: `${poster}`, // 메인으로 보여질 이미지 주소
+      link: {
+        webUrl: thisURL,
+        mobileWebUrl: thisURL,
+      },
+    },
+  });
+};
+
+document.querySelector('.kakaoImg').addEventListener('click', sendKakao);
