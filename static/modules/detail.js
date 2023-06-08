@@ -135,24 +135,29 @@ async function listGenreMovie() {
     const { id, genre_ids, title, poster_path } = movies;
     const contentId = `${id}`;
     const genreSection = document.querySelector('.genre-list');
-    const card = document.createElement('li');
+    const innerli = document.createElement('li');
+    const img = document.createElement('img');
+    const p = document.createElement('p');
 
-    card.className = 'genre-card';
-    card.innerHTML = `
-                      <img class=card-image src="https://image.tmdb.org/t/p/w500/${poster_path}" alt="${title}" />
-                      <p class="card-title">${title}</p>
-    `;
+    innerli.setAttribute('class', 'genre-card');
+    img.setAttribute('class', 'card-image');
+    img.setAttribute('src', `https://image.tmdb.org/t/p/w500/${poster_path}`);
+    img.setAttribute('alt', title);
+    p.setAttribute('class', 'card-title');
+    p.innerText = title;
 
-    // card클릭 시 해당영화 페이지로
-    card.addEventListener('click', () => {
+    innerli.appendChild(img);
+    innerli.appendChild(p);
+
+    innerli.addEventListener('click', () => {
       location.href = '/detail.html?contentId' + contentId;
     });
 
-    // 장르 교집합 비교. 장르가 1개 이상 같을 경우
+    // 장르가 2개 이상 비슷할 때
     const result = movieGenre.filter(x => genre_ids.includes(x));
-    if (result.length >= 1 && movieId != contentId) {
+    if (result.length >= 2 && movieId != contentId) {
       console.log('비슷한 장르id->' + genre_ids);
-      genreSection.appendChild(card);
+      genreSection.appendChild(innerli);
     }
   });
 }
