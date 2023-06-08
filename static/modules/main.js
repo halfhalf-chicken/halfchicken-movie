@@ -1,5 +1,5 @@
-import { URL } from './fetchurl.js';
-import { OPTIONS } from './options.js';
+import { URL, URLPOPULAR } from './fetchurl.js';
+import { OPTIONS, OPTIONSPOPULAR } from './options.js';
 import { makeCard } from './makecard.js';
 import { scrollTop } from './common.js';
 
@@ -10,6 +10,13 @@ async function fetchMovie() {
   const movies = data.results;
   return movies;
 }
+async function fetchMoviePop() {
+  const popResponse = await fetch(URLPOPULAR, OPTIONSPOPULAR);
+  const popData = await popResponse.json();
+  const moviesPopular = popData.results;
+  return moviesPopular;
+}
+
 //  List card
 async function listMovieCard(arr) {
   if (arr) {
@@ -39,7 +46,11 @@ async function findMovie(e) {
 
   if (matchMovies.length === 0) {
     const $box = document.getElementById('flex-box');
-    $box.innerText = '찾으시는 영화가 없습니다. 검색어를 확인해 주세요.';
+    $box.innerHTML = `<div class="movieNone">찾으시는 영화가 없습니다. 검색어를 확인해 주세요.</div>`;
+  } else if (userMovieTitle.length === 0) {
+    // 검색어가 없을 시
+    alert('검색어를 입력해 주세요');
+    document.getElementById('search-input').focus();
   } else {
     listMovieCard(matchMovies);
   }
@@ -100,6 +111,33 @@ const sortingName = document.querySelector('.sorting-name');
 const sortingAvg = document.querySelector('.sorting-avg');
 const sortingRel = document.querySelector('.sorting-release');
 const $box = document.getElementById('flex-box');
+const moreBtn = document.getElementById('more-btn');
+
+// 리스팅
+moreBtn.addEventListener('click', function () {
+  moreBtn.style.opacity = 0;
+  moreListing();
+  $box.classList.add('show');
+});
+
+async function moreListing() {
+  const movies = await fetchMovie();
+  const moviesPopular = await fetchMoviePop();
+  // 데이터 아예 합치기
+  const newArray = movies.concat(moviesPopular);
+  const double = newArray.reduce(function (acc, current) {
+    if (acc.findIndex(({ id }) => id === current.id) === -1) {
+      acc.push(current);
+    }
+    return acc;
+  }, []);
+  const double2 = moviesPopular.filter((a, b) => {
+    return a.id !== b.id ? 1 : -1;
+  });
+  $box.innerHTML = '';
+  console.log('double2', double2);
+  makeCard(double);
+}
 
 // 인기순 정렬
 async function popSorting() {
