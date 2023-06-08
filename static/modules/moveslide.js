@@ -2,10 +2,10 @@ export function moveSlide(movies) {
   const slides = document.querySelector('.items');
   const slideCount = movies.length;
   let screenWidth = window.innerWidth;
-  if (screenWidth < 1200) {
-    slides.style.width = 33.333 * slideCount + '%';
-  } else if (screenWidth < 768) {
-    slides.style.width = 50 * slideCount + '%';
+  if (screenWidth < 768) {
+    slides.style.width = 50 * slideCount + '%'; // 2개
+  } else if (screenWidth < 1200) {
+    slides.style.width = 33.333 * slideCount + '%'; //3개
   } else {
     slides.style.width = 20 * slideCount + '%';
   }
@@ -18,7 +18,7 @@ export function moveSlide(movies) {
   if (slideCount <= 5) {
     document.querySelector('.slider-btn').style.display = 'none';
   } else {
-    document.querySelector('.slider-btn').style.display = 'grid';
+    document.querySelector('.slider-btn').style.display = 'flex';
   }
 
   prev.addEventListener('click', function () {
