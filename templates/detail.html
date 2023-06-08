@@ -16,6 +16,9 @@
     <script type="module" src="../static/modules/detail.js"></script>
     <!-- Web Icon -->
     <script src="https://kit.fontawesome.com/a881f3a9e8.js" crossorigin="anonymous"></script>
+
+    <!-- kakao sdk import -->
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
   </head>
   <body>
     <header id="header-wrap">
@@ -32,6 +35,27 @@
     </header>
     <main class="container">
       <section class="movie-details">
+        <div class="show-shareBtn"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+        <div class="share-box none">
+          <ul class="share-btn-box">
+            <li class="kakaoImg">
+              <img src="../static/img/kakaoIcon.png" alt="" />
+            </li>
+            <li class="NaverImg">
+              <img src="../static/img/naverblogIcon.png" alt="" />
+            </li>
+            <li class="facebookImg">
+              <img src="../static/img/facebookIcon.png" alt="" />
+            </li>
+            <li class="twitterImg">
+              <img src="../static/img/twitterIcon.png" alt="" />
+            </li>
+          </ul>
+          <div class="pageurl-copybox">
+            <div class="copythisURL"><button>URL 복사</button></div>
+          </div>
+        </div>
+
         <div class="movie-imgInfo">
           <div class="movie-title view-mobile">
             <h3 class="movieTitle view-mobile">영화제목</h3>
@@ -56,7 +80,7 @@
               </li>
               <li class="avg">
                 <span>평점</span>
-                <span><i class="fa-solid fa-star"></i> 6.9</span>
+                <span><i class="fa-solid fa-star" style="color: red"></i></span>
               </li>
               <li class="genres">
                 <span>장르</span>
@@ -114,14 +138,14 @@
           <div class="btn-area">
             <button type="button" class="edit-finish-btn">수정</button>
             <button type="button" class="edit-delete-btn">삭제</button>
-            <button type="reset" class="edit-cancle-btn" >취소</button>
+            <button type="reset" class="edit-cancle-btn">취소</button>
             <button type="submit" id="submit-btn" class="submit-btn btn-active">등록</button>
           </div>
         </form>
         <div class="comment-list">
           <ul>
             <!-- <li>
-              <div>
+              <div class="name-container">
                 <span class="user-name">Name</span>
                 <butt on class="edit-btn">수정</butt>
                 <button class="del-btn">삭제</button>
@@ -144,10 +168,21 @@
       </section>
     </main>
     <footer>
-      <ul>
-        <li>홈</li>
-        <li>랭킹</li>
-      </ul>
+      <div class="footWrap">
+        <ul>
+          <li class="bold">내일배움캠프</li>
+          <li>React 6</li>
+          <li>&copy; 2023. halfhalfChicken7 All rights reserved.</li>
+        </ul>
+        <ul class="sns">
+          <li>
+            <a href="https://github.com/halfhalf-chicken/halfchicken-movie" target="_blank"><i class="fab fa-brands fa-github"></i></a>
+          </li>
+          <li>
+            <a href="https://www.notion.so/fcdd098d699d4583a94caae6a3eff5d6" target="_blank"><img src="../static/img/notion.svg" alt="" /></a>
+          </li>
+        </ul>
+      </div>
     </footer>
     <aside>
       <nav>

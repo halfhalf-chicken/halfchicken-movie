@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="../static/css/main.css" />
 
     <script type="module" src="../static/modules/main.js"></script>
+    <!-- Web Icon -->
+    <script src="https://kit.fontawesome.com/a881f3a9e8.js" crossorigin="anonymous"></script>
   </head>
   <body>
     <header>
@@ -44,10 +46,13 @@
                   <button type="button" value="1" class="dropdown-option sorting-pop">인기순</button>
                 </li>
                 <li class="dropdown-item">
-                  <button type="button" value="1" class="dropdown-option sorting-name">이름순</button>
+                  <button type="button" value="2" class="dropdown-option sorting-name">이름순</button>
                 </li>
                 <li class="dropdown-item">
-                  <button type="button" value="2" class="dropdown-option sorting-avg">평점순</button>
+                  <button type="button" value="3" class="dropdown-option sorting-avg">평점순</button>
+                </li>
+                <li class="dropdown-item">
+                  <button type="button" value="4" class="dropdown-option sorting-release">최신순</button>
                 </li>
               </ul>
             </div>
@@ -57,6 +62,23 @@
         <!-- 영화 리스트 -->
         <div id="flex-box"></div>
       </section>
+      <footer>
+        <div class="footWrap">
+          <ul>
+            <li class="bold">내일배움캠프</li>
+            <li>React 6</li>
+            <li>&copy; 2023. halfhalfChicken7 All rights reserved.</li>
+          </ul>
+          <ul class="sns">
+            <li>
+              <a href="https://github.com/halfhalf-chicken/halfchicken-movie" target="_blank"><i class="fab fa-brands fa-github"></i></a>
+            </li>
+            <li>
+              <a href="https://www.notion.so/fcdd098d699d4583a94caae6a3eff5d6" target="_blank"><img src="../static/img/notion.svg" alt="" /></a>
+            </li>
+          </ul>
+        </div>
+      </footer>
 
       <aside>
         <nav>
