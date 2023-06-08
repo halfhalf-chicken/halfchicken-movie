@@ -201,7 +201,7 @@ async function editReview() {
   }
   let userpw = pwInput.value;
   let checkPwResult = await checkPw(editReviewId, userpw);
-  fetchEditReview(checkPwResult, editReviewId);
+  await fetchEditReview(checkPwResult, editReviewId);
 }
 
 const editCancleBtn = document.querySelector('.edit-cancle-btn');
