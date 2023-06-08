@@ -43,10 +43,10 @@ def post_review():
 @app.route("/reviews/update", methods=["PUT"])
 def modify_review():
     id_receive = request.form['_id_give']
-    content_receive = request.form['comment_give']
+    content_receive = request.form['content_give']
 
     doc = {
-        'comment' : content_receive
+        'content' : content_receive
     }
 
     db.reviews.update_one({"_id": ObjectId(id_receive)}, {"$set" : doc})

@@ -46,9 +46,9 @@
 }
 
 /* 현재페이지 링크 공유 */
-/* .none {
+.none {
   display: none;
-} */
+}
 
 .show-shareBtn {
   position: absolute;
@@ -211,6 +211,10 @@
 .movie-detail-inner {
   width: 250px;
   line-height: 2;
+}
+
+.movie-detail-inner:nth-child(1) {
+  margin-right: 30px;
 }
 
 .movie-detail-inner>li>span:nth-child(1) {
