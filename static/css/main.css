@@ -212,7 +212,6 @@ header h1 a {
 #flex-box {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
   margin: 0 auto 50px;
   padding: 0 20px;
   font-size: 14px;
@@ -296,7 +295,7 @@ header h1 a {
 .movie-sort .dropdown {
   width: 100%;
   z-index: 1;
-  margin-left: 0.5vw;
+  /* margin-left: 0.5vw; */
   margin-bottom: 8px;
 }
 
@@ -379,9 +378,6 @@ header h1 a {
   /* 정렬  */
   .movie-sort {
     margin-bottom: 0;
-  }
-
-  .movie-sort .dropdown {
     margin-left: 1vw;
   }
 }
@@ -391,7 +387,7 @@ header h1 a {
     width: 1200px;
   }
 
-  .movie-sort .dropdown {
+  .movie-sort {
     margin-left: 0.5vw;
   }
 
@@ -466,5 +462,4 @@ nav button {
   nav button {
     right: 60px;
   }
-
 }
