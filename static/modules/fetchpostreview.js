@@ -1,8 +1,8 @@
 import { nameInput, commentInput, pwInput } from './input.js';
 
-export async function fetchPostReview(validation, para) {
+export async function fetchPostReview(validation, PARA) {
   if (validation) {
-    let movieId = para;
+    let movieId = PARA;
     let author = nameInput.value;
     let content = commentInput.value;
     let userPw = pwInput.value;
