@@ -447,26 +447,76 @@
 }
 
 /* 장르 추천 recommendation */
-.recommendation {
+/*  */
+.sliderShow {
+
+  width: 1160px;
+
+  height: 345px;
+
+  margin: 0 auto;
+
   position: relative;
-  height: 300px;
-}
 
-.recommendation .slider ul {
+  margin: 50px auto;
+
+  overflow: hidden;
+
+  background-color: transparent;
+}
+.items {
+  /* background-color: #fff;
   display: flex;
+  flex-flow: row wrap; */
+  position: relative;
+  left: 0;
+  top: 0;
+  transition: transform 0.5s ease-out;
+  display: flex;
+  
+  /* width : 400%; */
 }
-
-.recommendation .slider ul li {
-  width: 185px;
+.genre-card {
+  /* width: 185px;
   height: 235px;
   margin-right: 10px;
-  overflow: hidden;
-  background-color: #fff;
+  background-color: green;
+  border-radius: 20px; */
+  text-align: center;
+  padding: 10px;
+  list-style-type: none;
+  width: 20%;
 }
 
-.recommendation .slider-btn {
+.card-image {
+  width: 90%;
+  border-radius: 10px;
+  margin-bottom : 10px;
+}
+
+.slider-btn span {
   position: absolute;
-  top: 45%;
+
+  background-color: #D9D9D9;
+
+  color: black;
+  text-align: center;
+  border-radius: 50%;
+  padding: 10px 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.3em;
+  cursor: pointer;
+
+}
+.card-title{
+  text-align: center;
+}
+.prev{
+  left: 5px;
+}
+.next {
+  right : 5px;
 }
 
 /* 미디어쿼리 */
@@ -480,4 +530,7 @@
   .view-mobile {
     display: block;
   }
+
+
 }
+
