@@ -245,6 +245,7 @@ const listingTMDBReview = async payload => {
     btn1.setAttribute('class', 'edit-btn');
     btn2.setAttribute('class', 'del-btn');
     span.setAttribute('class', 'user-name');
+    div.setAttribute('class', 'name-container');
 
     div.append(span, btn1, btn2);
     li.append(div, p);
