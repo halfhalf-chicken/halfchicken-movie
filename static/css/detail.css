@@ -46,9 +46,9 @@
 }
 
 /* 현재페이지 링크 공유 */
-/* .none {
+.none {
   display: none;
-} */
+}
 
 .show-shareBtn {
   position: absolute;
@@ -453,19 +453,11 @@
 /* 장르 추천 recommendation */
 /*  */
 .sliderShow {
-
   width: 1160px;
-
-  height: 345px;
-
   margin: 0 auto;
-
   position: relative;
-
   margin: 50px auto;
-
   overflow: hidden;
-
   background-color: transparent;
 }
 
@@ -509,7 +501,7 @@
   color: black;
   text-align: center;
   border-radius: 50%;
-  top: 50%;
+  top: 47%;
   transform: translateY(-50%);
   font-size: 1.3em;
   cursor: pointer;
@@ -522,6 +514,7 @@
 
 .card-title {
   text-align: center;
+  color: #a1a1a1;
 }
 
 .prev {
