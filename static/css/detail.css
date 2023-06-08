@@ -46,9 +46,9 @@
 }
 
 /* 현재페이지 링크 공유 */
-.none {
+/* .none {
   display: none;
-}
+} */
 
 .show-shareBtn {
   position: absolute;
@@ -71,8 +71,8 @@
   position: absolute;
   top: 115px;
   right: 10px;
-  width: 180px;
-  height: 180px;
+  width: 150px;
+  height: 150px;
   background-color: white;
   border-radius: 3px;
 
@@ -80,7 +80,7 @@
 }
 
 .share-btn-box {
-  padding: 20px 30px;
+  padding: 15px 20px 10px;
   height: 80%;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -91,10 +91,19 @@
   ;
 }
 
+.share-btn-box li:hover {
+  filter: brightness(0.8)
+}
+
+.share-btn-box li {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
 .NaverImg, .twitterImg, .kakaoImg, .facebookImg {
   width: 40px;
   height: 40px;
   border-radius: 100%;
+  overflow: hidden;
 }
 
 .facebookImg {
@@ -237,7 +246,7 @@
   }
 
   .share-box {
-    top: 170px;
+    top: 202px;
   }
 }
 
@@ -402,10 +411,14 @@
   overflow: hidden;
 }
 
+/* TODO  */
 .comment .comment-list li span {
   width: 80%;
   display: block;
-  float: left;
+  font-size: 20px;
+  height: 100%;
+  font-style: oblique;
+  text-shadow: 2px 0px 2px;
 }
 
 .comment .comment-list li button {
@@ -415,8 +428,6 @@
   font-size: 18px;
   text-align: center;
   vertical-align: middle;
-  display: flex;
-  flex-direction: row-reverse;
 
   cursor: pointer;
   margin-right: 5px;
@@ -427,14 +438,7 @@
   height: 100%;
   font-size: 30px;
   font-style: oblique;
-}
-
-.comment .comment-list li span {
-  height: 100%;
-  font-size: 30px;
-  font-style: oblique;
-  text-shadow: 2px 0px 2px;
-  vertical-align: middle;
+  display: flex;
 }
 
 .comment .comment-list li p {
