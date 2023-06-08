@@ -1,4 +1,13 @@
 import { OPTIONSDETAIL } from './options.js';
+import { fetchDelete } from './fetchdelete.js';
+import { getMongoReviews } from './getmongoreviews.js';
+import { fetchPostReview } from './fetchpostreview.js';
+import { fetchEditReview } from './fetcheditreview.js';
+import { makeMongoList } from './makemongolist.js';
+import { checkPw } from './checkpw.js';
+import { validationCheck } from './validationcheck.js';
+import { checkDB } from './checkdb.js';
+import { nameInput, commentInput, pwInput } from './input.js';
 import { scrollTop } from './common.js';
 
 //  Top btn
@@ -6,7 +15,6 @@ const $topBtn = document.querySelector('aside nav button');
 $topBtn.addEventListener('click', scrollTop);
 
 // jieun
-
 async function fetchDetail(movieId) {
   // get detail data
   const mostResponse = await fetch(`https://api.themoviedb.org/3/movie/${movieId}?language=ko-KR`, OPTIONSDETAIL);
@@ -124,41 +132,15 @@ listDetailMovie();
 
 //  jincheol
 const reviewForm = document.review;
-const nameInput = document.getElementById('name-input');
-const commentInput = document.getElementById('comment-input');
-const pwInput = document.getElementById('pw-input');
 
 reviewForm.addEventListener('submit', e => {
   e.preventDefault();
   postReview();
-  location.reload();
 });
 
 async function postReview() {
-  let movieId = para;
-  let userName = nameInput.value;
-  let userComment = commentInput.value;
-  let userPw = pwInput.value;
-
-  let formData = new FormData();
-  formData.append('movie_give', movieId);
-  formData.append('name_give', userName);
-  formData.append('comment_give', userComment);
-  formData.append('pw_give', userPw);
-
-  const response = await fetch('/reviews/upload', {
-    method: 'POST',
-    body: formData,
-  });
-  const data = await response.json();
-  console.log(data['msg']);
-}
-
-async function getMongoReviews() {
-  const response = await fetch('/reviews/read');
-  const data = await response.json();
-  const reviews = data.result;
-  return reviews;
+  let validation = validationCheck();
+  fetchPostReview(validation, para);
 }
 
 const commentArea = document.querySelector('.comment-list ul');
@@ -167,29 +149,7 @@ async function listingMongoReviews() {
   const matchReview = reviews.filter(item => {
     return item.movie === para;
   });
-
-  matchReview.forEach(item => {
-    let { comment, name, _id } = item;
-    const li = document.createElement('li');
-    const div = document.createElement('div');
-    const span = document.createElement('span');
-    const btn1 = document.createElement('button');
-    const btn2 = document.createElement('button');
-    const p = document.createElement('p');
-
-    span.innerText = name;
-    btn1.innerText = '수정';
-    btn2.innerText = '삭제';
-    p.innerText = comment;
-    li.setAttribute('id', _id);
-    btn1.setAttribute('class', 'edit-btn');
-    btn2.setAttribute('class', 'del-btn');
-    span.setAttribute('class', 'user-name');
-
-    div.append(span, btn1, btn2);
-    li.append(div, p);
-    commentArea.append(li);
-  });
+  makeMongoList(matchReview);
 }
 
 listingMongoReviews();
@@ -198,52 +158,21 @@ commentArea.addEventListener('click', deleteReview);
 async function deleteReview(e) {
   if (e.target.className !== 'del-btn') return false;
   let _id = e.target.closest('li').getAttribute('id');
-
   let userPw = prompt('비밀번호를 입력해 주세요');
   let checkPwResult = await checkPw(_id, userPw);
-
-  if (!checkPwResult) {
-    alert('비밀번호를 확인해 주세요');
-    return false;
-  } else {
-    if (confirm('정말 삭제하시겠습니까?')) {
-      let formData = new FormData();
-      formData.append('_id_give', _id);
-      const response = await fetch('/reviews/delete', { method: 'DELETE', body: formData });
-      const msg = await response.json();
-      alert(msg['msg']);
-      location.reload();
-    } else {
-      return false;
-    }
-  }
-}
-
-async function checkPw(_id, userPw) {
-  const reviews = await getMongoReviews();
-  let matchMovie = reviews.find(item => item._id === _id);
-  let originPw = matchMovie.pw;
-
-  if (originPw === userPw) {
-    return true;
-  } else {
-    return false;
-  }
+  fetchDelete(checkPwResult, _id);
 }
 
 let editReviewId = null;
 commentArea.addEventListener('click', clickEditBtn);
-async function clickEditBtn(e) {
+function clickEditBtn(e) {
   if (e.target.className !== 'edit-btn') return false;
   let _id = e.target.closest('li').getAttribute('id');
-  toggleBtn('edit-btn');
   editReviewId = _id;
-  const reviews = await getMongoReviews();
-  let matchMovie = reviews.find(item => item._id === _id);
-  let { name, comment, pw } = matchMovie;
-  nameInput.value = name;
-  commentInput.value = comment;
-  // nameInput.setAttribute('disabled', true);
+  checkDB(_id, e.target);
+  toggleBtn('edit-btn');
+  nameInput.setAttribute('disabled', true);
+  nameInput.style.filter = 'brightness(0.8)';
 }
 
 const editDeleteBtn = document.querySelector('.edit-delete-btn');
@@ -255,22 +184,7 @@ async function clickDeleteBtn() {
     return false;
   }
   let checkPwResult = await checkPw(editReviewId, userPw);
-  if (!checkPwResult) {
-    alert('비밀번호를 확인해 주세요');
-    pwInput.focus();
-    return false;
-  } else {
-    if (confirm('정말 삭제하시겠습니까?')) {
-      let formData = new FormData();
-      formData.append('_id_give', editReviewId);
-      const response = await fetch('/reviews/delete', { method: 'DELETE', body: formData });
-      const msg = await response.json();
-      alert(msg['msg']);
-      location.reload();
-    } else {
-      return false;
-    }
-  }
+  fetchDelete(checkPwResult, editReviewId);
 }
 
 const editFinishBtn = document.querySelector('.edit-finish-btn');
@@ -285,28 +199,14 @@ async function editReview() {
   }
   let userpw = pwInput.value;
   let checkPwResult = await checkPw(editReviewId, userpw);
-  if (!checkPwResult) {
-    alert('비밀번호를 확인해 주세요');
-    pwInput.focus();
-    return false;
-  } else {
-    let userComment = commentInput.value;
-    let _id = editReviewId;
-    let formData = new FormData();
-    formData.append('_id_give', _id);
-    formData.append('comment_give', userComment);
-
-    const response = await fetch('/reviews/update', { method: 'PUT', body: formData });
-    const msg = await response.json();
-    alert(msg['msg']);
-    location.reload();
-  }
+  fetchEditReview(checkPwResult, editReviewId);
 }
 
 const editCancleBtn = document.querySelector('.edit-cancle-btn');
 editCancleBtn.addEventListener('click', () => {
   toggleBtn();
-  nameInput.setAttribute('disabled', false);
+  nameInput.removeAttribute('disabled');
+  nameInput.style.filter = 'brightness(1)';
 });
 
 function toggleBtn(btn) {
