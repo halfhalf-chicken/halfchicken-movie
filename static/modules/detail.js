@@ -127,7 +127,7 @@ async function fetchMovie() {
   return movies;
 }
 
-// 장르 추천
+// 장르 추천(song)
 async function listGenreMovie() {
   const movies = await fetchMovie();
   const movie = await fetchDetail(para);
@@ -137,18 +137,20 @@ async function listGenreMovie() {
   for (var a of movie['genres']) {
     movieGenre.push(a.id);
   }
-  console.log('영화 장르id->' + movieGenre);
+  // console.log('영화 장르id->' + movieGenre);
+
+  let result2 = [];
 
   movies.forEach(movies => {
     const { id, genre_ids, title, poster_path } = movies;
     const contentId = `${id}`;
-    const genreSection = document.querySelector('.genre-list');
+    const genreSection = document.querySelector('.items');
     const card = document.createElement('li');
 
     card.className = 'genre-card';
     card.innerHTML = `
-                      <img class=card-image src="https://image.tmdb.org/t/p/w500/${poster_path}" alt="${title}" />
-                      <p class="card-title">${title}</p>
+                     <img class=card-image src="https://image.tmdb.org/t/p/w500/${poster_path}" alt="${title}" />
+                      <p class="card-title">${title}</p>           
     `;
 
     // card클릭 시 해당영화 페이지로
@@ -159,10 +161,12 @@ async function listGenreMovie() {
     // 장르 교집합 비교. 장르가 1개 이상 같을 경우
     const result = movieGenre.filter(x => genre_ids.includes(x));
     if (result.length >= 1 && movieId != contentId) {
-      console.log('비슷한 장르id->' + genre_ids);
+      // console.log('비슷한 장르id->' + genre_ids);
       genreSection.appendChild(card);
+      result2.push(result);
     }
   });
+  slidShow(result2);
 }
 
 // take the movie id from this page
@@ -171,6 +175,51 @@ const para = document.location.href.split('contentId')[1];
 fetchDetail(para);
 listDetailMovie();
 listGenreMovie();
+
+// jin woo
+
+async function slidShow(datas) {
+  let movies = await datas;
+  const slides = document.querySelector('.items'); //전체 슬라이드 컨테이너
+  console.log(slides)
+  const slideCount = movies.length; // 슬라이드 개수
+  slides.style.width = 20 * slideCount + "%";
+  slides.style.minWidth = "100%"
+  
+  let sW = slides.offsetWidth;
+  
+  const prev = document.querySelector('.prev'); //이전 버튼
+  const next = document.querySelector('.next'); //다음 버튼
+  let clickCount = 0; //  3개까지.
+
+  prev.addEventListener('click', function () {
+    if (clickCount === 0) {
+      return false
+    } else {
+      clickCount--;
+      let posX = clickCount * sW / slideCount;
+      
+      slides.style.transform = `translateX(-${posX}px)`;
+    }
+
+  });
+
+  next.addEventListener('click', function () {
+    if (clickCount < slideCount - 5) {
+      clickCount++;
+      let posX = clickCount * sW / slideCount;
+      console.log(posX)
+      slides.style.transform = `translateX(-${posX}px)`;
+    } else {
+      return false
+    }
+
+  });
+}
+
+
+
+
 
 //  jincheol
 const reviewForm = document.review;
