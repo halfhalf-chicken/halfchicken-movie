@@ -22,6 +22,7 @@
   width: 0;
   left: 0;
   position: absolute;
+  display: none;
   /* 하이드 보통 어떻게 숨기져? */
 }
 
@@ -29,6 +30,7 @@
   max-width: 1200px;
   padding: 1px 20px;
   margin: 0 auto;
+  padding-top: 120px;
 }
 
 /* 영화정보 details */
