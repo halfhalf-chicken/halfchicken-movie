@@ -1,4 +1,7 @@
-/* common */
+* {
+  font-size: 16px;
+}
+
 .view-desktop {
   display: block;
 }
@@ -29,7 +32,6 @@
   margin: 0 auto;
   padding-top: 120px;
 }
-
 
 /* 영화정보 details */
 .movie-details {
@@ -367,6 +369,7 @@
 .comment form {
   width: 100%;
   position: relative;
+  border-radius: 10px;
   padding: 20px 20px 10px;
   background-color: #f3f3f3;
 }
@@ -428,7 +431,7 @@
 .comment .comment-list li {
   width: 100%;
   height: auto;
-  padding: 30px 30px;
+  padding: 30px 20px 30px 30px;
   position: relative;
   overflow: hidden;
 
@@ -450,22 +453,29 @@
 
 .comment .comment-list li button {
   display: inline-block;
-  height: 40px;
+  height: 36px;
   width: 90px;
-
-  font-size: 90%;
+  font-size: 18px;
   text-align: center;
   vertical-align: middle;
+  float: right;
 
   cursor: pointer;
   margin-right: 5px;
   border-radius: 2px;
 }
 
-.user-name {
+.comment .comment-list li div {
+  height: 100%;
   font-size: 30px;
   font-style: oblique;
-  /* color: #7c7c7c; */
+}
+.comment .comment-list li span {
+  height: 100%;
+  font-size: 30px;
+  font-style: oblique;
+  text-shadow: 2px 0px 2px;
+  vertical-align: middle;
 }
 
 .comment .comment-list li p {
