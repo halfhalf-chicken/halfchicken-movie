@@ -8,6 +8,11 @@ import { checkPw } from './checkpw.js';
 import { validationCheck } from './validationcheck.js';
 import { checkDB } from './checkdb.js';
 import { nameInput, commentInput, pwInput } from './input.js';
+import { scrollTop } from './common.js';
+
+//  Top btn
+const $topBtn = document.querySelector('aside nav button');
+$topBtn.addEventListener('click', scrollTop);
 
 // jieun
 async function fetchDetail(movieId) {
@@ -146,6 +151,7 @@ async function listingMongoReviews() {
   });
   makeMongoList(matchReview);
 }
+
 listingMongoReviews();
 
 commentArea.addEventListener('click', deleteReview);
