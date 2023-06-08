@@ -1,4 +1,14 @@
 import { OPTIONSDETAIL } from './options.js';
+import { fetchDelete } from './fetchdelete.js';
+import { getMongoReviews } from './getmongoreviews.js';
+import { fetchPostReview } from './fetchpostreview.js';
+import { fetchEditReview } from './fetcheditreview.js';
+import { makeMongoList } from './makemongolist.js';
+import { checkPw } from './checkpw.js';
+import { validationCheck } from './validationcheck.js';
+import { checkDB } from './checkdb.js';
+import { nameInput, commentInput, pwInput } from './input.js';
+import { moveToEditForm } from './movetoeditform.js';
 import { scrollTop } from './common.js';
 import { URL } from './fetchurl.js';
 
@@ -10,7 +20,6 @@ $topBtn.addEventListener('click', scrollTop);
 
 
 // jieun
-
 async function fetchDetail(movieId) {
   // get detail data
   const mostResponse = await fetch(`https://api.themoviedb.org/3/movie/${movieId}?language=ko-KR`, OPTIONSDETAIL);
@@ -117,7 +126,7 @@ async function listDetailMovie() {
   document.querySelectorAll('.movie-story > p')[0].innerText = overview;
   document.querySelectorAll('.movie-story > p')[1].innerText = overview;
   document.querySelector('.movie-poster > img').setAttribute('src', poster_path);
-  document.querySelectorAll('.avg > span')[1].innerText = vote_average.toFixed(1);
+  document.querySelectorAll('.avg > span')[1].append(` ${vote_average.toFixed(1)}`);
 }
 
 async function fetchMovie() {
@@ -233,41 +242,15 @@ async function slidShow(datas) {
 
 //  jincheol
 const reviewForm = document.review;
-const nameInput = document.getElementById('name-input');
-const commentInput = document.getElementById('comment-input');
-const pwInput = document.getElementById('pw-input');
 
 reviewForm.addEventListener('submit', e => {
   e.preventDefault();
   postReview();
-  location.reload();
 });
 
 async function postReview() {
-  let movieId = para;
-  let userName = nameInput.value;
-  let userComment = commentInput.value;
-  let userPw = pwInput.value;
-
-  let formData = new FormData();
-  formData.append('movie_give', movieId);
-  formData.append('name_give', userName);
-  formData.append('comment_give', userComment);
-  formData.append('pw_give', userPw);
-
-  const response = await fetch('/reviews/upload', {
-    method: 'POST',
-    body: formData,
-  });
-  const data = await response.json();
-  console.log(data['msg']);
-}
-
-async function getMongoReviews() {
-  const response = await fetch('/reviews/read');
-  const data = await response.json();
-  const reviews = data.result;
-  return reviews;
+  let validation = validationCheck();
+  fetchPostReview(validation, para);
 }
 
 const commentArea = document.querySelector('.comment-list ul');
@@ -276,29 +259,7 @@ async function listingMongoReviews() {
   const matchReview = reviews.filter(item => {
     return item.movie === para;
   });
-
-  matchReview.forEach(item => {
-    let { comment, name, _id } = item;
-    const li = document.createElement('li');
-    const div = document.createElement('div');
-    const span = document.createElement('span');
-    const btn1 = document.createElement('button');
-    const btn2 = document.createElement('button');
-    const p = document.createElement('p');
-
-    span.innerText = name;
-    btn1.innerText = '수정';
-    btn2.innerText = '삭제';
-    p.innerText = comment;
-    li.setAttribute('id', _id);
-    btn1.setAttribute('class', 'edit-btn');
-    btn2.setAttribute('class', 'del-btn');
-    span.setAttribute('class', 'user-name');
-
-    div.append(span, btn1, btn2);
-    li.append(div, p);
-    commentArea.append(li);
-  });
+  makeMongoList(matchReview);
 }
 
 listingMongoReviews();
@@ -307,52 +268,22 @@ commentArea.addEventListener('click', deleteReview);
 async function deleteReview(e) {
   if (e.target.className !== 'del-btn') return false;
   let _id = e.target.closest('li').getAttribute('id');
-
   let userPw = prompt('비밀번호를 입력해 주세요');
   let checkPwResult = await checkPw(_id, userPw);
-
-  if (!checkPwResult) {
-    alert('비밀번호를 확인해 주세요');
-    return false;
-  } else {
-    if (confirm('정말 삭제하시겠습니까?')) {
-      let formData = new FormData();
-      formData.append('_id_give', _id);
-      const response = await fetch('/reviews/delete', { method: 'DELETE', body: formData });
-      const msg = await response.json();
-      alert(msg['msg']);
-      location.reload();
-    } else {
-      return false;
-    }
-  }
-}
-
-async function checkPw(_id, userPw) {
-  const reviews = await getMongoReviews();
-  let matchMovie = reviews.find(item => item._id === _id);
-  let originPw = matchMovie.pw;
-
-  if (originPw === userPw) {
-    return true;
-  } else {
-    return false;
-  }
+  fetchDelete(checkPwResult, _id);
 }
 
 let editReviewId = null;
 commentArea.addEventListener('click', clickEditBtn);
-async function clickEditBtn(e) {
+function clickEditBtn(e) {
   if (e.target.className !== 'edit-btn') return false;
   let _id = e.target.closest('li').getAttribute('id');
-  toggleBtn('edit-btn');
   editReviewId = _id;
-  const reviews = await getMongoReviews();
-  let matchMovie = reviews.find(item => item._id === _id);
-  let { name, comment, pw } = matchMovie;
-  nameInput.value = name;
-  commentInput.value = comment;
-  // nameInput.setAttribute('disabled', true);
+  checkDB(_id, e.target);
+  toggleBtn('edit-btn');
+  moveToEditForm();
+  nameInput.setAttribute('disabled', true);
+  nameInput.style.filter = 'brightness(0.8)';
 }
 
 const editDeleteBtn = document.querySelector('.edit-delete-btn');
@@ -364,22 +295,7 @@ async function clickDeleteBtn() {
     return false;
   }
   let checkPwResult = await checkPw(editReviewId, userPw);
-  if (!checkPwResult) {
-    alert('비밀번호를 확인해 주세요');
-    pwInput.focus();
-    return false;
-  } else {
-    if (confirm('정말 삭제하시겠습니까?')) {
-      let formData = new FormData();
-      formData.append('_id_give', editReviewId);
-      const response = await fetch('/reviews/delete', { method: 'DELETE', body: formData });
-      const msg = await response.json();
-      alert(msg['msg']);
-      location.reload();
-    } else {
-      return false;
-    }
-  }
+  fetchDelete(checkPwResult, editReviewId);
 }
 
 const editFinishBtn = document.querySelector('.edit-finish-btn');
@@ -394,28 +310,14 @@ async function editReview() {
   }
   let userpw = pwInput.value;
   let checkPwResult = await checkPw(editReviewId, userpw);
-  if (!checkPwResult) {
-    alert('비밀번호를 확인해 주세요');
-    pwInput.focus();
-    return false;
-  } else {
-    let userComment = commentInput.value;
-    let _id = editReviewId;
-    let formData = new FormData();
-    formData.append('_id_give', _id);
-    formData.append('comment_give', userComment);
-
-    const response = await fetch('/reviews/update', { method: 'PUT', body: formData });
-    const msg = await response.json();
-    alert(msg['msg']);
-    location.reload();
-  }
+  fetchEditReview(checkPwResult, editReviewId);
 }
 
 const editCancleBtn = document.querySelector('.edit-cancle-btn');
 editCancleBtn.addEventListener('click', () => {
   toggleBtn();
-  nameInput.setAttribute('disabled', false);
+  nameInput.removeAttribute('disabled');
+  nameInput.style.filter = 'brightness(1)';
 });
 
 function toggleBtn(btn) {
@@ -454,6 +356,7 @@ const listingTMDBReview = async payload => {
     btn1.setAttribute('class', 'edit-btn');
     btn2.setAttribute('class', 'del-btn');
     span.setAttribute('class', 'user-name');
+    div.setAttribute('class', 'name-container');
 
     div.append(span, btn1, btn2);
     li.append(div, p);
@@ -478,7 +381,92 @@ async function fetchReview() {
 let tmdbReviews = fetchReview();
 listingTMDBReview(tmdbReviews);
 
+// jieun +
 document.querySelector('.story-more-btn').addEventListener('click', () => {
   document.querySelector('.story-second >p').classList.remove('movie-story-close');
   document.querySelector('.story-more-btn').style.display = 'none';
 });
+
+// 공유버튼 hover => class none toggle
+document.querySelector('.show-shareBtn').addEventListener('mouseover', () => {
+  document.querySelector('.share-box').classList.remove('none');
+});
+document.querySelector('.share-box').addEventListener('mouseover', () => {
+  document.querySelector('.share-box').classList.remove('none');
+});
+document.querySelector('.show-shareBtn').addEventListener('mouseout', () => {
+  document.querySelector('.share-box').classList.add('none');
+});
+document.querySelector('.share-box').addEventListener('mouseout', () => {
+  document.querySelector('.share-box').classList.add('none');
+});
+
+const thisURL = document.location.href;
+// copy thisURL to clipboard
+const copyURL = async function () {
+  try {
+    await navigator.clipboard.writeText(thisURL);
+    alert('현재 위치한 URL이 복사되었습니다!');
+  } catch (error) {
+    alert.error('Failed to copy: ', err);
+  }
+};
+document.querySelector('.copythisURL > button').addEventListener('click', copyURL);
+
+// sns share facebook
+const shareFacebook = () => window.open('http://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href));
+document.querySelector('.facebookImg').addEventListener('click', shareFacebook);
+
+// sns share twitter
+const shareTwitter = async () => {
+  try {
+    const movie = await fetchDetail(para);
+    const thisTitle = movie['title'];
+    window.open(`http://twitter.com/intent/tweet?text='영화 "${thisTitle}" 반드시 구경하러오세유'&url=${thisURL}`);
+  } catch (error) {
+    alert.error('Failed to share', err);
+  }
+};
+// const shareTwitter = () => window.open(`http://twitter.com/intent/tweet?text='이것은 영화구먼유'&url=${thisURL}`);
+document.querySelector('.twitterImg').addEventListener('click', shareTwitter);
+
+// sns share NaverBlog
+const shareNaver = async () => {
+  try {
+    const movie = await fetchDetail(para);
+    const thisTitle = movie['title'];
+    const naverShareAPI = encodeURI(`https://share.naver.com/web/shareView?url=${thisURL}&title=${thisTitle}`);
+    window.open(naverShareAPI);
+  } catch (error) {
+    alert.error('Failed to share', err);
+  }
+};
+document.querySelector('.NaverImg').addEventListener('click', shareNaver);
+
+// kakao
+// init 체크
+if (!Kakao.isInitialized()) {
+  Kakao.init('f6b9ec2f54f02b2bfb924e9beba10669');
+}
+
+var sendKakao = async function () {
+  // 메시지 공유 함수
+  const movie = await fetchDetail(para);
+  const title = movie['title'];
+  const poster = `https://image.tmdb.org/t/p/w500/${movie['poster_path']}`;
+
+  Kakao.Link.sendDefault({
+    objectType: 'feed', // 메시지 형식 : 피드 타입
+    content: {
+      title: `${title}`,
+      description: `"${title}" 아직 안봤어? 꿀잼이라구! 들어와서 조금 더 살펴봐!`,
+      imageUrl: `${poster}`, // 메인으로 보여질 이미지 주소
+      link: {
+        webUrl: thisURL,
+        mobileWebUrl: thisURL,
+      },
+    },
+  });
+};
+
+document.querySelector('.kakaoImg').addEventListener('click', sendKakao);
