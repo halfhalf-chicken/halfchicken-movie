@@ -13,9 +13,9 @@ import { nameInput, commentInput, pwInput } from './input.js';
 import { moveToEditForm } from './movetoeditform.js';
 import { scrollTop } from './common.js';
 import { URL } from './fetchurl.js';
-import { countries } from './countries.js';
 import { makeDetailMovieInfo } from './makedetailmovieinfo.js';
 import { moveSlide } from './moveslide.js';
+import { shareboxRemove, shareboxAdd, shareBoxBtn, shareBox } from './shareBox.js';
 
 //  Top btn
 const $topBtn = document.querySelector('aside nav button');
@@ -35,25 +35,7 @@ async function fetchDetail(movieId) {
 
 async function listDetailMovie() {
   const movie = await fetchDetail(PARA);
-  const { enTitle, runtime, title, vote_average } = movie;
-  const poster_path = `https://image.tmdb.org/t/p/w500/${movie['poster_path']}`;
-  const release_date = movie['release_date'].replace(/-/g, '.');
-  const movieYear = movie['release_date'].substr(0, 4);
-
-  let overview = ``;
-  if (movie['overview'] === '') {
-    overview = `줄거리 정보가 없습니다.`;
-  } else {
-    overview = movie['overview'];
-  }
-  let genres = ``;
-  if (movie['genres'].length >= 2) {
-    genres = `${movie['genres'][0]['name']}/${movie['genres'][1]['name']}`;
-  } else {
-    genres = `${movie['genres'][0]['name']}`;
-  }
-  let production_countries = countries(movie);
-  makeDetailMovieInfo(title, movieYear, enTitle, release_date, runtime, production_countries, overview, poster_path, vote_average, genres);
+  makeDetailMovieInfo(movie);
 }
 
 async function fetchMovie() {
@@ -219,21 +201,15 @@ async function fetchTmdbReview() {
 let tmdbReviews = fetchTmdbReview();
 listingTMDBReview(tmdbReviews);
 
-document.querySelector('.story-more-btn').addEventListener('click', () => {
+shareBoxBtn.addEventListener('mouseover', shareboxAdd);
+shareBox.addEventListener('mouseover', shareboxAdd);
+shareBoxBtn.addEventListener('mouseout', shareboxRemove);
+shareBox.addEventListener('mouseout', shareboxRemove);
+
+const moreStoryBtn = document.querySelector('.story-more-btn');
+moreStoryBtn.addEventListener('click', () => {
   document.querySelector('.story-second >p').classList.remove('movie-story-close');
-  document.querySelector('.story-more-btn').style.display = 'none';
-});
-document.querySelector('.show-shareBtn').addEventListener('mouseover', () => {
-  document.querySelector('.share-box').classList.remove('none');
-});
-document.querySelector('.share-box').addEventListener('mouseover', () => {
-  document.querySelector('.share-box').classList.remove('none');
-});
-document.querySelector('.show-shareBtn').addEventListener('mouseout', () => {
-  document.querySelector('.share-box').classList.add('none');
-});
-document.querySelector('.share-box').addEventListener('mouseout', () => {
-  document.querySelector('.share-box').classList.add('none');
+  moreStoryBtn.style.display = 'none';
 });
 
 const THISURL = document.location.href;
@@ -247,10 +223,10 @@ const copyURL = async function () {
 };
 document.querySelector('.copythisURL > button').addEventListener('click', copyURL);
 
-const shareFacebook = () => window.open('http://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(THISURL));
-document.querySelector('.facebookImg').addEventListener('click', shareFacebook);
+const sendFacebook = () => window.open('http://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(THISURL));
+document.querySelector('.facebookImg').addEventListener('click', sendFacebook);
 
-const shareTwitter = async () => {
+const sendTwitter = async () => {
   try {
     const movie = await fetchDetail(PARA);
     const thisTitle = movie['title'];
@@ -259,9 +235,9 @@ const shareTwitter = async () => {
     alert.error('Failed to share', err);
   }
 };
-document.querySelector('.twitterImg').addEventListener('click', shareTwitter);
+document.querySelector('.twitterImg').addEventListener('click', sendTwitter);
 
-const shareNaver = async () => {
+const sendNaver = async () => {
   try {
     const movie = await fetchDetail(PARA);
     const thisTitle = movie['title'];
@@ -271,7 +247,7 @@ const shareNaver = async () => {
     alert.error('Failed to share', err);
   }
 };
-document.querySelector('.NaverImg').addEventListener('click', shareNaver);
+document.querySelector('.NaverImg').addEventListener('click', sendNaver);
 
 if (!Kakao.isInitialized()) {
   Kakao.init('f6b9ec2f54f02b2bfb924e9beba10669');
