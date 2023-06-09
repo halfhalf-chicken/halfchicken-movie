@@ -2,6 +2,9 @@ export function moveSlide(movies) {
   const slides = document.querySelector('.items');
   const slideCount = movies.length;
   let screenWidth = window.innerWidth;
+  let sliderBtndoc = document.querySelector('.slider-btn');
+  
+  
   if (screenWidth < 768) {
     slides.style.width = 50 * slideCount + '%'; // 2개
   } else if (screenWidth < 1200) {
@@ -16,9 +19,9 @@ export function moveSlide(movies) {
   let clickCount = 0;
 
   if (slideCount <= 5) {
-    document.querySelector('.slider-btn').style.display = 'none';
+    sliderBtndoc.style.display = 'none';
   } else {
-    document.querySelector('.slider-btn').style.display = 'flex';
+    sliderBtndoc.style.display = 'flex';
   }
 
   prev.addEventListener('click', function () {
