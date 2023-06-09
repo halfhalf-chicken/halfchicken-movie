@@ -1,4 +1,24 @@
-export function makeDetailMovieInfo(title, movieYear, enTitle, release_date, runtime, production_countries, overview, poster_path, vote_average, genres) {
+import { countries } from './countries.js';
+
+export function makeDetailMovieInfo(movie) {
+  const { enTitle, runtime, title, vote_average } = movie;
+  const poster_path = `https://image.tmdb.org/t/p/w500/${movie['poster_path']}`;
+  const release_date = movie['release_date'].replace(/-/g, '.');
+  const movieYear = movie['release_date'].substr(0, 4);
+
+  let overview = ``;
+  if (movie['overview'] === '') {
+    overview = `줄거리 정보가 없습니다.`;
+  } else {
+    overview = movie['overview'];
+  }
+  let genres = ``;
+  if (movie['genres'].length >= 2) {
+    genres = `${movie['genres'][0]['name']}/${movie['genres'][1]['name']}`;
+  } else {
+    genres = `${movie['genres'][0]['name']}`;
+  }
+  let production_countries = countries(movie);
   document.getElementsByClassName('movieTitle')[0].innerText = title;
   document.getElementsByClassName('movieTitle')[1].innerText = title;
   document.querySelectorAll('.movie-year')[0].innerText = `, ${movieYear}`;
