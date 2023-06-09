@@ -99,6 +99,9 @@ $topBtn.addEventListener('click', scrollTop);
 
 //  Focus input
 const $searchBtn = document.querySelector('.submitBtn');
+const $searchInput = document.querySelector('#search-input');
+$searchInput.addEventListener('focus', () => $searchInput.classList.toggle('btn-focus'));
+$searchInput.addEventListener('blur', () => $searchInput.classList.remove('btn-focus'));
 $searchBtn.addEventListener('focus', () => $searchBtn.classList.toggle('btn-focus'));
 $searchBtn.addEventListener('blur', () => $searchBtn.classList.toggle('btn-focus'));
 $topBtn.addEventListener('focus', () => $topBtn.classList.toggle('btn-focus'));
@@ -128,7 +131,7 @@ const $box = document.getElementById('flex-box');
 
 // 더보기
 moreBtn.addEventListener('click', function () {
-  moreBtn.style.opacity = 0;
+  moreBtn.style.display = 'none';
   moreListing();
   $box.classList.add('show');
 });

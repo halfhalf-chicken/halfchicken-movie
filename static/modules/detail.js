@@ -21,8 +21,8 @@ import { appendGenre } from './makegenre.js';
 import { commentArea, editDeleteBtn, editFinishBtn, editCancleBtn } from './formtag.js';
 
 //  Top btn
-const $topBtn = document.querySelector('aside nav button');
-$topBtn.addEventListener('click', scrollTop);
+const topBtn = document.querySelector('aside nav button');
+topBtn.addEventListener('click', scrollTop);
 
 // jieun
 async function fetchDetail(movieId) {

@@ -1,7 +1,9 @@
 export function makeCard(movies) {
   for (let i in movies) {
-    const { id, title, poster_path, overview, vote_average } = movies[i];
-
+    let { id, title, poster_path, overview, vote_average } = movies[i];
+    if (overview === '') {
+      overview = '줄거리 정보가 없습니다';
+    }
     const $box = document.getElementById('flex-box');
     const outerDiv = document.createElement('div');
     const innerDiv = document.createElement('div');
