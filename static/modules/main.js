@@ -34,8 +34,8 @@ async function listMovieCard(arr) {
       makeCard(arr);
     } else {
       const movies = await fetchMovie();
-      makeCard(movies);    }
-
+      makeCard(movies);
+    }
   } catch (error) {
     throw new Error(`에러가 발생: ${error.message}`);
   }
@@ -48,14 +48,14 @@ $frm.addEventListener('submit', findMovie);
 async function findMovie(e) {
   try {
     e.preventDefault();
-    const movies = await fetchMovie();  
+    const movies = await fetchMovie();
     const userInput = $frm.searchInput.value.toLowerCase();
     const userMovieTitle = userInput.replace(/(\s*)/g, '');
     const matchMovies = movies.filter(item => {
       let titles = item.title.toLowerCase().replace(/(\s*)/g, '');
       return titles.includes(userMovieTitle);
     });
-  
+
     if (matchMovies.length === 0) {
       const $box = document.getElementById('flex-box');
       $box.innerHTML = `<div class="movieNone">찾으시는 영화가 없습니다. 검색어를 확인해 주세요.</div>`;
@@ -88,7 +88,6 @@ $flexBox.addEventListener('click', e => {
     content = content.parentNode;
   }
   const contentId = content.getAttribute('id');
-  alert(`id : ${contentId}`);
   location.href = '/detail.html?contentId' + contentId;
 });
 
