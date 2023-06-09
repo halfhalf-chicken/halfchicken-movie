@@ -2,10 +2,10 @@ export function moveSlide(movies) {
   const slides = document.querySelector('.items');
   const slideCount = movies.length;
   let screenWidth = window.innerWidth;
-  if (screenWidth < 1200) {
-    slides.style.width = 33.333 * slideCount + '%';
-  } else if (screenWidth < 768) {
+  if (screenWidth < 768) {
     slides.style.width = 50 * slideCount + '%';
+  } else if (screenWidth < 1200) {
+    slides.style.width = 33.333 * slideCount + '%';
   } else {
     slides.style.width = 20 * slideCount + '%';
   }

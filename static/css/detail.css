@@ -2,6 +2,13 @@
   font-size: 16px;
 }
 
+.hide {
+  width: 0;
+  left: 0;
+  position: absolute;
+  display: none;
+}
+
 .view-desktop {
   display: block;
 }
@@ -18,14 +25,6 @@
   display: none;
 }
 
-.hide {
-  width: 0;
-  left: 0;
-  position: absolute;
-  display: none;
-  /* 하이드 보통 어떻게 숨기져? */
-}
-
 .container {
   max-width: 1200px;
   padding: 1px 20px;
@@ -35,13 +34,9 @@
 
 /* 영화정보 details */
 .movie-details {
-  /* background: white; */
   color: white;
   width: 100%;
-
-  /* TODO 데스크탑, 모바일에선 상하 padding 줄이고 싶습니다. */
   padding: 70px 0.1px 60px 0.1px;
-
   position: relative;
 }
 
@@ -57,7 +52,6 @@
 
   width: 60px;
   height: 60px;
-  /* border: 1px solid #ffff; */
   text-align: center;
 }
 
@@ -415,11 +409,6 @@
   border-radius: 10px;
 }
 
-.comment .comment-list li div {
-  overflow: hidden;
-}
-
-/* TODO  */
 .comment .comment-list li span {
   width: 80%;
   display: block;
@@ -443,10 +432,12 @@
 }
 
 .comment .comment-list li div {
+  overflow: hidden;
   height: 100%;
   font-size: 30px;
   font-style: oblique;
   display: flex;
+  flex-wrap: wrap;
 }
 
 .comment .comment-list li p {
@@ -532,16 +523,139 @@
   right: 5px;
 }
 
-@media only screen and (max-width: 1199px) {
-  .genre-card {
-    width: 33.3333%;
-  }
-}
-
 /* 미디어쿼리 */
 @media only screen and (max-width: 767px) {
+  .show-shareBtn {
+    display: none;
+  }
+
+  .view-mobile {
+    display: block;
+  }
+
+  .view-desktop {
+    display: none;
+  }
+
+  .movie-details {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .movieTitle-en {
+    margin-top: 5px;
+  }
+
+  .movie-imgInfo {
+    float: none;
+  }
+
+  .movie-textInfo {
+    margin-left: 0;
+    min-height: 0;
+  }
+
+  .movie-title {
+    text-align: center;
+  }
+
+  .movie-poster {
+    display: flex;
+    justify-content: center;
+  }
+
+  .movie-poster img {
+    width: 80%;
+    height: 100%;
+  }
+
+  .story-more-btn {
+    display: block;
+    float: right;
+    margin-top: 10px;
+    background-color: transparent;
+    color: white;
+    font-size: 14px;
+  }
+
+  .story-more-btn:hover {
+    cursor: pointer;
+  }
+
+  .movie-story-close {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+
+    line-height: 1.5em;
+    height: 6em;
+  }
+
+  .movieTitle-en {
+    margin-bottom: 20px;
+  }
+
+  .movie-story {
+    margin-top: 0;
+  }
+
   .genre-card {
     width: 50%;
+  }
+
+  /**/
+  .movie-detail {
+    flex-direction: column;
+  }
+
+  .story-first {
+    display: none;
+  }
+
+  .movie-story {
+    margin-top: 20px;
+  }
+
+  .story-second {
+    display: block;
+  }
+
+  .show-shareBtn {
+    top: 340px;
+    padding-top: 20px;
+  }
+
+  .share-box {
+    top: 202px;
+  }
+
+  /* comment */
+  tbody tr td {
+    width: 50%;
+  }
+
+  .comment .btn-area {
+    position: static;
+    padding: 2px;
+  }
+
+  .comment .comment-list li span {
+    width: 100%;
+  }
+
+  .comment .comment-list li div {
+    justify-content: flex-end;
+  }
+
+  .comment .comment-list li button {
+    height: 23px;
+    width: 75px;
+    font-size: 12px;
+    line-height: 23px;
+    margin-top: 18px;
   }
 }
 
@@ -552,5 +666,9 @@
 
   .view-mobile {
     display: block;
+  }
+
+  .genre-card {
+    width: 33.3333%;
   }
 }

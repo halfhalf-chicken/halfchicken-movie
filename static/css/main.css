@@ -1,5 +1,4 @@
 /********** HEADER **********/
-
 #header-wrap {
   width: 100%;
   background-image: linear-gradient(#1d1d1d 15%, rgba(28, 28, 28, 0));
@@ -210,7 +209,6 @@ header h1 a {
 }
 
 /********** MAIN **********/
-
 .main-card-section {
   margin-top: 160px;
 }
@@ -320,7 +318,6 @@ header h1 a {
 .movie-sort .dropdown {
   width: 100%;
   z-index: 1;
-  /* margin-left: 0.5vw; */
   margin-bottom: 8px;
   cursor: pointer;
 }
@@ -438,7 +435,6 @@ header h1 a {
 }
 
 /***** NAV *****/
-
 nav button {
   position: fixed;
   bottom: 30px;
@@ -561,5 +557,4 @@ footer {
   .footWrap ul li a i {
     font-size: 30px;
   }
-
 }
