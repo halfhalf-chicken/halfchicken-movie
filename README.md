@@ -58,7 +58,7 @@
 - 영화별 상세 정보
 - 영화별 댓글 불러오기
 - 영화별 댓글 등록, 수정, 삭제 (유효성 검사)
-- 영화 상세페이지 하단, 같은 장르 영화 추천 리스트
+- 영화 상세페이지 하단, 같은 장르 영화 추천 리스트 (슬라이더)
 - 영화 정보 공유 기능
 - 상세페이지 홈화면 이동 가능 UI
 - 반응형 홈페이지
@@ -73,14 +73,19 @@
 ![image](https://github.com/remember0515/Re_Member/assets/126348461/06235ab5-4f94-435b-b0d7-271d013ab803)
 
 ### 4) 영화별 댓글 불러오기
+![image](https://github.com/remember0515/Re_Member/assets/126348461/698abcfe-b18f-4e7f-b8da-26a49dc586c1)
 
 ### 5) 영화별 댓글 등록, 수정, 삭제 가능 (유효성 검사)
+![Movies-Chrome-2023-06-09-11-12-18](https://github.com/halfhalf-chicken/halfchicken-movie/assets/126348461/922716c5-1f49-4865-95b1-e88374e8f09a)
 
-### 6) 영화 상세페이지 하단, 같은 장르 영화 추천 리스트
+### 6) 영화 상세페이지 하단, 같은 장르 영화 추천 리스트(슬라이더)
+![Movies-Chrome-2023-06-09-11-00-15](https://github.com/halfhalf-chicken/halfchicken-movie/assets/126348461/8b954c12-a80a-468b-9958-7cc88cbf6543)
 
 ### 7) 영화 정보 공유 기능
+![Movies-Chrome-2023-06-09-11-07-17](https://github.com/halfhalf-chicken/halfchicken-movie/assets/126348461/05319e5b-37e3-40e0-b4e7-861d19a9230d)
 
 ### 8) 상세페이지 홈화면 이동 가능 UI
+![Movies-Chrome-2023-06-09-11-08-11](https://github.com/halfhalf-chicken/halfchicken-movie/assets/126348461/bac77a52-a626-4d35-a637-09b7bf15372c)
 
 ### 9) 반응형 홈페이지
 
