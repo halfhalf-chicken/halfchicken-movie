@@ -1,4 +1,4 @@
-const commentArea = document.querySelector('.comment-list ul');
+import { commentArea } from './formtag.js';
 
 export function makeTmdbList(tmdbReviews) {
   tmdbReviews.forEach(item => {
@@ -18,7 +18,7 @@ export function makeTmdbList(tmdbReviews) {
     btn1.setAttribute('class', 'edit-btn');
     btn2.setAttribute('class', 'del-btn');
     span.setAttribute('class', 'user-name');
-    div.setAttribute('class', 'name-container');
+    outerDiv.setAttribute('class', 'name-container');
     innerDiv.append(btn1, btn2);
 
     outerDiv.append(span, innerDiv);

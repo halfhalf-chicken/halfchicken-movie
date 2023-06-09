@@ -18,6 +18,7 @@ import { moveSlide } from './moveslide.js';
 import { shareboxRemove, shareboxAdd, shareBoxBtn, shareBox } from './shareBox.js';
 import { toggleBtn } from './togglebtn.js';
 import { appendGenre } from './makegenre.js';
+import { commentArea, editDeleteBtn, editFinishBtn, editCancleBtn } from './formtag.js';
 
 //  Top btn
 const $topBtn = document.querySelector('aside nav button');
@@ -52,7 +53,7 @@ async function listGenreMovie() {
   const movie = await fetchDetail(para);
   const movieId = movie.id;
   const movieGenre = [];
-  for (var a of movie['genres']) {
+  for (let a of movie['genres']) {
     movieGenre.push(a.id);
   }
   const result2 = appendGenre(movies, movieId, movieGenre);
@@ -97,10 +98,6 @@ async function postReview() {
   fetchPostReview(validation, para);
 }
 
-const commentArea = document.querySelector('.comment-list ul');
-const editDeleteBtn = document.querySelector('.edit-delete-btn');
-const editFinishBtn = document.querySelector('.edit-finish-btn');
-const editCancleBtn = document.querySelector('.edit-cancle-btn');
 commentArea.addEventListener('click', deleteReview);
 commentArea.addEventListener('click', clickEditBtn);
 editDeleteBtn.addEventListener('click', clickDeleteBtn);
@@ -201,7 +198,6 @@ document.querySelector('.copythisURL > button').addEventListener('click', copyUR
 
 const sendFacebook = () => window.open('http://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(thisUrl));
 document.querySelector('.facebookImg').addEventListener('click', sendFacebook);
-
 
 const sendTwitter = async () => {
   try {

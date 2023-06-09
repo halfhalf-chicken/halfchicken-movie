@@ -1,6 +1,4 @@
-const editDeleteBtn = document.querySelector('.edit-delete-btn');
-const editFinishBtn = document.querySelector('.edit-finish-btn');
-const editCancleBtn = document.querySelector('.edit-cancle-btn');
+import { editDeleteBtn, editFinishBtn, editCancleBtn } from './formtag.js';
 const submitBtn = document.querySelector('.submit-btn');
 
 export function toggleBtn(btn) {
