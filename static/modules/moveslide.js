@@ -2,7 +2,6 @@ export function moveSlide(movies) {
   const slides = document.querySelector('.items');
   const slideCount = movies.length;
   let screenWidth = window.innerWidth;
-
   let sliderBtndoc = document.querySelector('.slider-btn');
   const prev = document.querySelector('.prev');
   const next = document.querySelector('.next');
@@ -12,6 +11,7 @@ export function moveSlide(movies) {
   } else {
     sliderBtndoc.style.display = 'flex';
   }
+
   if (screenWidth < 768) {
     slides.style.width = 50 * slideCount + '%';
   } else if (screenWidth < 1200) {
@@ -101,7 +101,6 @@ export function moveSlide(movies) {
       });
     }
   };
-
   prev.addEventListener('click', function () {
     if (clickCount === 0) {
       return false;
