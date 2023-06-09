@@ -16,10 +16,11 @@
 ## 목차
 
 -   [1. 프로젝트 소개](#1-프로젝트-소개)
--   [2. 프로젝트 Notion](#2-프로젝트-Notion)
--   [3. 기술스택](#3-기술스택)
--   [4. API Table](#4-API Table)
--   [5. 구현기능 및 화면](#5-구현기능 및 화면)
+-   [2. 프로젝트 Notion](#2-프로젝트-Notion)-   
+-   [3. 와이어프레임](#3-와이어프레임)
+-   [4. 기술스택](#4-기술스택)
+-   [5. API Table](#5-API Table)
+-   [6. 구현기능 및 화면](#6-구현기능 및 화면)
 
 ## 1. 프로젝트 소개
 순수 바닐라 자바스크립트만으로 영화정보 오픈API인 TMDB(The Movie DB)를 사용한 영회리스트 조회 및 검색, 영화 상세정보 공유 등 반응형 UI 구현
@@ -27,14 +28,17 @@
 ## 2. 프로젝트 Notion
 [반반치킨 Notion](https://www.notion.so/Team-938995f6f21843e89f2b1519a68ae352?pvs=4)
 
-## 3. 기술스택
+## 3. 와이어프레임
+![스크린샷 2023-06-09 오후 1.06.23.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/acc6eb85-2538-46ad-a089-2eb06b7dbcf5/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-06-09_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_1.06.23.png)
+
+## 4. 기술스택
   <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"> <img src="https://img.shields.io/badge/mongoDB-47A248?style=for-the-badge&logo=MongoDB&logoColor=white">
   <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"> <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
   <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"> <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
   <img src="https://img.shields.io/badge/fontawesome-339AF0?style=for-the-badge&logo=fontawesome&logoColor=white">
 
 
-## 4. API Table
+## 5. API Table
 | Number | Method         | URL | Description          | Request            | Response            |
 | --- | ------------ | -------- | ---------------------------- | ---------------------------- | ---------------------------- |
 | 1 | `GET`      | /reviews/read | 리뷰 조회 | | {"result": result} |
@@ -44,7 +48,7 @@
 
 
 
-## 5. 구현기능 및 화면
+## 6. 구현기능 및 화면
 
 - TMDB API이용 영화 목록 불러오기
 - 인기순, 이름순 등으로 영화 목록 정렬(메인 영화 목록 더보기 기능)
