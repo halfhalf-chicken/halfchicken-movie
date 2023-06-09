@@ -56,8 +56,9 @@ async function findMovie(e) {
       let titles = item.title.toLowerCase().replace(/(\s*)/g, '');
       return titles.includes(userMovieTitle);
     });
-
+    
     if (matchMovies.length === 0) {
+      moreBtn.style.display = 'none';
       const $box = document.getElementById('flex-box');
       $box.innerHTML = `<div class="movieNone">찾으시는 영화가 없습니다. 검색어를 확인해 주세요.</div>`;
     } else if (userMovieTitle.length === 0) {
@@ -84,7 +85,6 @@ $flexBox.addEventListener('click', e => {
   if (e.target.getAttribute('id') === 'flex-box' || e.target.className === 'movieNone') {
     return false;
   }
-  console.log(e.target)
   let content = e.target.parentNode;
   if (content.className !== 'content') {
     content = content.parentNode;
