@@ -17,6 +17,7 @@ import { countries } from './countries.js';
 import { makeDetailMovieInfo } from './makedetailmovieinfo.js';
 import { moveSlide } from './moveslide.js';
 import { toggleBtn } from './togglebtn.js';
+import { appendGenre } from './makegenre.js';
 
 //  Top btn
 const $topBtn = document.querySelector('aside nav button');
@@ -72,34 +73,7 @@ async function listGenreMovie() {
   for (var a of movie['genres']) {
     movieGenre.push(a.id);
   }
-  let result2 = [];
-  movies.forEach(movies => {
-    const { id, genre_ids, title, poster_path } = movies;
-    const contentId = `${id}`;
-    const genreSection = document.querySelector('.items');
-    const innerli = document.createElement('li');
-    const img = document.createElement('img');
-    const p = document.createElement('p');
-
-    innerli.setAttribute('class', 'genre-card');
-    img.setAttribute('class', 'card-image');
-    img.setAttribute('src', `https://image.tmdb.org/t/p/w500/${poster_path}`);
-    img.setAttribute('alt', title);
-    p.setAttribute('class', 'card-title');
-    p.innerText = title;
-
-    innerli.appendChild(img);
-    innerli.appendChild(p);
-
-    innerli.addEventListener('click', () => {
-      location.href = '/detail.html?contentId' + contentId;
-    });
-    const result = movieGenre.filter(x => genre_ids.includes(x));
-    if (result.length >= 1 && movieId != contentId) {
-      genreSection.appendChild(innerli);
-      result2.push(result);
-    }
-  });
+  const result2 = appendGenre(movies, movieId, movieGenre);
   slidShow(result2);
 }
 
