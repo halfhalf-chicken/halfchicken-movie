@@ -1,7 +1,4 @@
 # halfchicken-movie
-
-![메인헤더](https://github.com/remember0515/Re_Member/assets/108923582/b855eb98-cba8-45d9-810f-eecb4f707540)
-
 내일배움캠프 B7조 팀프로젝트 23.06.02 - 23.06.09 반반치킨
 
 ## 팀원
