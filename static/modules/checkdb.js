@@ -3,8 +3,8 @@ import { fetchMongoReviews } from './fetchmongoreviews.js';
 
 export async function checkDB(_id, target) {
   if (_id === null) {
-    let tmdbAuthor = target.previousSibling.innerText;
-    let tmdbContent = target.parentNode.nextSibling.innerText;
+    let tmdbAuthor = target.parentNode.previousSibling.innerText;
+    let tmdbContent = target.parentNode.parentNode.nextSibling.innerText;
     nameInput.value = tmdbAuthor;
     commentInput.value = tmdbContent;
   } else {
