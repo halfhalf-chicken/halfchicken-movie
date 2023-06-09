@@ -168,6 +168,11 @@
   min-height: 325px;
 }
 
+.movie-title h3 {
+  font-size: 21px;
+  font-weight: 700;
+}
+
 .movie-textInfo h3 {
   font-size: 30px;
   font-weight: 700;
@@ -366,6 +371,7 @@
   width: 100%;
   border-radius: 10px;
   margin-bottom: 10px;
+  cursor: pointer;
 }
 
 .slider-btn {
@@ -409,6 +415,10 @@
 
 /* 미디어쿼리 */
 @media only screen and (max-width: 767px) {
+  .container {
+    padding-top: 49px;
+  }
+
   .show-shareBtn {
     display: none;
   }
