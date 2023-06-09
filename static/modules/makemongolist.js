@@ -1,4 +1,4 @@
-const commentArea = document.querySelector('.comment-list ul');
+import { commentArea } from './formtag.js';
 
 export function makeMongoList(matchReview) {
   matchReview.forEach(item => {
