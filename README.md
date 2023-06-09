@@ -35,12 +35,12 @@
 
 
 ## 4. API Table
-| Number   | Method         | URL | Description          | Request            | Response            |
-| ------ | ------------ | -------- | ---------------------------- | ---------------------------- | ---------------------------- |
-| 1 리뷰 조회 | `GET`      | /reviews/read | 리스팅 | | {"result": result} |
-| 2 리뷰 작성 | `POST`      | /reviews/upload | 리스팅 | {'movie', 'author', 'content', 'pw'}| {"msg": "리뷰 작성 완료!"} |
-| 3 리뷰 수정 | `PUT`      | /reviews/update | 리스팅  | {'reviewId', 'content'}| {"msg": "리뷰 수정 완료!"} |
-| 4 리뷰 삭제 | `DELETE`      | /reviews/delete | 리스팅   | {'reviewId'} | {"msg": "리뷰 삭제 완료!"} |
+| Number | Method         | URL | Description          | Request            | Response            |
+| --- | ------------ | -------- | ---------------------------- | ---------------------------- | ---------------------------- |
+| 1 | `GET`      | /reviews/read | 리뷰 조회 | | {"result": result} |
+| 2 | `POST`      | /reviews/upload | 리뷰 작성 | {'movie', 'author', 'content', 'pw'}| {"msg": "리뷰 작성 완료!"} |
+| 3 | `PUT`      | /reviews/update | 리뷰 수정 | {'reviewId', 'content'}| {"msg": "리뷰 수정 완료!"} |
+| 4 | `DELETE`      | /reviews/delete | 리뷰 삭제 | {'reviewId'} | {"msg": "리뷰 삭제 완료!"} |
 
 
 
