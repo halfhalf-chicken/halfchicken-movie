@@ -37,14 +37,11 @@
 ## 4. API Table
 | Number   | Method         | URL | Description          | Request            | Response            |
 | ------ | ------------ | -------- | ---------------------------- | ---------------------------- | ---------------------------- |
-| 1       | `POST`      | /api/llist   | 리스팅                 | {id : 영화id, title: 영화제목, }|                       |
-| 1       | `POST`      | /api/llist   | 리스팅                 | {id : 영화id, title: 영화제목, }|                       |
-| 1       | `POST`      | /api/llist   | 리스팅                 | {id : 영화id, title: 영화제목, }|                       |
-| 1       | `POST`      | /api/llist   | 리스팅                 | {id : 영화id, title: 영화제목, }|                       |
-| 1       | `POST`      | /api/llist   | 리스팅                 | {id : 영화id, title: 영화제목, }|                       |
-| 1       | `POST`      | /api/llist   | 리스팅                 | {id : 영화id, title: 영화제목, }|                       |
-| 1       | `POST`      | /api/llist   | 리스팅                 | {id : 영화id, title: 영화제목, }|                       |
-| 1       | `POST`      | /api/llist   | 리스팅                 | {id : 영화id, title: 영화제목, }|                       |
+| 1 리뷰 조회 | `GET`      | /reviews/read | 리스팅 | | {"result": result} |
+| 2 리뷰 작성 | `POST`      | /reviews/upload | 리스팅 | {'movie', 'author', 'content', 'pw'}| {"msg": "리뷰 작성 완료!"} |
+| 3 리뷰 수정 | `PUT`      | /reviews/update | 리스팅  | {'reviewId', 'content'}| {"msg": "리뷰 수정 완료!"} |
+| 4 리뷰 삭제 | `DELETE`      | /reviews/delete | 리스팅   | {'reviewId'} | {"msg": "리뷰 삭제 완료!"} |
+
 
 
 ## 5. 구현기능 및 화면
