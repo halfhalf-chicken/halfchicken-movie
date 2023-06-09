@@ -56,7 +56,7 @@ async function findMovie(e) {
       let titles = item.title.toLowerCase().replace(/(\s*)/g, '');
       return titles.includes(userMovieTitle);
     });
-    
+
     if (matchMovies.length === 0) {
       moreBtn.style.display = 'none';
       const $box = document.getElementById('flex-box');
