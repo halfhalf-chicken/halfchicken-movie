@@ -1,7 +1,7 @@
 import { OPTIONSDETAIL } from './options.js';
 import { OPTIONS2 } from './options.js';
 import { fetchDelete } from './fetchdelete.js';
-import { getMongoReviews } from './getmongoreviews.js';
+import { fetchMongoReviews } from './fetchmongoreviews.js';
 import { fetchPostReview } from './fetchpostreview.js';
 import { fetchEditReview } from './fetcheditreview.js';
 import { makeMongoList } from './makemongolist.js';
@@ -16,6 +16,7 @@ import { URL } from './fetchurl.js';
 import { countries } from './countries.js';
 import { makeDetailMovieInfo } from './makedetailmovieinfo.js';
 import { moveSlide } from './moveslide.js';
+import { toggleBtn } from './togglebtn.js';
 import { appendGenre } from './makegenre.js';
 
 //  Top btn
@@ -35,7 +36,7 @@ async function fetchDetail(movieId) {
 }
 
 async function listDetailMovie() {
-  const movie = await fetchDetail(PARA);
+  const movie = await fetchDetail(para);
   const { enTitle, runtime, title, vote_average } = movie;
   const poster_path = `https://image.tmdb.org/t/p/w500/${movie['poster_path']}`;
   const release_date = movie['release_date'].replace(/-/g, '.');
@@ -66,7 +67,7 @@ async function fetchMovie() {
 
 async function listGenreMovie() {
   const movies = await fetchMovie();
-  const movie = await fetchDetail(PARA);
+  const movie = await fetchDetail(para);
   const movieId = movie.id;
   const movieGenre = [];
   for (var a of movie['genres']) {
@@ -77,9 +78,9 @@ async function listGenreMovie() {
 }
 
 // ** take the movie id from this page **
-const PARA = document.location.href.split('contentId')[1];
+const para = document.location.href.split('contentId')[1];
 
-fetchDetail(PARA);
+fetchDetail(para);
 listDetailMovie();
 listGenreMovie();
 
@@ -87,6 +88,21 @@ async function slidShow(datas) {
   let movies = await datas;
   moveSlide(movies);
 }
+
+async function listingAllReview() {
+  try {
+    let tmdbReviews = await fetchTmdbReview();
+    makeTmdbList(tmdbReviews);
+    let mongoReviews = await fetchMongoReviews();
+    let matchReview = mongoReviews.filter(item => {
+      return item.movie === para;
+    });
+    makeMongoList(matchReview);
+  } catch (error) {
+    throw new Error(`에러가 발생: ${error.message}`);
+  }
+}
+listingAllReview();
 
 const reviewForm = document.review;
 reviewForm.addEventListener('submit', e => {
@@ -96,29 +112,36 @@ reviewForm.addEventListener('submit', e => {
 
 async function postReview() {
   let validation = validationCheck();
-  fetchPostReview(validation, PARA);
+  fetchPostReview(validation, para);
 }
 
 const commentArea = document.querySelector('.comment-list ul');
-async function listingMongoReviews() {
-  const reviews = await getMongoReviews();
-  const matchReview = reviews.filter(item => {
-    return item.movie === PARA;
-  });
-  makeMongoList(matchReview);
-}
-listingMongoReviews();
-
+const editDeleteBtn = document.querySelector('.edit-delete-btn');
+const editFinishBtn = document.querySelector('.edit-finish-btn');
+const editCancleBtn = document.querySelector('.edit-cancle-btn');
 commentArea.addEventListener('click', deleteReview);
-async function deleteReview(e) {
-  if (e.target.className !== 'del-btn') return false;
-  let _id = e.target.closest('li').getAttribute('id');
-  let userPw = prompt('비밀번호를 입력해 주세요');
-  let checkPwResult = await checkPw(_id, userPw);
-  fetchDelete(checkPwResult, _id);
-}
-let editReviewId = null;
 commentArea.addEventListener('click', clickEditBtn);
+editDeleteBtn.addEventListener('click', clickDeleteBtn);
+editFinishBtn.addEventListener('click', editReview);
+editCancleBtn.addEventListener('click', () => {
+  toggleBtn();
+  nameInput.removeAttribute('disabled');
+  nameInput.style.filter = 'brightness(1)';
+});
+
+async function deleteReview(e) {
+  try {
+    if (e.target.className !== 'del-btn') return false;
+    let _id = e.target.closest('li').getAttribute('id');
+    let userPw = prompt('비밀번호를 입력해 주세요');
+    let checkPwResult = await checkPw(_id, userPw);
+    fetchDelete(checkPwResult, _id);
+  } catch (error) {
+    throw new Error(`에러가 발생: ${error.message}`);
+  }
+}
+
+let editReviewId = null;
 function clickEditBtn(e) {
   if (e.target.className !== 'edit-btn') return false;
   let _id = e.target.closest('li').getAttribute('id');
@@ -130,68 +153,47 @@ function clickEditBtn(e) {
   nameInput.style.filter = 'brightness(0.8)';
 }
 
-const editDeleteBtn = document.querySelector('.edit-delete-btn');
-editDeleteBtn.addEventListener('click', clickDeleteBtn);
 async function clickDeleteBtn() {
-  let userPw = pwInput.value;
-  if (!userPw) {
-    alert('비밀번호를 입력해 주세요');
-    return false;
+  try {
+    let userPw = pwInput.value;
+    if (!userPw) {
+      alert('비밀번호를 입력해 주세요');
+      return false;
+    }
+    let checkPwResult = await checkPw(editReviewId, userPw);
+    fetchDelete(checkPwResult, editReviewId);
+  } catch (error) {
+    throw new Error(`에러가 발생: ${error.message}`);
   }
-  let checkPwResult = await checkPw(editReviewId, userPw);
-  fetchDelete(checkPwResult, editReviewId);
 }
 
-const editFinishBtn = document.querySelector('.edit-finish-btn');
-editFinishBtn.addEventListener('click', editReview);
 async function editReview() {
-  if (!pwInput.value) {
-    alert('비밀번호를 입력해 주세요');
-    return false;
-  } else if (!commentInput.value) {
-    alert('한줄평을 입력해 주세요');
-    return false;
-  }
-  let userpw = pwInput.value;
-  let checkPwResult = await checkPw(editReviewId, userpw);
-  await fetchEditReview(checkPwResult, editReviewId);
-}
-
-const editCancleBtn = document.querySelector('.edit-cancle-btn');
-editCancleBtn.addEventListener('click', () => {
-  toggleBtn();
-  nameInput.removeAttribute('disabled');
-  nameInput.style.filter = 'brightness(1)';
-});
-
-function toggleBtn(btn) {
-  const submitBtn = document.querySelector('.submit-btn');
-  if (btn) {
-    editFinishBtn.classList.add('btn-active');
-    editDeleteBtn.classList.add('btn-active');
-    editCancleBtn.classList.add('btn-active');
-    submitBtn.classList.remove('btn-active');
-  } else {
-    editFinishBtn.classList.remove('btn-active');
-    editDeleteBtn.classList.remove('btn-active');
-    editCancleBtn.classList.remove('btn-active');
-    submitBtn.classList.add('btn-active');
+  try {
+    if (!pwInput.value) {
+      alert('비밀번호를 입력해 주세요');
+      return false;
+    } else if (!commentInput.value) {
+      alert('한줄평을 입력해 주세요');
+      return false;
+    }
+    let userpw = pwInput.value;
+    let checkPwResult = await checkPw(editReviewId, userpw);
+    fetchEditReview(checkPwResult, editReviewId);
+  } catch (error) {
+    throw new Error(`에러가 발생: ${error.message}`);
   }
 }
-
-const listingTMDBReview = async payload => {
-  let res = await payload;
-  let reviews = res.results;
-  makeTmdbList(reviews);
-};
 
 async function fetchTmdbReview() {
-  const response = await fetch(`https://api.themoviedb.org/3/movie/${PARA}/reviews?language=en-US&page=1`, OPTIONS2);
-  const data = await response.json();
-  return data;
+  try {
+    const response = await fetch(`https://api.themoviedb.org/3/movie/${para}/reviews?language=en-US&page=1`, OPTIONS2);
+    const data = await response.json();
+    const reviews = data.results;
+    return reviews;
+  } catch (error) {
+    throw new Error(`에러가 발생: ${error.message}`);
+  }
 }
-let tmdbReviews = fetchTmdbReview();
-listingTMDBReview(tmdbReviews);
 
 document.querySelector('.story-more-btn').addEventListener('click', () => {
   document.querySelector('.story-second >p').classList.remove('movie-story-close');
@@ -210,39 +212,39 @@ document.querySelector('.share-box').addEventListener('mouseout', () => {
   document.querySelector('.share-box').classList.add('none');
 });
 
-const THISURL = document.location.href;
+const thisUrl = document.location.href;
 const copyURL = async function () {
   try {
-    await navigator.clipboard.writeText(THISURL);
+    await navigator.clipboard.writeText(thisUrl);
     alert('현재 위치한 URL이 복사되었습니다!');
   } catch (error) {
-    alert.error('Failed to copy: ', err);
+    throw new Error(`Failed to copy: ${error.message}`);
   }
 };
 document.querySelector('.copythisURL > button').addEventListener('click', copyURL);
 
-const shareFacebook = () => window.open('http://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(THISURL));
+const shareFacebook = () => window.open('http://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(thisUrl));
 document.querySelector('.facebookImg').addEventListener('click', shareFacebook);
 
 const shareTwitter = async () => {
   try {
-    const movie = await fetchDetail(PARA);
+    const movie = await fetchDetail(para);
     const thisTitle = movie['title'];
-    window.open(`http://twitter.com/intent/tweet?text='영화 "${thisTitle}" 반드시 구경하러오세유'&url=${THISURL}`);
+    window.open(`http://twitter.com/intent/tweet?text='영화 "${thisTitle}" 반드시 구경하러오세유'&url=${thisUrl}`);
   } catch (error) {
-    alert.error('Failed to share', err);
+    throw new Error(`Failed to share: ${error.message}`);
   }
 };
 document.querySelector('.twitterImg').addEventListener('click', shareTwitter);
 
 const shareNaver = async () => {
   try {
-    const movie = await fetchDetail(PARA);
+    const movie = await fetchDetail(para);
     const thisTitle = movie['title'];
-    const naverShareAPI = encodeURI(`https://share.naver.com/web/shareView?url=${THISURL}&title=${thisTitle}`);
+    const naverShareAPI = encodeURI(`https://share.naver.com/web/shareView?url=${thisUrl}&title=${thisTitle}`);
     window.open(naverShareAPI);
   } catch (error) {
-    alert.error('Failed to share', err);
+    throw new Error(`Failed to share: ${error.message}`);
   }
 };
 document.querySelector('.NaverImg').addEventListener('click', shareNaver);
@@ -252,7 +254,7 @@ if (!Kakao.isInitialized()) {
 }
 
 let sendKakao = async function () {
-  const movie = await fetchDetail(PARA);
+  const movie = await fetchDetail(para);
   const title = movie['title'];
   const poster = `https://image.tmdb.org/t/p/w500/${movie['poster_path']}`;
 
@@ -263,8 +265,8 @@ let sendKakao = async function () {
       description: `"${title}" 아직 안봤어? 꿀잼이라구! 들어와서 조금 더 살펴봐!`,
       imageUrl: `${poster}`,
       link: {
-        webUrl: THISURL,
-        mobileWebUrl: THISURL,
+        webUrl: thisUrl,
+        mobileWebUrl: thisUrl,
       },
     },
   });

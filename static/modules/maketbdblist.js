@@ -1,6 +1,7 @@
 const commentArea = document.querySelector('.comment-list ul');
-export function makeTmdbList(reviews) {
-  reviews.forEach(item => {
+
+export function makeTmdbList(tmdbReviews) {
+  tmdbReviews.forEach(item => {
     let { content, author } = item;
     const li = document.createElement('li');
     const div = document.createElement('div');
