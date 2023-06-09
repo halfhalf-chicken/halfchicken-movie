@@ -57,14 +57,15 @@ async function findMovie(e) {
       return titles.includes(userMovieTitle);
     });
     
-    moreBtn.style.display = 'none';
     if (matchMovies.length === 0) {
+      moreBtn.style.display = 'none';
       const $box = document.getElementById('flex-box');
       $box.innerHTML = `<div class="movieNone">찾으시는 영화가 없습니다. 검색어를 확인해 주세요.</div>`;
     } else if (userMovieTitle.length === 0) {
       alert('검색어를 입력해 주세요');
       document.getElementById('search-input').focus();
     } else {
+      moreBtn.style.display = 'none';
       listMovieCard(matchMovies);
     }
   } catch (error) {
