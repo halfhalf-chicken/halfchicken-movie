@@ -3,9 +3,6 @@ export function moveSlide(movies) {
   const slideCount = movies.length;
 
   let screenWidth = window.innerWidth;
-  let sliderBtndoc = document.querySelector('.slider-btn');
-  
-  
   if (screenWidth < 768) {
     slides.style.width = 50 * slideCount + '%';
   } else if (screenWidth < 1200) {
@@ -21,9 +18,9 @@ export function moveSlide(movies) {
   let clickCount = 0;
 
   if (slideCount <= 5) {
-    sliderBtndoc.style.display = 'none';
+    document.querySelector('.slider-btn').style.display = 'none';
   } else {
-    sliderBtndoc.style.display = 'flex';
+    document.querySelector('.slider-btn').style.display = 'flex';
   }
 
   prev.addEventListener('click', function () {
