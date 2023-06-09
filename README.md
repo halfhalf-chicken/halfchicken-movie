@@ -29,8 +29,10 @@
 [반반치킨 Notion](https://www.notion.so/Team-938995f6f21843e89f2b1519a68ae352?pvs=4)
 
 ## 3. 와이어프레임
-<img width="1000" alt="wire-frame" src="https://github.com/halfhalf-chicken/halfchicken-movie/assets/126348461/077527a0-1086-4355-bee3-fea0011a3839">
-![wire-frame-2](https://github.com/halfhalf-chicken/halfchicken-movie/assets/126348461/556466c7-5c55-4b82-8cf2-42c80fd10199)
+<img width="1000" alt="wire-frame" src="https://github.com/halfhalf-chicken/halfchicken-movie/assets/126348461/4e0d41af-1e23-4751-9471-217392853e7a">
+
+![wire-frame-2](https://github.com/halfhalf-chicken/halfchicken-movie/assets/126348461/fcf6a178-fe7c-47cd-9024-4b55ff0c3e89)
+
 
 ## 4. 기술스택
   <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"> <img src="https://img.shields.io/badge/flask-000000?style=for-the-badge&logo=flask&logoColor=white"> <img src="https://img.shields.io/badge/mongoDB-47A248?style=for-the-badge&logo=MongoDB&logoColor=white">
