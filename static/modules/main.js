@@ -81,10 +81,10 @@ $h1.addEventListener('click', () => {
 //  Click content
 const $flexBox = document.getElementById('flex-box');
 $flexBox.addEventListener('click', e => {
-  if (e.target.getAttribute('id') === 'flex-box') {
+  if (e.target.getAttribute('id') === 'flex-box' || e.target.className === 'movieNone') {
     return false;
   }
-
+  console.log(e.target)
   let content = e.target.parentNode;
   if (content.className !== 'content') {
     content = content.parentNode;
