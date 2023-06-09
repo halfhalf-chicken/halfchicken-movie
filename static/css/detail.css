@@ -411,6 +411,7 @@
 .card-title {
   text-align: center;
   color: #a1a1a1;
+  cursor: pointer;
 }
 
 /* 미디어쿼리 */
