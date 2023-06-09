@@ -2,6 +2,7 @@ import { URL, URLPOPULAR } from './fetchurl.js';
 import { OPTIONS, OPTIONSPOPULAR } from './options.js';
 import { makeCard } from './makecard.js';
 import { scrollTop } from './common.js';
+import { moreBtn } from './formtag.js';
 
 //  Fetch
 async function fetchMovie() {
@@ -63,6 +64,7 @@ async function findMovie(e) {
       alert('검색어를 입력해 주세요');
       document.getElementById('search-input').focus();
     } else {
+      moreBtn.style.display = 'none';
       listMovieCard(matchMovies);
     }
   } catch (error) {
@@ -79,10 +81,10 @@ $h1.addEventListener('click', () => {
 //  Click content
 const $flexBox = document.getElementById('flex-box');
 $flexBox.addEventListener('click', e => {
-  if (e.target.getAttribute('id') === 'flex-box') {
+  if (e.target.getAttribute('id') === 'flex-box' || e.target.className === 'movieNone') {
     return false;
   }
-
+  console.log(e.target)
   let content = e.target.parentNode;
   if (content.className !== 'content') {
     content = content.parentNode;
@@ -123,7 +125,6 @@ const sortingName = document.querySelector('.sorting-name');
 const sortingAvg = document.querySelector('.sorting-avg');
 const sortingRel = document.querySelector('.sorting-release');
 const $box = document.getElementById('flex-box');
-const moreBtn = document.getElementById('more-btn');
 
 // 더보기
 moreBtn.addEventListener('click', function () {
