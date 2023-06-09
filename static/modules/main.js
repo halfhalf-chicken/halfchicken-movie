@@ -2,6 +2,7 @@ import { URL, URLPOPULAR } from './fetchurl.js';
 import { OPTIONS, OPTIONSPOPULAR } from './options.js';
 import { makeCard } from './makecard.js';
 import { scrollTop } from './common.js';
+import { moreBtn } from './formtag.js';
 
 //  Fetch
 async function fetchMovie() {
@@ -63,6 +64,7 @@ async function findMovie(e) {
       alert('검색어를 입력해 주세요');
       document.getElementById('search-input').focus();
     } else {
+      moreBtn.style.display = 'none';
       listMovieCard(matchMovies);
     }
   } catch (error) {
@@ -123,7 +125,6 @@ const sortingName = document.querySelector('.sorting-name');
 const sortingAvg = document.querySelector('.sorting-avg');
 const sortingRel = document.querySelector('.sorting-release');
 const $box = document.getElementById('flex-box');
-const moreBtn = document.getElementById('more-btn');
 
 // 더보기
 moreBtn.addEventListener('click', function () {
