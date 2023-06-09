@@ -1,133 +1,578 @@
-.view-desktop { display: block;}
-.view-mobile { display: none;}
+* {
+  font-size: 16px;
+}
+
 .hide {
-    width: 0;
-    left: 0;
-    position: absolute;
-    /* 하이드 보통 어떻게 숨기져? */
+  width: 0;
+  left: 0;
+  position: absolute;
+  display: none;
 }
+
+.view-desktop {
+  display: block;
+}
+
+.view-mobile {
+  display: none;
+}
+
+.story-first {
+  display: block;
+}
+
+.story-second {
+  display: none;
+}
+
 .container {
-    max-width: 1200px;
-    padding:70px 0;
-    margin: 0 auto;
-}
-.container section {
-    padding:20px 0;
+  max-width: 1200px;
+  padding: 1px 20px;
+  margin: 0 auto;
+  padding-top: 120px;
 }
 
 /* 영화정보 details */
-.container section.details {
-    display: flex;
-    flex-wrap: wrap;
-}
-.container section .movie-wrap {
-    width: 70%;
-    display: flex;
-    flex-wrap: wrap;
-}
-.container section .movie-story {
-    width: 30%;
+.movie-details {
+  color: white;
+  width: 100%;
+  padding: 70px 0.1px 60px 0.1px;
+  position: relative;
 }
 
-.container section .movie-wrap .movie-poster {
-    width: 30%; height: 100%;
-    background-color: #dfdfdf;
+/* 현재페이지 링크 공유 */
+.none {
+  display: none;
 }
-.container section .movie-wrap .movie-info ul.movie-detail {
-    width: 100%;
+
+.show-shareBtn {
+  position: absolute;
+  top: 70px;
+  right: 0;
+
+  width: 60px;
+  height: 60px;
+  text-align: center;
 }
-.container section .movie-wrap .movie-info ul.movie-detail li {
-    width: 50%;
-    float: left;
-    display: flex;
+
+.show-shareBtn>i {
+  padding: 10px;
+  border: 1px solid #ffff;
+  border-radius: 100%;
 }
-.container section .movie-wrap .movie-info ul.movie-detail li span { width: 30%; }
-.container section .movie-wrap .movie-info ul.movie-detail li p { width: 70%; }
+
+.share-box {
+  position: absolute;
+  top: 115px;
+  right: 10px;
+  width: 150px;
+  height: 150px;
+  background-color: white;
+  border-radius: 3px;
+
+  transition-duration: 1s;
+}
+
+.share-btn-box {
+  padding: 15px 20px 10px;
+  height: 80%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px 20px;
+  align-items: center;
+  justify-items: center;
+  ;
+}
+
+.share-btn-box li:hover {
+  filter: brightness(0.8)
+}
+
+.share-btn-box li {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.NaverImg, .twitterImg, .kakaoImg, .facebookImg {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  overflow: hidden;
+}
+
+.twitterImg img, .kakaoImg img, .NaverImg img, .facebookImg img {
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+}
+
+.pageurl-copybox {
+  height: 20%;
+  padding: 0 30px 15px 30px;
+}
+
+.facebookImg img {
+  width: 120%;
+  height: 120%;
+  position: relative;
+  left: -10%;
+  top: -10%;
+}
+
+.copythisURL button {
+  font-size: 8px;
+  text-align: center;
+  width: 100%;
+  height: 20px;
+  padding: 3px;
+  color: #000000;
+  background-color: #ffffff;
+  font-weight: 500;
+  border: 1.5px solid #dddddd;
+  border-radius: 3px;
+}
+
+.show-shareBtn:hover, .kakaoImg:hover, .facebookImg:hover, .twitterImg:hover, .NaverImg:hover {
+  cursor: pointer;
+}
+
+.copythisURL:hover button {
+  background-color: #f2f2f2;
+  cursor: pointer;
+}
+
+.copythisURL:active button {
+  background-color: #e7e7e7;
+  cursor: pointer;
+}
+
+/* 영화상세정보 */
+.movie-imgInfo {
+  float: left;
+}
+
+.movie-poster {
+  padding: 0.1px;
+  width: 100%;
+}
+
+.movie-poster img {
+  width: 250px;
+  height: 325px;
+  border-radius: 10px;
+}
+
+.movie-textInfo {
+  float: none;
+  margin-left: 300px;
+  min-height: 325px;
+}
+
+.movie-title h3 {
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.movie-textInfo h3 {
+  font-size: 30px;
+  font-weight: 700;
+  padding: 10px 0;
+}
+
+.movie-textInfo>p,
+.movie-textInfo>span {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.movie-detail,
+.movie-story {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.movie-story {
+  max-width: 750px;
+
+  line-height: 1.5;
+}
+
+.movie-story span {
+  margin-bottom: 10px;
+}
+
+.movie-detail {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+
+  padding: 30px 0 40px;
+}
+
+.movie-detail-inner {
+  width: 250px;
+  line-height: 2;
+}
+
+.movie-detail-inner>li>span:nth-child(1) {
+  display: inline-block;
+  width: 100px;
+  padding-right: 20px;
+}
+
+.story-more-btn {
+  display: none;
+}
 
 /* 댓글 comment */
 .comment form {
-    width: 100%;
-    position: relative
-}
-.comment form input {
-    display: block;
-    width: 100%; height: 46px;
-    padding: 0.5rem 1.3rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #7c7c7c;
-    box-sizing: border-box;
-    background-color: #fff;
-    border: 1px solid #ced4da;
-    border-radius: 3px;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-}
-.comment form button {
-    position: absolute;
-    right: 3px;
-    top: 3px;
-    height: 40px;
-    width: auto;
-    padding:0 30px;
-    border-radius: 2px;
-    cursor: pointer;
-    background-color: #171717;
-    color: #fff;
-}
-.comment .comment-list li {
-    width: 100%;
-    height: 150px;
-    padding: 30px 20px;
-    position: relative;
-    overflow: hidden;
-    
-    background-color: blue;
-}
-.comment .comment-list li div {
-    overflow: hidden;
-}
-.comment .comment-list li span {
-    width: 80%;
-    display: block;
-    float: left;
-}
-.comment .comment-list li button {
-    width: 10%; /*조절 필요*/
-    float: left;
-}
-.comment .comment-list li p {
-    padding: 15px 0 0; 
-}
-/* 장르 추천 recommendation */
-.recommendation {
-    position: relative;
-    height: 300px;
-}
-.recommendation .slider ul {
-    display: flex;
-}
-.recommendation .slider ul li {
-    width: 185px;
-    height: 235px;
-    margin-right: 10px;
-    overflow: hidden;
-    background-color: #fff;
-    ;
-}
-.recommendation .slider-btn {
-    position: absolute;
-    top:45%;
+  width: 100%;
+  position: relative;
+  border-radius: 10px;
+  padding: 20px 20px 10px;
+  background-color: #f3f3f3;
 }
 
+.comment form table {
+  width: 100%;
+}
+
+.comment form .col1,
+.comment form .col2 {
+  width: 20%;
+}
+
+.comment form input {
+  display: block;
+  width: 100%;
+  height: 46px;
+  padding: 0.5rem 1.3rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #7c7c7c;
+  box-sizing: border-box;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 3px;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.comment .btn-area {
+  position: absolute;
+  right: 23px;
+  top: 22px;
+}
+
+.comment form button {
+  display: none;
+  height: 40px;
+  width: auto;
+  padding: 0 30px;
+  border-radius: 2px;
+  cursor: pointer;
+  background-color: #171717;
+  color: #fff;
+}
+
+.comment form .btn-active {
+  display: inline-block;
+}
+
+.comment .comment-list ul {
+  display: flex;
+  flex-direction: column-reverse;
+  background-color: transparent;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.comment .comment-list li {
+  width: 100%;
+  height: auto;
+  padding: 30px 20px 30px 30px;
+  position: relative;
+  overflow: hidden;
+
+  background-color: #fff;
+
+  border: 1px solid;
+  border-radius: 10px;
+}
+
+.comment .comment-list li span {
+  width: 70%;
+  display: block;
+  font-size: 20px;
+  height: 100%;
+  font-style: oblique;
+  text-shadow: 2px 0px 2px;
+}
+
+.comment .comment-list li button {
+  display: inline-block;
+  height: 36px;
+  width: 90px;
+  font-size: 18px;
+  text-align: center;
+  vertical-align: middle;
+
+  cursor: pointer;
+  margin-right: 5px;
+  border-radius: 2px;
+}
+
+.comment .comment-list li>div {
+  overflow: hidden;
+  height: 100%;
+  font-size: 30px;
+  font-style: oblique;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.comment .comment-list li>div>div {
+  width: 30%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.comment .comment-list li p {
+  padding: 15px 0 0;
+}
+
+/* 장르 추천 recommendation slider*/
+.sliderShow {
+  width: calc(100% + 20px);
+  margin: 0 auto;
+  position: relative;
+  left: -10px;
+  margin: 50px auto;
+  overflow: hidden;
+  background-color: transparent;
+}
+
+.items {
+  position: relative;
+  left: 0;
+  top: 0;
+  transition: transform 0.5s ease-out;
+  display: flex;
+}
+
+.genre-card {
+  text-align: center;
+  padding: 10px;
+  list-style-type: none;
+  width: 20%;
+}
+
+.card-image {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.slider-btn {
+  width: 100%;
+  position: absolute;
+  top: 40%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.slider-btn span {
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  background-color: #D9D9D9;
+  color: black;
+  text-align: center;
+  border-radius: 50%;
+  font-size: 1.3em;
+  cursor: pointer;
+}
+
+.slider-btn span i {
+  padding-top: 2px;
+}
+
+.slider-btn span.prev {
+  position: relative;
+  left: 18px;
+}
+
+.slider-btn span.next {
+  position: relative;
+  right: 18px;
+}
+
+.card-title {
+  text-align: center;
+  color: #a1a1a1;
+}
 
 /* 미디어쿼리 */
-@media only screen and (max-width : 767px) {
+@media only screen and (max-width: 767px) {
+  .container {
+    padding-top: 49px;
+  }
+
+  .show-shareBtn {
+    display: none;
+  }
+
+  .view-mobile {
+    display: block;
+  }
+
+  .view-desktop {
+    display: none;
+  }
+
+  .movie-details {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .movieTitle-en {
+    margin-top: 5px;
+  }
+
+  .movie-imgInfo {
+    float: none;
+  }
+
+  .movie-textInfo {
+    margin-left: 0;
+    min-height: 0;
+  }
+
+  .movie-title {
+    text-align: center;
+  }
+
+  .movie-poster {
+    display: flex;
+    justify-content: center;
+  }
+
+  .movie-poster img {
+    width: 80%;
+    height: 100%;
+  }
+
+  .story-more-btn {
+    display: block;
+    float: right;
+    margin-top: 10px;
+    background-color: transparent;
+    color: white;
+    font-size: 14px;
+  }
+
+  .story-more-btn:hover {
+    cursor: pointer;
+  }
+
+  .movie-story-close {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+
+    line-height: 1.5em;
+    height: 6em;
+  }
+
+  .movieTitle-en {
+    margin-bottom: 20px;
+  }
+
+  .movie-story {
+    margin-top: 0;
+  }
+
+  .genre-card {
+    width: 50%;
+  }
+
+  /**/
+  .movie-detail {
+    flex-direction: column;
+  }
+
+  .story-first {
+    display: none;
+  }
+
+  .movie-story {
+    margin-top: 20px;
+  }
+
+  .story-second {
+    display: block;
+  }
+
+  .show-shareBtn {
+    top: 340px;
+    padding-top: 20px
+  }
+
+  .share-box {
+    top: 202px;
+  }
+
+  /* comment */
+  tbody tr td {
+    width: 50%;
+  }
+
+  .comment .btn-area {
+    position: static;
+    padding: 2px;
+  }
+
+  .comment .comment-list li {
+    padding: 8px 20px 30px 30px;
+  }
+
+  .comment .comment-list li span {
+    width: 100%;
+  }
+
+  .comment .comment-list li>div {
+    justify-content: flex-end;
+    flex-direction: column-reverse;
+  }
+
+  .comment .comment-list li button {
+    height: 23px;
+    width: 75px;
+    font-size: 12px;
+    line-height: 23px;
+    margin-top: 18px;
+  }
+
+  .comment .comment-list li>div>div {
+    width: 100%;
+  }
 
 }
 
-@media only screen and (max-width : 319px) {
-    .view-desktop { display: none;}
-    .view-mobile { display: block;}
-}
+@media only screen and (max-width: 400px) {
+  .view-desktop {
+    display: none;
+  }
 
+  .view-mobile {
+    display: block;
+  }
+
+  .genre-card {
+    width: 33.3333%;
+  }
+}

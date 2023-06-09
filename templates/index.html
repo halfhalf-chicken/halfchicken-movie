@@ -5,18 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Movies</title>
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="../static/css/reset.css" />
     <link rel="stylesheet" href="../static/css/main.css" />
+
     <script type="module" src="../static/modules/main.js"></script>
+    <!-- Web Icon -->
+    <script src="https://kit.fontawesome.com/a881f3a9e8.js" crossorigin="anonymous"></script>
   </head>
   <body>
     <header>
       <div id="header-wrap">
         <div class="header">
-          <h1>MOVIES</h1>
+          <h1><a href="/">MOVIES</a></h1>
         </div>
 
         <!-- 검색창 -->
@@ -33,10 +34,52 @@
     </header>
 
     <main>
-      <section>
+      <section class="main-card-section">
         <h2>메인 콘텐츠</h2>
+        <!-- 정렬 선택 -->
+        <div class="content-wrap">
+          <form action="" class="movie-sort">
+            <div class="dropdown">
+              <button type="button" class="dropdown-toggle">정렬 선택</button>
+              <ul class="dropdown-menu">
+                <li class="dropdown-item">
+                  <button type="button" value="1" class="dropdown-option sorting-pop">인기순</button>
+                </li>
+                <li class="dropdown-item">
+                  <button type="button" value="2" class="dropdown-option sorting-name">이름순</button>
+                </li>
+                <li class="dropdown-item">
+                  <button type="button" value="3" class="dropdown-option sorting-avg">평점순</button>
+                </li>
+                <li class="dropdown-item">
+                  <button type="button" value="4" class="dropdown-option sorting-release">최신순</button>
+                </li>
+              </ul>
+            </div>
+          </form>
+        </div>
+
+        <!-- 영화 리스트 -->
         <div id="flex-box"></div>
+        <button id="more-btn">more</button>
       </section>
+      <footer>
+        <div class="footWrap">
+          <ul>
+            <li class="bold">내일배움캠프</li>
+            <li>React 6</li>
+            <li>&copy; 2023. halfhalfChicken7 All rights reserved.</li>
+          </ul>
+          <ul class="sns">
+            <li>
+              <a href="https://github.com/halfhalf-chicken/halfchicken-movie" target="_blank"><i class="fab fa-brands fa-github"></i></a>
+            </li>
+            <li>
+              <a href="https://www.notion.so/fcdd098d699d4583a94caae6a3eff5d6" target="_blank"><img src="../static/img/notion.svg" alt="" /></a>
+            </li>
+          </ul>
+        </div>
+      </footer>
 
       <aside>
         <nav>

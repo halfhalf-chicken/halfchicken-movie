@@ -5,47 +5,70 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Movies</title>
+    <!-- font  -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-    />
     <link rel="stylesheet" href="../static/css/reset.css" />
     <link rel="stylesheet" href="../static/css/main.css" />
     <link rel="stylesheet" href="../static/css/detail.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
     <script type="module" src="../static/modules/detail.js"></script>
-    <!-- <script type="module" src="../static/modules/main.js"></script> -->
+    <!-- Web Icon -->
+    <script src="https://kit.fontawesome.com/a881f3a9e8.js" crossorigin="anonymous"></script>
+
+    <!-- kakao sdk import -->
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
   </head>
   <body>
-    <header>
-      <h1>영화 상세 정보</h1>
-      <figure>
-        <a href="index.html"><img src="" alt="logo" /></a>
-      </figure>
-      <nav>
+    <header id="header-wrap">
+      <div class="header">
+        <h1><a href="/">MOVIES</a></h1>
+      </div>
+      <nav class="hide">
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="">랭킹</a></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="">Detail</a></li>
         </ul>
       </nav>
+      <a href="/" class="home-btn"><i class="fa-solid fa-house"></i></a>
     </header>
     <main class="container">
       <section class="movie-details">
+        <div class="show-shareBtn"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+        <div class="share-box none">
+          <ul class="share-btn-box">
+            <li class="kakaoImg">
+              <img src="../static/img/kakaoIcon.png" alt="" />
+            </li>
+            <li class="NaverImg">
+              <img src="../static/img/naverblogIcon.png" alt="" />
+            </li>
+            <li class="facebookImg">
+              <img src="../static/img/facebookIcon.png" alt="" />
+            </li>
+            <li class="twitterImg">
+              <img src="../static/img/twitterIcon.png" alt="" />
+            </li>
+          </ul>
+          <div class="pageurl-copybox">
+            <div class="copythisURL"><button>URL 복사</button></div>
+          </div>
+        </div>
+
         <div class="movie-imgInfo">
           <div class="movie-title view-mobile">
-            <h3 class="movieTitle">영화제목</h3>
-            <p class="movieTitle-en">
+            <h3 class="movieTitle view-mobile">영화제목</h3>
+            <p class="movieTitle-en view-mobile">
               <span class="enTitle">영어이름</span>
               <span class="movie-year"> 2023 </span>
             </p>
           </div>
-          <figure class="movie-poster">
-            <img src="" />
-          </figure>
+          <figure class="movie-poster"><img src="" /></figure>
         </div>
         <div class="movie-textInfo">
-          <h3 class="movieTitle">영화제목</h3>
-          <p class="movieTitle-en">
+          <h3 class="movieTitle view-desktop">영화제목</h3>
+          <p class="movieTitle-en view-desktop">
             <span class="enTitle">영어이름</span>
             <span class="movie-year">2023</span>
           </p>
@@ -57,7 +80,7 @@
               </li>
               <li class="avg">
                 <span>평점</span>
-                <span><i class="fa-solid fa-star"></i> 6.9</span>
+                <span><i class="fa-solid fa-star" style="color: red"></i></span>
               </li>
               <li class="genres">
                 <span>장르</span>
@@ -73,67 +96,88 @@
                 <span>국가</span>
                 <span>한국</span>
               </li>
-              <li class="grade">
-                <span>등급</span>
-                <span>15세 이상 관람가</span>
-              </li>
             </div>
           </ul>
-          <div class="movie-story">
-            <span>영화정보</span>
-            <p></p>
+          <div class="movie-story story-first">
+            <span class="story-first">영화정보</span>
+            <p class="story-first"></p>
           </div>
+        </div>
+        <div class="movie-story story-second">
+          <span class="story-second">영화정보</span>
+          <p class="story-second movie-story-close"></p>
+          <button class="story-more-btn" type="button" class="story-second">더보기</button>
         </div>
       </section>
       <section class="comment">
         <form name="review">
-          <label for="name-input" class="hide"></label>
-          <input type="text" name="name-input" id="name-input" />
-          <input type="text" name="comment-input" id="comment-input" />
-          <input type="password" name="pw-input" id="pw-input" />
-          <button type="submit" id="submit-btn">등록</button>
+          <table>
+            <colgroup>
+              <col class="col1" />
+              <col class="col2" />
+              <col class="col3" />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <label for="name-input" class="hide"></label>
+                  <input type="text" name="name-input" id="name-input" placeholder="닉네임" />
+                </td>
+                <td>
+                  <input type="password" name="pw-input" id="pw-input" placeholder="비밀번호" />
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                  <input type="text" name="comment-input" id="comment-input" placeholder="한줄평" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="btn-area">
+            <button type="button" class="edit-finish-btn">수정</button>
+            <button type="button" class="edit-delete-btn">삭제</button>
+            <button type="reset" class="edit-cancle-btn">취소</button>
+            <button type="submit" id="submit-btn" class="submit-btn btn-active">등록</button>
+          </div>
         </form>
         <div class="comment-list">
-          <ul>
-            <li>
-              <div>
-                <span class="user-name">Name</span>
-                <button>수정</button>
-                <button>삭제</button>
-              </div>
-              <p>내용내용</p>
-            </li>
-          </ul>
+          <ul></ul>
         </div>
       </section>
+
       <section class="recommendation">
-        <div class="slider">
-          <ul>
-            <li>
-              <img src="" alt="" />
-              <p>영화 제목</p>
-            </li>
-            <li>
-              <img src="" alt="" />
-              <p>영화 제목</p>
-            </li>
-            <li>
-              <img src="" alt="" />
-              <p>영화 제목</p>
-            </li>
-          </ul>
-        </div>
-        <div class="slider-btn">
-          <span>prev</span>
-          <span>next</span>
+        <div class="sliderShow">
+          <ul class="items"></ul>
+          <div class="slider-btn">
+            <span class="prev"><i class="fa-solid fa-arrow-left"></i></span>
+            <span class="next"><i class="fa-solid fa-arrow-right"></i></span>
+          </div>
         </div>
       </section>
     </main>
     <footer>
-      <ul>
-        <li>홈</li>
-        <li>랭킹</li>
-      </ul>
+      <div class="footWrap">
+        <ul>
+          <li class="bold">내일배움캠프</li>
+          <li>React 6</li>
+          <li>&copy; 2023. halfhalfChicken7 All rights reserved.</li>
+        </ul>
+        <ul class="sns">
+          <li>
+            <a href="https://github.com/halfhalf-chicken/halfchicken-movie" target="_blank"><i class="fab fa-brands fa-github"></i></a>
+          </li>
+          <li>
+            <a href="https://www.notion.so/fcdd098d699d4583a94caae6a3eff5d6" target="_blank"><img src="../static/img/notion.svg" alt="" /></a>
+          </li>
+        </ul>
+      </div>
     </footer>
+    <aside>
+      <nav>
+        <button>TOP</button>
+      </nav>
+    </aside>
   </body>
 </html>

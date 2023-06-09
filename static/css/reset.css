@@ -4,28 +4,32 @@
   font-family: 'omnigothic020';
   src: url(../font/210\ 옴니고딕OTF\ 020.otf);
 }
+
 @font-face {
   font-family: 'omnigothic030';
   src: url(../font/210\ 옴니고딕OTF\ 030.otf);
 }
+
 @font-face {
   font-family: 'omnigothic045';
   src: url(../font/210\ 옴니고딕OTF\ 045.otf);
 }
+
 @font-face {
   font-family: 'mazius-regular';
   src: url(../font/MAZIUSREVIEW20.09-Regular.otf);
 }
+
 @font-face {
   font-family: 'mazius-extra';
   src: url(../font/MAZIUSREVIEW20.09-Extraitalic.otf);
 }
 
-*{
+* {
   box-sizing: border-box;
   list-style: none;
   text-decoration: none;
-  font-family: 'omnigothic020', sans-serif ;
+  font-family: 'omnigothic020', sans-serif;
   font-style: normal;
   font-weight: 200;
   margin: 0;
@@ -53,7 +57,7 @@ h2 {
 
 body {
   min-height: 800px;
-  background-image: linear-gradient(#1D1D1D, #2F2F2F);
+  background-image: linear-gradient(#1d1d1d, #2f2f2f);
   background-size: auto 100%;
   background-position: 50% 100%;
 }
