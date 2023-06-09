@@ -88,7 +88,6 @@ $flexBox.addEventListener('click', e => {
     content = content.parentNode;
   }
   const contentId = content.getAttribute('id');
-  alert(`id : ${contentId}`);
   location.href = '/detail.html?contentId' + contentId;
 });
 
