@@ -296,7 +296,7 @@
 }
 
 .comment .comment-list li span {
-  width: 80%;
+  width: 70%;
   display: block;
   font-size: 20px;
   height: 100%;
@@ -317,13 +317,19 @@
   border-radius: 2px;
 }
 
-.comment .comment-list li div {
+.comment .comment-list li>div {
   overflow: hidden;
   height: 100%;
   font-size: 30px;
   font-style: oblique;
   display: flex;
   flex-wrap: wrap;
+}
+
+.comment .comment-list li>div>div {
+  width: 30%;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .comment .comment-list li p {
@@ -388,25 +394,17 @@
 
 .slider-btn span.prev {
   position: relative;
-  left: 15px;
+  left: 18px;
 }
 
 .slider-btn span.next {
   position: relative;
-  right: 15px;
+  right: 18px;
 }
 
 .card-title {
   text-align: center;
   color: #a1a1a1;
-}
-
-.prev {
-  left: 5px;
-}
-
-.next {
-  right: 5px;
 }
 
 /* 미디어쿼리 */
@@ -528,12 +526,17 @@
     padding: 2px;
   }
 
+  .comment .comment-list li {
+    padding: 8px 20px 30px 30px;
+  }
+
   .comment .comment-list li span {
     width: 100%;
   }
 
-  .comment .comment-list li div {
+  .comment .comment-list li>div {
     justify-content: flex-end;
+    flex-direction: column-reverse;
   }
 
   .comment .comment-list li button {
@@ -543,6 +546,11 @@
     line-height: 23px;
     margin-top: 18px;
   }
+
+  .comment .comment-list li>div>div {
+    width: 100%;
+  }
+
 }
 
 @media only screen and (max-width: 400px) {

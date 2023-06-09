@@ -1,6 +1,7 @@
 export function moveSlide(movies) {
   const slides = document.querySelector('.items');
   const slideCount = movies.length;
+
   let screenWidth = window.innerWidth;
   let sliderBtndoc = document.querySelector('.slider-btn');
   
@@ -12,6 +13,7 @@ export function moveSlide(movies) {
   } else {
     slides.style.width = 20 * slideCount + '%';
   }
+
   slides.style.minWidth = '100%';
   let sW = slides.offsetWidth;
   const prev = document.querySelector('.prev');
@@ -43,4 +45,14 @@ export function moveSlide(movies) {
       return false;
     }
   });
+  window.onresize = function (event) {
+    let screenWidth = window.innerWidth;
+    if (screenWidth < 768) {
+      slides.style.width = 50 * slideCount + '%';
+    } else if (screenWidth < 1200) {
+      slides.style.width = 33.333 * slideCount + '%';
+    } else {
+      slides.style.width = 20 * slideCount + '%';
+    }
+  };
 }

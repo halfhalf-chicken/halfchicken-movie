@@ -4,7 +4,8 @@ export function makeTmdbList(tmdbReviews) {
   tmdbReviews.forEach(item => {
     let { content, author } = item;
     const li = document.createElement('li');
-    const div = document.createElement('div');
+    const outerDiv = document.createElement('div');
+    const innerDiv = document.createElement('div');
     const span = document.createElement('span');
     const btn1 = document.createElement('button');
     const btn2 = document.createElement('button');
@@ -18,9 +19,10 @@ export function makeTmdbList(tmdbReviews) {
     btn2.setAttribute('class', 'del-btn');
     span.setAttribute('class', 'user-name');
     div.setAttribute('class', 'name-container');
+    innerDiv.append(btn1, btn2);
 
-    div.append(span, btn1, btn2);
-    li.append(div, p);
+    outerDiv.append(span, innerDiv);
+    li.append(outerDiv, p);
     commentArea.append(li);
   });
 }

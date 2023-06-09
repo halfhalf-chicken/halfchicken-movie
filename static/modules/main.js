@@ -144,7 +144,6 @@ async function moreListing() {
     return acc;
   }, []);
   $box.innerHTML = '';
-  console.log('double2', double);
   makeCard(double);
 }
 
